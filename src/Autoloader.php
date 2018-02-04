@@ -1,7 +1,7 @@
 <?php
 if( ! defined('SF_DIR') ) {
 
-	define( 'SF_DIR'				, dirname(__FILE__) . '/shazzads-form/src/' );
+	define( 'SF_DIR'				, dirname(__FILE__) . '/' );
 	define( 'SF_VERSION'			, '1.0' );
 
 	// abstract classes
