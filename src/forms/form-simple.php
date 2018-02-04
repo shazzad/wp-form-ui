@@ -1,7 +1,7 @@
 <?php
 class SF_Form_Simple extends SF_Form {
 	function __construct( $settings = array(), $fields = array(), $values = array() ) {
-		$data = compact( array('settings', 'fields', 'values') );
+		$data = compact( array( 'settings', 'fields', 'values' ) );
 		parent::__construct( $data );
 	}
 
@@ -50,11 +50,11 @@ class SF_Form_Simple extends SF_Form {
 		if( ! empty( $this->settings['context'] ) ) {
 			$this->settings['class'] .= ' sff-context-'. $this->settings['context'];
 		}
-	
+
 		if( empty( $this->settings['action']) ) {
 			$this->settings['action'] = (is_ssl() ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 		}
-	
+
 		// query variables
 		if( ! empty($this->settings['qv']) ) {
 			$query_vars = array();
@@ -63,14 +63,14 @@ class SF_Form_Simple extends SF_Form {
 					$query_vars[$q] = trim($_GET[$q]);
 				}
 			}
-	
+
 			if( ! empty( $query_vars) ){
 				$this->settings['action'] = add_query_arg( $query_vars, $this->settings['action'] );
 			}
 		}
-	
+
 		$html = '';
-	
+
 		// form opening tag
 		if( ! isset($this->settings['no_form']) ) {
 	

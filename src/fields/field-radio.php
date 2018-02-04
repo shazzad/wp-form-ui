@@ -1,7 +1,7 @@
 <?php
-class SF_Field_Select extends SF_Field {
+class SF_Field_Radio extends SF_Field {
 	function __construct( $data = array() ) {
-		$data['type'] = 'select';
+		$data['type'] = 'radio';
 		parent::__construct( $data );
 	}
 	public function form_field_html(){
@@ -30,25 +30,8 @@ class SF_Field_Select extends SF_Field {
 				$html .= sprintf( '<div class="%1$s %2$s"%3$s>', $this->form_pitc_class('sffew', $id, $type), $input_wrap_class, $input_wrap_attr );
 			}
 			$html .= $input_before;
-			$html .= sprintf( 
-				'<select class="%1$s %5$s" id="%2$s" name="%3$s"%4$s>', 
-				$this->form_pitc_class('sff', $id, $type), 
-				$id, 
-				$name, 
-				$input_attr, 
-				$input_class 
-			);
-
 			foreach( $choices as $key => $label ){
 				if( empty($label) ){
-					continue;
-				}
-				elseif( is_array($label) && isset($label['optgroup_open']) ) {
-					$html .= $label['optgroup_open'];
-					continue;
-				}
-				elseif( is_array($label) && isset($label['optgroup_close']) ) {
-					$html .= $label['optgroup_close'];
 					continue;
 				}
 
@@ -79,17 +62,16 @@ class SF_Field_Select extends SF_Field {
 					$label = $l['label'];
 				}
 
-				$selected = esc_attr($value) == esc_attr($key) ? ' selected="selected"' : '';
+				$checked = $value == $key ? ' checked="checked"' : '';
 				$html .= sprintf( 
-					'<option value="%1$s"%2$s class="%4$s" %5$s>%3$s</option>', 
-					$key, $selected, $label, $child_input_class, $child_input_attr
+					'<label><input id="%1$s_%2$s" class="%6$s" name="%3$s" value="%2$s" type="radio"%4$s%7$s /> %5$s</label>', 
+					$id, $key, $name, $checked, $label, $child_input_class, $child_input_attr
 				);
 
 				if( is_array($_label) && isset($_label['child_input_after']) ) {
 					$html .= $_label['child_input_after'];
 				}
 			}
-			$html .= '</select>';
 			$html .= $input_after;
 			if( $input_wrap ){
 				$html .= '</div>';

@@ -1,7 +1,7 @@
 <?php
-class SF_Field_Text extends SF_Field {
+class SF_Field_Html_Input extends SF_Field {
 	function __construct( $data = array() ) {
-		$data['type'] = 'text';
+		$data['type'] = 'html_input';
 		parent::__construct( $data );
 	}
 	public function form_field_html(){
@@ -30,10 +30,7 @@ class SF_Field_Text extends SF_Field {
 				$html .= sprintf( '<div class="%1$s %2$s"%3$s>', $this->form_pitc_class('sffew', $id, $type), $input_wrap_class, $input_wrap_attr );
 			}
 			$html .= $input_before;
-			$html .= sprintf( 
-				'<input class="%1$s %5$s" id="%2$s" name="%3$s" value="%4$s" type="%7$s"%6$s />', 
-				$this->form_pitc_class('sff', $id, $type), $id, $name, $value, $input_class, $input_attr, $type
-			);
+			$html .= $html_input;
 			$html .= $input_after;
 			if( $input_wrap ){
 				$html .= '</div>';

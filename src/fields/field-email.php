@@ -1,7 +1,7 @@
 <?php
-class SF_Field_Text extends SF_Field {
+class SF_Field_Email extends SF_Field {
 	function __construct( $data = array() ) {
-		$data['type'] = 'text';
+		$data['type'] = 'email';
 		parent::__construct( $data );
 	}
 	public function form_field_html(){
