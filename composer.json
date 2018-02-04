@@ -1,0 +1,12 @@
+{
+	"type": "form",
+	"authors": [
+		{
+			"name"    : "Shazzad Hossain Khan",
+			"homepage": "http://w4dev.com/about"
+		}
+	],
+    "require": {
+        "mustache/mustache": "^2.12"
+    }
+}
