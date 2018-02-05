@@ -5,16 +5,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 abstract class SF_Form implements ArrayAccess {
 
-	private $data = array();
-	protected $rendered = false;
-
-	function __construct( $data = array() ) {
-		$this->data = $data;
-	}
-	function set_settings( $settings = array() ) {
+	public $data = array(
+		'settings' 	=> array(),
+		'fields' 	=> array(),
+		'values' 	=> array(),
+		'rendered' 	=> false
+	);
+	public function __construct() {}
+	public function set_settings( $settings = array() ) {
 		$this->settings = $settings;
 	}
-	function set_values( $values = array() ) {
+	public function set_values( $values = array() ) {
 		$this->values = $values;
 	}
 	public function add_fields( $fields ) {
@@ -23,6 +24,9 @@ abstract class SF_Form implements ArrayAccess {
 		}
 	}
 	public function add_field( $data ) {
+		$this->data['fields'][] = $this->create_field( $data );
+	}
+	public function create_field( $data ) {
 		if( ! isset($data['type']) ){
 			$data['type'] = 'html';
 		}
@@ -31,11 +35,28 @@ abstract class SF_Form implements ArrayAccess {
 			$class_name = 'SF_Field_Html';
 		}
 
-		$this->data['fields'][] = new $class_name( $data );
+		return new $class_name( $data, $this );
 	}
-	public function render(){}
-	public function get_html(){}
+	public function render(){
+		echo $this->toHtml();
+	}
 
+	// usability
+	public function toHtml(){}
+	public function toArray(){
+		return $this->data;
+	}
+	public function toJson(){
+		return json_encode( $this->data );
+	}
+	// no magic
+	public function __sleep() {
+        return array_keys($this->data);
+	}
+	public function __wakeup() {}
+	public function __toString(){
+		echo 'field '. $this->data['type'];
+	}
 	public function &__get ($key) {
         return $this->data[$key];
     }
@@ -47,6 +68,10 @@ abstract class SF_Form implements ArrayAccess {
     }
 	public function __unset($key) {
         unset($this->data[$key]);
+    }
+	// array access
+    public function offsetGet($offset) {
+        return isset($this->data[$offset]) ? $this->data[$offset] : null;
     }
 	public function offsetSet($offset, $value) {
         if (is_null($offset)) {
@@ -60,8 +85,5 @@ abstract class SF_Form implements ArrayAccess {
     }
 	public function offsetUnset($offset) {
         unset($this->data[$offset]);
-    }
-    public function offsetGet($offset) {
-        return isset($this->data[$offset]) ? $this->data[$offset] : null;
     }
 }

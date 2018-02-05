@@ -2,10 +2,7 @@
 if( ! defined('SF_DIR') ) {
 
 	define( 'SF_DIR'				, dirname(__FILE__) . '/' );
-	define( 'SF_VERSION'			, '1.0' );
-
-	// abstract classes
-	include_once( SF_DIR . 'functions-form.php');
+	define( 'SF_VERSION'			, '1.1' );
 
 	// abstract classes
 	foreach( glob( SF_DIR . 'abstracts/abstract-*.php') as $file ) {

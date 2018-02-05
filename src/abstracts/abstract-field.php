@@ -4,18 +4,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 abstract class SF_Field implements ArrayAccess {
+
 	public $data = array();
+
 	function __construct( $data = array() ) {
 		$this->data = $data;
 	}
-	public function to_array(){
-		return $this->data;
-	}
-	public function render(){}
-	public function validate(){
-		return false;
-	}
-	// prefix id type class
 	public function form_field_label( $data ){
 		extract( $data );
 		$html = '';
@@ -46,7 +40,6 @@ abstract class SF_Field implements ArrayAccess {
 	
 		return $html;
 	}
-	// prefix id type class
 	public function form_pitc_class( $pref = '', $id = '', $type = '', $class = '' ){
 		$return = "{$pref}";
 		if( !empty($id) ){
@@ -60,7 +53,6 @@ abstract class SF_Field implements ArrayAccess {
 		}
 		return trim( esc_attr( $return ) );
 	}
-	// sanitize id
 	public function form_field_id( $raw_id = '' ){
 		$sanitized = preg_replace( '|%[a-fA-F0-9][a-fA-F0-9]|', '', $raw_id );
 		$sanitized = preg_replace( '/[^A-Za-z0-9_-]/', '_', $sanitized );
@@ -68,7 +60,6 @@ abstract class SF_Field implements ArrayAccess {
 		$sanitized = trim( $sanitized, '_' );
 		return $sanitized;
 	}
-
 	public function sanitize_data( $data ){
 		$defaults = array(
 			'type'				=> 'html',
@@ -152,141 +143,26 @@ abstract class SF_Field implements ArrayAccess {
 
 		return $data;
 	}
-	public function form_field_html(){}
-	public function form_field_html2(){
-		$data = $this->sanitize_data( $this->data );
-		extract( $data );
-	
-		$html .= $before;
-	
-		if( ! in_array($type, array('html', 'hidden') ) && $field_wrap ){
-			$html .= sprintf( '<div class="%1$s"%2$s>', $this->form_pitc_class('sffw', $id, $type, $class), $attr );
-		}
-	
-		$html .= $field_before;
 
-		switch( $type ):
-	
-		case "hidden":
-			$html .= sprintf( '<input class="%1$s %5$s" id="%2$s" name="%3$s" value="%4$s" type="hidden" />', $this->form_pitc_class('sff', $id, $type), $id, $name, $value, $input_class );
-		break;
-	
-		case "text":
-		case "email":
-		case "password":
-		case "number":
-		case "url":
-	
-		case "image":
-		case "image_src":
-		case "text_combo":
-	
-		case "view":
-		case "html_input":
-	
-		case "textarea":
-		case "select":
-		case "select_multi":
-		case "select2":
-		case "radio":
-		case "checkbox":
-
-			// label
-			$html .= $label_wrap_before;
-			$html .= $this->form_field_label( $data );
-
-			// description
-			if( ! empty($desc) ){
-				$html .= sprintf( '<div class="%1$s">%2$s</div>', $this->form_pitc_class('sffdw', $id, $type), $desc );
-			}
-
-			// input
-			$html .= $input_wrap_before;
-			if( $input_wrap ){
-				$html .= sprintf( '<div class="%1$s %2$s"%3$s>', $this->form_pitc_class('sffew', $id, $type), $input_wrap_class, $input_wrap_attr );
-			}
-
-			$html .= $input_before;
-
-			if( $type == 'view' ){
-				$html .= $value;
-			}
-			elseif( $type == 'image' ){
-				$image = '';
-				if( !isset($size) ){
-					$size = 'thumbnail';
-				}
-	
-				if( isset($src_url) && !empty($src_url) ){
-					$image = sprintf('<img src="%s" />', $src_url);
-				}
-				if( $value ){
-					$icon = ! wp_attachment_is_image( $value );
-					if( $img = wp_get_attachment_image($value, $size, $icon) ){
-						$image = $img;
-					}
-				}
-
-				if( ! isset($submit) || empty($submit) ) {
-					$submit = ' file';
-				}
-
-				$html .= sprintf( 
-					'<input class="%1$s %5$s" id="%2$s_input" name="%3$s" value="%4$s" type="hidden" />
-					<div id="%2$s_img" data-size="%8$s">%6$s</div>
-					<a href="#" rel="%2$s" class="button sff_image_btn" data-field="id">Choose%7$s</a>
-					<a href="#" rel="%2$s" class="button sff_image_remove_btn" data-field="id">Remove%7$s</a>', 
-					$this->form_pitc_class('sff', $id, $type), $id, $name, $value, $input_class, $image, $submit, $size
-				);
-			}
-	
-			elseif( $type == 'image_src' ){
-				$image = '';
-				if( $value ) {
-					$image = sprintf('<img src="%s" class="image_preview" />', $value);
-				}
-
-				$html .= sprintf( 
-					'<input class="%1$s %5$s" rel="%2$s" id="%2$s_input" name="%3$s" value="%4$s" type="text" />
-					<div id="%2$s_img" data-size="full">%6$s</div>
-					<a href="#" rel="%2$s" class="button sff_image_btn" data-field="url">Choose file</a>
-					<a href="#" rel="%2$s" class="button sff_image_remove_btn" data-field="url">Remove file</a>', 
-					$this->form_pitc_class('sff', $id, $type), $id, $name, $value, $input_class, $image
-				);
-			}
-	
-			elseif( ! empty($input_html) ){
-				$html .= $input_html;
-			}
-	
-			$html .= $input_after;
-	
-			if( $input_wrap ){
-				$html .= '</div>';
-			}
-			break;
-	
-		default:
-			break;
-	
-		endswitch;
-	
-		$html .= $field_after;
-	
-		if( isset($desc_after) ){
-			if( ! empty($desc_after) ){
-				$html .= sprintf( '<div class="%1$s">%2$s</div>', $this->form_pitc_class('sffdaw', $id, $type), $desc_after );
-			}
-		}
-	
-		if( ! in_array($type, array('html', 'hidden') ) && $field_wrap ){
-			$html .= '</div>';
-		}
-	
-		return $html;
+	public function render(){
+		echo $this->toHtml();
 	}
-
 	// usability
+	public function toHtml( $form ){}
+	public function toArray( $form ){
+		return $this->data;
+	}
+	public function toJson( $form ){
+		return json_encode( $this->data );
+	}
+	// no magic
+	public function __sleep() {
+        return array_keys($this->data);
+	}
+	public function __wakeup() {}
+	public function __toString(){
+		echo 'field '. $this->data['type'];
+	}
 	public function &__get ($key) {
         return $this->data[$key];
     }
@@ -298,6 +174,10 @@ abstract class SF_Field implements ArrayAccess {
     }
 	public function __unset($key) {
         unset($this->data[$key]);
+    }
+	// array access
+    public function offsetGet($offset) {
+        return isset($this->data[$offset]) ? $this->data[$offset] : null;
     }
 	public function offsetSet($offset, $value) {
         if (is_null($offset)) {
@@ -311,8 +191,5 @@ abstract class SF_Field implements ArrayAccess {
     }
 	public function offsetUnset($offset) {
         unset($this->data[$offset]);
-    }
-    public function offsetGet($offset) {
-        return isset($this->data[$offset]) ? $this->data[$offset] : null;
     }
 }

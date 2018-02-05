@@ -1,16 +1,11 @@
 <?php
 class SF_Form_Simple extends SF_Form {
-	function __construct( $settings = array(), $fields = array(), $values = array() ) {
-		$data = compact( array( 'settings', 'fields', 'values' ) );
-		parent::__construct( $data );
+	function __construct() {
+		parent::__construct();
 	}
 
-	public function render() {
+	public function toHtml() {
 		$this->rendered = true;
-		echo $this->get_html();
-	}
-
-	public function get_html() {
 		if( ! is_array( $this->fields ) ) {
 			$this->fields = array();
 		}
@@ -90,11 +85,11 @@ class SF_Form_Simple extends SF_Form {
 		if( ! empty( $this->settings['title'] ) ) {
 			$html .= '<div class="sf_form_title">' . $this->settings['title'] . '</div>';
 		}
-	
+
 		if( ! empty( $this->settings['after_tag'] ) ) {
 			$html .= $this->settings['after_tag'];
 		}
-	
+
 		if( isset( $this->settings['button_before'] ) &&  $this->settings['button_before'] === true ) {
 			$html .= "<div class='sffw sffwt_submit sffwt_submit_top'><input type='submit' value='". $this->settings['button_text'] ."' class='button button-primary form_button button_top'></div>";
 		}
@@ -112,7 +107,7 @@ class SF_Form_Simple extends SF_Form {
 				$field->input_class = 'form_action';
 			}
 
-			$html .= $field->get_html();
+			$html .= $field->get_html( $this );
 		}
 
 		if( ! isset( $this->settings['button_after'] ) ||  $this->settings['button_after'] !== false ) {

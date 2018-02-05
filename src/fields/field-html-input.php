@@ -4,7 +4,7 @@ class SF_Field_Html_Input extends SF_Field {
 		$data['type'] = 'html_input';
 		parent::__construct( $data );
 	}
-	public function form_field_html(){
+	public function get_html( $form ){
 		$data = $this->sanitize_data( $this->data );
 		extract( $data );
 
@@ -49,12 +49,6 @@ class SF_Field_Html_Input extends SF_Field {
 		}
 
 		return $html;
-	}
-	function get_html(){
-		return $this->form_field_html();
-	}
-	function render(){
-		echo $this->get_html();
 	}
 }
 
