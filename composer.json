@@ -6,7 +6,13 @@
 			"homepage": "http://w4dev.com/about"
 		}
 	],
-    "require": {
-        "mustache/mustache": "^2.12"
-    }
+    "autoload": {
+		"classmap": [
+			"src",
+			"src/abstracts",
+			"src/fields",
+			"src/forms",
+			"src/models"
+		]
+	}
 }
