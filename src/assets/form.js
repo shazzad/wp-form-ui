@@ -18,7 +18,7 @@
 					if( 'ajax_fetch' === $wrap.data('listen_on_trigger_action') ){
 						$wrap.addClass('ld');
 
-						var ajaxurl = $wrap.data('listen_on_ajaxurl') ? $wrap.data('listen_on_ajaxurl') : sfp.ajaxurl;
+						var ajaxurl = $wrap.data('listen_on_ajaxurl') ? $wrap.data('listen_on_ajaxurl') : sf.ajaxurl;
 	
 						$.post( ajaxurl, data, function(r){
 							$wrap.removeClass('ld');
@@ -92,7 +92,7 @@
 			var $notes = $form.find('.sf_notes');
 			
 
-			// $(document.body).trigger( 'sfp/datepicker_init', [$form] );
+			// $(document.body).trigger( 'sf/datepicker_init', [$form] );
 
 			if( action ) {
 				$(document.body).trigger( action + '/init', [$form] );
@@ -162,13 +162,13 @@ $(document).ready(function(){
 	register_trigger_on_change( $('body') );
 	register_ajax_forms( $('body') );
 
-	$(document.body).on('sfp/listen_on_trigger', function(e, $wrap){
+	$(document.body).on('sf/listen_on_trigger', function(e, $wrap){
 		register_listen_on_trigger( $wrap );
 	});
-	$(document.body).on('sfp/trigger_on_change', function(e, $wrap){
+	$(document.body).on('sf/trigger_on_change', function(e, $wrap){
 		register_trigger_on_change( $wrap );
 	});
-	$(document.body).on('sfp/ajax_form', function(e, $wrap){
+	$(document.body).on('sf/ajax_form', function(e, $wrap){
 		register_ajax_forms( $wrap );
 	});
 
@@ -237,7 +237,7 @@ $(document).ready(function(){
 		}
 		$to.append( $html );
 
-		$(document).trigger( 'sfp/row_cloned' );
+		$(document).trigger( 'sf/row_cloned' );
 		return false;
 	});
 	$(document).on('click', '.sf_repeater_remove', function(e){
@@ -248,7 +248,7 @@ $(document).ready(function(){
 		} else {
 			$item.remove();
 		}
-		$(document).trigger( 'sfp/row_removed' );
+		$(document).trigger( 'sf/row_removed' );
 		return false;
 	});
 
