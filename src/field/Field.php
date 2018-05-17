@@ -1,22 +1,23 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace Wpform\Field;
 
-abstract class SF_Field implements ArrayAccess {
-
+abstract class Field implements \ArrayAccess
+{
 	public $data = array();
 
-	function __construct( $data = array() ) {
+	public function __construct( $data = array() )
+	{
 		$this->data = $data;
 	}
-	public function form_field_label( $data ){
+
+	public function form_field_label( $data )
+	{
 		extract( $data );
 		$html = '';
 
 		if( !empty($label) ){
 			if( $label_wrap ){
-				$html .= sprintf( '<div class="%1$s">', $this->form_pitc_class('sfflw', $id, $type) );
+				$html .= sprintf( '<div class="%1$s">', $this->form_pitc_class('wf-field-label-wrap', $id, $type) );
 			}
 			$html .= $label_before;
 
@@ -25,11 +26,10 @@ abstract class SF_Field implements ArrayAccess {
 			}
 
 			// radio checkbox would use span, not label
-			if( in_array($type, array('radio', 'checkbox', 'image', 'image_src', 'html_input', 'style') ) ){
-				$html .= sprintf( '<span class="%1$s">%2$s</span>', $this->form_pitc_class('sffl', $id, $type), $label );
-			}
-			else{
-				$html .= sprintf( '<label class="%1$s" for="%2$s">%3$s</label>', $this->form_pitc_class('sffl', $id, $type), $id, $label );
+			if( in_array($type, array('text', 'textarea', 'select', 'url', 'number') ) ){
+				$html .= sprintf( '<label class="%1$s" for="%2$s">%3$s</label>', $this->form_pitc_class('wf-field-label', $id, $type), $id, $label );
+			} else {
+				$html .= sprintf( '<span class="%1$s">%2$s</span>', $this->form_pitc_class('wf-field-label', $id, $type), $label );
 			}
 	
 			$html .= $label_after;
@@ -43,10 +43,10 @@ abstract class SF_Field implements ArrayAccess {
 	public function form_pitc_class( $pref = '', $id = '', $type = '', $class = '' ){
 		$return = "{$pref}";
 		if( !empty($id) ){
-			$return .= " {$pref}i_{$id}";
+			$return .= " {$pref}-id-{$id}";
 		}
 		if( !empty($type) ) { 
-			$return .= " {$pref}t_{$type}";
+			$return .= " {$pref}-type-{$type}";
 		}
 		if( !empty($class) ){ 
 			$return .= " {$class}"; 
@@ -120,7 +120,7 @@ abstract class SF_Field implements ArrayAccess {
 			$data['input_attr'] .= ' '. $an .'="'. esc_attr($av) .'"';
 		}
 
-		// simply include a pre option for combo fields.
+		// simply include a pre option for choices fields.
 		if( in_array($data['type'], array('select', 'select_multi', 'select2', 'checkbox', 'radio') ) ){
 			if( isset($data['choices_pre']) && !empty($data['choices_pre']) && is_array($data['choices_pre']) ){
 				$_choices = $data['choices_pre'];
@@ -137,7 +137,7 @@ abstract class SF_Field implements ArrayAccess {
 		}
 
 		// escape text and hidden field values to pass double or single quote
-		if( in_array($data['type'], array('hidden', 'text') ) ){
+		if( in_array($data['type'], array('hidden', 'text', 'url') ) ){
 			$data['value'] = @htmlspecialchars( $data['value'] );
 		}
 

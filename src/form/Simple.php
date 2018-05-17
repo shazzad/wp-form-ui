@@ -1,33 +1,35 @@
 <?php
-class SF_Form_Simple extends SF_Form {
-	function __construct() {
-		parent::__construct();
+namespace Wpform\Form;
+
+class Simple extends Form
+{
+	function __construct($data = array())
+	{
+		parent::__construct($data);
 	}
 
-	public function toHtml() {
-		$this->rendered = true;
+	public function toHtml()
+	{
 		if( ! is_array( $this->fields ) ) {
 			$this->fields = array();
 		}
-
 		if( ! is_array( $this->values ) ) {
 			$this->values = array();
 		}
-
 		if( ! is_array($this->settings) ) {
 			$this->settings = array();
 		}
-	
+
 		if( empty( $this->settings['method'] )){
 			$this->settings['method'] = 'POST';
 		}
 		if( empty( $this->settings['class'] )){
-			$this->settings['class'] = 'sf sf-basic';
+			$this->settings['class'] = 'wf wf-basic';
 		} else {
-			$this->settings['class'] = 'sf '. $this->settings['class'];
+			$this->settings['class'] = 'wf '. $this->settings['class'];
 		}
 		if( ! empty( $this->settings['ajax'] ) ) {
-			$this->settings['class'] .= ' sff_ajax_form';
+			$this->settings['class'] .= ' wf-ajax';
 		}
 		if( ! empty( $this->settings['ajax'] ) && empty($this->settings['loading_text']) ) {
 			$this->settings['loading_text'] = 'Updating';
@@ -43,7 +45,7 @@ class SF_Form_Simple extends SF_Form {
 			$this->settings['attr'] .= ' data-loading_text="'. esc_attr($this->settings['loading_text']) .'"';
 		}
 		if( ! empty( $this->settings['context'] ) ) {
-			$this->settings['class'] .= ' sff-context-'. $this->settings['context'];
+			$this->settings['class'] .= ' wf-field-context-'. $this->settings['context'];
 		}
 
 		if( empty( $this->settings['action']) ) {
@@ -67,8 +69,7 @@ class SF_Form_Simple extends SF_Form {
 		$html = '';
 
 		// form opening tag
-		if( ! isset($this->settings['no_form']) ) {
-	
+		if (! isset($this->settings['no_form'])) {
 			$html .= '<form';
 			$attr_keys = array( 'class', 'id', 'name', 'title', 'enctype', 'method', 'action' );
 			foreach( $this->settings as $name => $attr ) {
@@ -80,21 +81,36 @@ class SF_Form_Simple extends SF_Form {
 				$html .= $this->settings['attr'];
 			}
 			$html .= '>';
-		}
-	
-		if( ! empty( $this->settings['title'] ) ) {
-			$html .= '<div class="sf_form_title">' . $this->settings['title'] . '</div>';
+		} else {
+			$html .= '<div';
+			$attr_keys = array('class', 'id');
+			foreach( $this->settings as $name => $attr ) {
+				if( ! empty($name) && in_array($name, $attr_keys) ) {
+					$html .= ' '. $name .'="'. esc_attr( $attr ) .'"';
+				}
+			}
+			if( ! empty($this->settings['attr']) ) {
+				$html .= $this->settings['attr'];
+			}
+			$html .= '>';
 		}
 
 		if( ! empty( $this->settings['after_tag'] ) ) {
 			$html .= $this->settings['after_tag'];
 		}
 
-		if( isset( $this->settings['button_before'] ) &&  $this->settings['button_before'] === true ) {
-			$html .= "<div class='sffw sffwt_submit sffwt_submit_top'><input type='submit' value='". $this->settings['button_text'] ."' class='button button-primary form_button button_top'></div>";
+		if( ! empty( $this->settings['title'] ) ) {
+			$html .= '<div class="wf-form-title">' . $this->settings['title'] . '</div>';
 		}
 
-		foreach( $this->fields as $k => $field ) {
+		// Submit button on top of the form
+		if( isset( $this->settings['submit_top'] ) &&  $this->settings['submit_top'] === true ) {
+			$html .= "<div class='wf-field-wrap wf-field-wrap-type-submit wf-field-wrap-type-submit-top'>
+				<input type='submit' value='". $this->settings['button_text'] ."' class='button button-primary form_button button_top'>
+			</div>";
+		}
+
+		foreach( $this->fields as $k => &$field ) {
 			if( isset($field->name) && '' != $field->name && ! isset($field->value) ) {
 				$name = isset($field->option_name) ? $field->option_name : $field->name;
 				if( array_key_exists($name, $this->values) ) {
@@ -110,8 +126,9 @@ class SF_Form_Simple extends SF_Form {
 			$html .= $field->get_html( $this );
 		}
 
-		if( ! isset( $this->settings['button_after'] ) ||  $this->settings['button_after'] !== false ) {
-			$html .= "<div class='sffw sffwt_submit sffwt_submit_bottom'>
+		// Submit button at the end of the form
+		if( ! isset( $this->settings['submit_bottom'] ) ||  $this->settings['submit_bottom'] !== false ) {
+			$html .= "<div class='wf-field-wrap wf-field-wrap-type-submit wf-field-wrap-type-submit-bottom'>
 				<input type='submit' value='". $this->settings['button_text'] ."' class='form_button button_bottom'>
 			</div>";
 		}
@@ -122,6 +139,8 @@ class SF_Form_Simple extends SF_Form {
 
 		if( ! isset( $this->settings['no_form'] ) ) {
 			$html .= '</form>';
+		} else {
+			$html .= '</div>';
 		}
 	
 		return $html;

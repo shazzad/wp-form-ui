@@ -1,25 +1,28 @@
 <?php
-if( ! defined('SF_DIR') ) {
+namespace Wpform;
 
-	define( 'SF_DIR'				, dirname(__FILE__) . '/' );
-	define( 'SF_VERSION'			, '1.1' );
+spl_autoload_register(function($className){
+	$__dir = dirname (__FILE__) . '/';
+	$file_path = '';
 
-	// abstract classes
-	foreach( glob( SF_DIR . 'abstracts/abstract-*.php') as $file ) {
-		include_once( $file );
-	}
-	// models
-	foreach( glob( SF_DIR . 'models/model-*.php') as $file ) {
-		include_once( $file );
-	}
-	// forms
-	foreach( glob( SF_DIR . 'forms/form-*.php') as $file ) {
-		include_once( $file );
-	}
-	// fields
-	foreach( glob( SF_DIR . 'fields/field-*.php') as $file ) {
-		include_once( $file );
-	}
-}
+	if ('Wpform' == substr($className,0,6)) {
+		$className = ltrim($className, 'Wpform\\');
+		$fileName  = '';
+		$namespace = '';
+		if ($lastNsPos = strrpos($className, '\\')) {
+			$namespace = substr($className, 0, $lastNsPos);
+			$className = substr($className, $lastNsPos + 1);
+			$fileName  = str_replace('\\', DIRECTORY_SEPARATOR, $namespace) . DIRECTORY_SEPARATOR;
+		}
+		$fileName = str_replace('_', '-', strtolower($fileName));
+		$fileName .= $className .'.php';
 
-?>
+		if (file_exists($__dir . $fileName)) {
+			$file_path = $__dir . $fileName;
+		}
+	}
+
+	if ($file_path) {
+		include($file_path);
+	}
+});

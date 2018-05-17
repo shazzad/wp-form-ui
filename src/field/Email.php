@@ -1,7 +1,9 @@
 <?php
-class SF_Field_Number extends SF_Field {
+namespace Wpform\Field;
+
+class Email extends Field {
 	function __construct( $data = array() ) {
-		$data['type'] = 'number';
+		$data['type'] = 'email';
 		parent::__construct( $data );
 	}
 	public function get_html( $form ){
@@ -11,7 +13,7 @@ class SF_Field_Number extends SF_Field {
 		$html = $before;
 
 		if( $field_wrap ){
-			$html .= sprintf( '<div class="%1$s"%2$s>', $this->form_pitc_class('sffw', $id, $type, $class), $attr );
+			$html .= sprintf( '<div class="%1$s"%2$s>', $this->form_pitc_class('wf-field-wrap', $id, $type, $class), $attr );
 		}
 
 		$html .= $field_before;
@@ -21,18 +23,18 @@ class SF_Field_Number extends SF_Field {
 
 			// description
 			if( ! empty($desc) ){
-				$html .= sprintf( '<div class="%1$s">%2$s</div>', $this->form_pitc_class('sffdw', $id, $type), $desc );
+				$html .= sprintf( '<div class="%1$s">%2$s</div>', $this->form_pitc_class('wf-field-desc-wrap', $id, $type), $desc );
 			}
 
 			// input
 			$html .= $input_wrap_before;
 			if( $input_wrap ){
-				$html .= sprintf( '<div class="%1$s %2$s"%3$s>', $this->form_pitc_class('sffew', $id, $type), $input_wrap_class, $input_wrap_attr );
+				$html .= sprintf( '<div class="%1$s %2$s"%3$s>', $this->form_pitc_class('wf-field-input-wrap', $id, $type), $input_wrap_class, $input_wrap_attr );
 			}
 			$html .= $input_before;
 			$html .= sprintf( 
 				'<input class="%1$s %5$s" id="%2$s" name="%3$s" value="%4$s" type="%7$s"%6$s />', 
-				$this->form_pitc_class('sff', $id, $type), $id, $name, $value, $input_class, $input_attr, $type
+				$this->form_pitc_class('wf-field', $id, $type), $id, $name, $value, $input_class, $input_attr, $type
 			);
 			$html .= $input_after;
 			if( $input_wrap ){
@@ -43,7 +45,7 @@ class SF_Field_Number extends SF_Field {
 		
 		if( isset($desc_after) ){
 			if( ! empty($desc_after) ){
-				$html .= sprintf( '<div class="%1$s">%2$s</div>', $this->form_pitc_class('sffdaw', $id, $type), $desc_after );
+				$html .= sprintf( '<div class="%1$s">%2$s</div>', $this->form_pitc_class('wf-field-desc-after-wrap', $id, $type), $desc_after );
 			}
 		}
 

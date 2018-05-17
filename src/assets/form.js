@@ -18,7 +18,7 @@
 					if( 'ajax_fetch' === $wrap.data('listen_on_trigger_action') ){
 						$wrap.addClass('ld');
 
-						var ajaxurl = $wrap.data('listen_on_ajaxurl') ? $wrap.data('listen_on_ajaxurl') : sf.ajaxurl;
+						var ajaxurl = $wrap.data('listen_on_ajaxurl') ? $wrap.data('listen_on_ajaxurl') : wf.ajaxurl;
 	
 						$.post( ajaxurl, data, function(r){
 							$wrap.removeClass('ld');
@@ -82,17 +82,17 @@
 		});
 	}
 	function register_ajax_forms( $parent ){
-		$parent.find('.sff_ajax_form').each(function(){
+		$parent.find('.wf-ajax').each(function(){
 			var 
 			$form 		= $(this),
 			$button 	= $form.find('.form_button'),
-			action 		= $form.find('.form_action').val() || '';
+			action 		= $form.find('.form_action').val() || '',
+			ajaxurl		= $form.attr('action') || ajaxurl;
 
-			$form.find('.sffwt_submit').append( '<div class="sf_notes"></div>' );
-			var $notes = $form.find('.sf_notes');
-			
+			$form.find('.wf-field-wrap-type-submit').append( '<div class="wf_notes"></div>' );
+			var $notes = $form.find('.wf_notes');
 
-			// $(document.body).trigger( 'sf/datepicker_init', [$form] );
+			// $(document.body).trigger( 'wf/datepicker_init', [$form] );
 
 			if( action ) {
 				$(document.body).trigger( action + '/init', [$form] );
@@ -154,153 +154,203 @@
 				});
 			});
 		});
+
+		$(document.body).trigger('wf/form_registered', [$parent] );
+	}
+	function register_datepicker( $parent ){
+		// console.log($wrap.find('input.date_input'));
+		$parent.find('input.date_input').each(function(){
+			var data = $(this).data() || {format: 'Y-m-d', formatDate: 'Y-m-d'};
+			if(typeof(data.closeondateselect) !== 'undefined' ){ data.closeOnDateSelect = true; }
+			data.scrollInput = false;
+			data.hours12 = true;
+			$(this).datetimepicker(data);
+		});
 	}
 
-$(document).ready(function(){
+	$(document).ready(function(){
 
-	register_listen_on_trigger( $('body') );
-	register_trigger_on_change( $('body') );
-	register_ajax_forms( $('body') );
+		register_listen_on_trigger( $('body') );
+		register_trigger_on_change( $('body') );
+		register_ajax_forms( $('body') );
+		register_datepicker( $('body') );
 
-	$(document.body).on('sf/listen_on_trigger', function(e, $wrap){
-		register_listen_on_trigger( $wrap );
-	});
-	$(document.body).on('sf/trigger_on_change', function(e, $wrap){
-		register_trigger_on_change( $wrap );
-	});
-	$(document.body).on('sf/ajax_form', function(e, $wrap){
-		register_ajax_forms( $wrap );
-	});
+		$(document.body).on('wf/listen_on_trigger', function(e, $wrap){
+			register_listen_on_trigger( $wrap );
+		});
+		$(document.body).on('wf/trigger_on_change', function(e, $wrap){
+			register_trigger_on_change( $wrap );
+		});
+		$(document.body).on('wf/ajax_form', function(e, $wrap){
+			register_ajax_forms( $wrap );
+		});
+		$(document.body).on('wf/datepicker', function(e, $wrap){
+			register_datepicker( $wrap );
+		});
 
-	/* button click action */
-	$(document.body).on('click', '.sff_ajax_action_btn', function(e){
-		e.preventDefault();
-		var 
-			$that 		= $(this),
-			action 		= $that.data('action') || '',
-			target 		= $that.data('target') || '',
-			_confirm 	= $that.data('confirm') || '',
-			_alert 		= $that.data('alert');
+		/* button click action */
+		$(document.body).on('click', '.wf_ajax_btn', function(e){
+			e.preventDefault();
+			var 
+				$that 		= $(this),
+				action 		= $that.data('action') || '',
+				target 		= $that.data('target') || '',
+				_confirm 	= $that.data('confirm') || '',
+				_alert 		= $that.data('alert');
 
-		if( $that.hasClass('ld') || action === '' ){
+			if( $that.hasClass('ld') || action === '' ){
+				return false;
+			}
+
+			if( _confirm && ! confirm(_confirm) ){
+				return false;
+			}
+	
+			var data = $that.data('form') ? $( $that.data('form') ).serialize() + '&action='+ action : $that.data();
+	
+			$that.addClass('ld').attr('disabled', 'disabled');
+			$.post(ajaxurl, data)
+			.done(function(r){
+	
+				if( 'ok' == r.status ){
+					if( target ){
+						$(target).html( r.html );
+					}
+					else if( _alert == '1' ){
+						alert( r.html );
+					}
+				}
+				else if( 'error' == r.status ){
+					if( target ){
+						$(target).html( r.html );
+					}
+					else if( _alert == '1' ){
+						alert( r.html );
+					}
+				}
+	
+				$(document.body).trigger( action, [r, data, $that] );
+			})
+			.complete(function(){
+				$that.removeClass('ld').removeAttr('disabled');
+			});
+		});
+	
+		/* repeater field */
+		$(document.body).on('click', '.wf_repeater_add', function(e){
+			e.preventDefault();
+			var 
+				$button 	= $(this),
+				$form		= $(this).closest('form'),
+				key			= $button.data('parent'),
+				$to			= $form.find('#wf_repeated_'+ key + ' tbody'),
+				$html		= $form.find('#wf_repeater_'+ key + ' tbody').html();
+	
+	
+			if( $html.indexOf('KEY') ){
+				var uid = guid();
+				$html = $html.replace(/KEY/g, uid);
+			}
+			$to.append( $html );
+	
+			$(document).trigger( 'wf/row_cloned' );
 			return false;
-		}
-
-		if( _confirm && ! confirm(_confirm) ){
+		});
+		$(document).on('click', '.wf_repeater_remove', function(e){
+			e.preventDefault();
+			var $button = $(this), $item = $button.closest('.wf_row');
+			if( $button.data('action') ) {
+				$(document).trigger( $button.data('action'), [$item] );
+			} else {
+				$item.remove();
+			}
+			$(document).trigger( 'wf/row_removed' );
 			return false;
-		}
+		});
+	
+		/* image field */
+		$(document.body).on('click', '.wf-field_image_btn', function(e){
+			e.preventDefault();
 
-		var data = $that.data('form') ? $( $that.data('form') ).serialize() + '&action='+ action : $that.data();
+			var _that = $(this), 
+			field = _that.data('field'), 
+			$wrap = _that.closest('.wf-field-wrap'),
+			file_frame = wp.media.frames.file_frame = wp.media({
+				title: 'Upload or Select File',
+				multiple: false
+			});
+			file_frame.on( 'select', function() {
+				var selected = file_frame.state().get('selection').toJSON();
+				var file = selected[0], _file;
 
-		$that.addClass('ld').attr('disabled', 'disabled');
-		$.post(ajaxurl, data)
-		.done(function(r){
+				if( typeof(file.sizes) !== 'undefined' ){
+					var size = $( '#'+ _that.attr('rel') + '_preview' ).data('size');
+					if( file.sizes.hasOwnProperty(size) ) {
+						_file = file.sizes[size];
+					} else if( file.sizes.hasOwnProperty('thumbnail') ) {
+						_file = file.sizes.thumbnail;
+					} else {
+						_file = file.sizes.full;
+					}
+				} else if( typeof(file.icon) !== 'undefined' ){
+					_file = {url: file.icon};
+				}
 
-			if( 'ok' == r.status ){
-				if( target ){
-					$(target).html( r.html );
-				}
-				else if( _alert == '1' ){
-					alert( r.html );
-				}
-			}
-			else if( 'error' == r.status ){
-				if( target ){
-					$(target).html( r.html );
-				}
-				else if( _alert == '1' ){
-					alert( r.html );
-				}
-			}
+				$wrap.find( '#'+ _that.attr('rel') + '_input' ).val( file[field] );
+				$wrap.find( '#'+ _that.attr('rel') + '_preview' ).html( '<img src="'+ _file.url +'" class="wf-media-preview" />' );
+			});
+			file_frame.open();
+		});
+	
+		$('.wf-field_image_remove_btn').on('click', function(event){
+			var _that = $(this);
+			event.preventDefault();
+			$( '#'+ _that.attr('rel') + '_input').val('');
+			$( '#'+ _that.attr('rel') + '_img' ).empty();
+		});
 
-			$(document.body).trigger( action, [r, data, $that] );
-		})
-		.complete(function(){
-			$that.removeClass('ld').removeAttr('disabled');
+
+		/* image field */
+		$(document).on('click', '.wf-field_media_btn', function(e){
+			e.preventDefault();
+	
+			var _that = $(this), 
+			field = _that.data('field'), 
+			$wrap = _that.closest('.wf-field-wrap'),
+			file_frame = wp.media.frames.file_frame = wp.media({
+				title: 'Upload or Select Image',
+				multiple: false
+			});
+			file_frame.on( 'select', function() {
+				var selected = file_frame.state().get('selection').toJSON();
+				var file = selected[0], _file;
+	
+				if( typeof(file.sizes) !== 'undefined' ){
+					var size = $( '#'+ _that.attr('rel') + '_img' ).data('size');
+					if( file.sizes.hasOwnContact(size) ) {
+						_file = file.sizes[size];
+					} else if( file.sizes.hasOwnContact('thumbnail') ) {
+						_file = file.sizes.thumbnail;
+					} else {
+						_file = file.sizes.full;
+					}
+				} else if( typeof(file.icon) !== 'undefined' ){
+					_file = {url: file.icon};
+				}
+	
+				$wrap.find( '#'+ _that.attr('rel') + '_input' ).val( file[field] );
+				$wrap.find( '#'+ _that.attr('rel') + '_img' ).html( '<img src="'+ _file.url +'" class="wf-image-preview" />' );
+			});
+			file_frame.open();
 		});
 	});
 
-	/* repeater field */
-	$(document.body).on('click', '.sf_repeater_add', function(e){
-		e.preventDefault();
-		var 
-			$button 	= $(this),
-			$form		= $(this).closest('form'),
-			key			= $button.data('parent'),
-			$to			= $form.find('#sf_repeated_'+ key + ' tbody'),
-			$html		= $form.find('#sf_repeater_'+ key + ' tbody').html();
-
-
-		if( $html.indexOf('KEY') ){
-			var uid = guid();
-			$html = $html.replace(/KEY/g, uid);
-		}
-		$to.append( $html );
-
-		$(document).trigger( 'sf/row_cloned' );
-		return false;
-	});
-	$(document).on('click', '.sf_repeater_remove', function(e){
-		e.preventDefault();
-		var $button = $(this), $item = $button.closest('.sf_row');
-		if( $button.data('action') ) {
-			$(document).trigger( $button.data('action'), [$item] );
-		} else {
-			$item.remove();
-		}
-		$(document).trigger( 'sf/row_removed' );
-		return false;
-	});
-
-	/* image field */
-	$(document).on('click', '.sff_image_btn', function(e){
-		e.preventDefault();
-
-		var _that = $(this), 
-		field = _that.data('field'), 
-		$wrap = _that.closest('.sffew'),
-		file_frame = wp.media.frames.file_frame = wp.media({
-			title: 'Upload or Select Image',
-			multiple: false
-		});
-		file_frame.on( 'select', function() {
-			var selected = file_frame.state().get('selection').toJSON();
-			var file = selected[0], _file;
-
-			if( typeof(file.sizes) !== 'undefined' ){
-				var size = $( '#'+ _that.attr('rel') + '_img' ).data('size');
-				if( file.sizes.hasOwnProperty(size) ) {
-					_file = file.sizes[size];
-				} else if( file.sizes.hasOwnProperty('thumbnail') ) {
-					_file = file.sizes.thumbnail;
-				} else {
-					_file = file.sizes.full;
-				}
-			} else if( typeof(file.icon) !== 'undefined' ){
-				_file = {url: file.icon};
-			}
-
-			$wrap.find( '#'+ _that.attr('rel') + '_input' ).val( file[field] );
-			$wrap.find( '#'+ _that.attr('rel') + '_img' ).html( '<img src="'+ _file.url +'" class="image_preview" />' );
-		});
-		file_frame.open();
-	});
-
-	$('.sff_image_remove_btn').on('click', function(event){
-		var _that = $(this);
-		event.preventDefault();
-		$( '#'+ _that.attr('rel') + '_input').val('');
-		$( '#'+ _that.attr('rel') + '_img' ).empty();
-	});
-});})(jQuery);
-
-function guid() {
-  return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-    s4() + '-' + s4() + s4() + s4();
-}
-
-function s4() {
-  return Math.floor((1 + Math.random()) * 0x10000)
-    .toString(16)
-    .substring(1);
-}
+	function guid() {
+	  return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+		s4() + '-' + s4() + s4() + s4();
+	}
+	
+	function s4() {
+	  return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+	}
+})(jQuery);
