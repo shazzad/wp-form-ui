@@ -1,5 +1,5 @@
 # WPForm
-A Form class, that can to be used in WordPress plugin & theme development.
+A Form library for WordPress plugin & theme development.
 
 ### Implementation - in plugin
 ```

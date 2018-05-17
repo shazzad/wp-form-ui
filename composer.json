@@ -1,5 +1,10 @@
 {
-	"type": "form",
+	"name": "shazzad/wpform",
+	"type": "library",
+	"description": "A Form library for WordPress plugin & theme development.",
+	"keywords": ["wpform", "wordpress"],
+	"homepage": "http://w4dev.com/wpform",
+	"license": "Apache-2.0",
 	"authors": [
 		{
 			"name"    : "Shazzad Hossain Khan",
