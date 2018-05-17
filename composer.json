@@ -9,10 +9,11 @@
     "autoload": {
 		"classmap": [
 			"src",
-			"src/abstracts",
-			"src/fields",
-			"src/forms",
-			"src/models"
+			"src/api",
+			"src/assets",
+			"src/field",
+			"src/form",
+			"src/utils"
 		]
 	}
 }
