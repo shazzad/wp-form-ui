@@ -45,3 +45,11 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# Composer files
+composer.phar
+composer.lock
+/vendor/
+*.ignored
+**/IgnoredTest.php
+.DS_Store
