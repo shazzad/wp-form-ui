@@ -1,12 +1,13 @@
 /**
-* Shazzads Form CSS
-* @version: 1.0
+* Wpform - Form CSS
+* @version: 1.1
+* @package: shazzad/wpform
 * @author: Shazzad Hossain Khan
-* @contact: sajib1223@gmail.com
 **/
 
-/* === Global === */
-.wf_hidden{
+/* Global */
+.wf_hidden,
+.wf-hidden{
 	display:none;
 }
 .wf-field,
@@ -236,24 +237,11 @@ div.wf_notes._note > p{
 	line-height:26px;
 	padding:1px 10px;
 }
-/* Default Form */
-.wf-default .wf-field-wrap {
-	margin-bottom:10px;
-	padding-right:10%;
+@media screen and (min-width:779px){
+	.wf-default .wf-field-wrap {
+		padding-right:10%;
+	}
 }
-.wf-default .wf-field_image_btn, .wf-default .wf-field_image_remove_btn {
-	height:auto;
-	font-size:12px;
-	padding:3px 8px;
-	line-height:normal;
-}
-.wf-default .wf-field-wrap-type-submit input{
-	font-size:13px;
-	line-height:26px;
-	padding:1px 10px;
-}
-
-
 /* Basic Form */
 .wf-basic .wf-field-wrap{
 	width:auto;

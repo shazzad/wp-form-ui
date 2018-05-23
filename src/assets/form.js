@@ -1,3 +1,10 @@
+/**
+* Wpform - Form CSS
+* @version: 1.1
+* @package: shazzad/wpform
+* @author: Shazzad Hossain Khan
+**/
+
 (function($){
 	'use strict';
 	function register_listen_on_trigger( $parent ){
