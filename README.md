@@ -1,3 +1,8 @@
+<p align="center">
+<a href="https://packagist.org/packages/shazzad/wpform"><img src="https://poser.pugx.org/shazzad/wpform/license" alt="license"></a> 
+<a href="https://packagist.org/packages/shazzad/wpform"><img src="https://poser.pugx.org/shazzad/wpform/v/stable" alt="Latest Stable Version"></a>
+</p>
+
 # WPForm
 
 A Form library for WordPress plugin & theme development.
@@ -16,13 +21,13 @@ Define the base url relative to the package path
 ```
 if (! class_exists('Wpform\Api\Api')) {
     /* In plugin */
-    Wpform\Api\Api::$base_url = plugin_dir_url(__FILE__) .'/vendor/wpform/src';
+    Wpform\Api\Api::$base_url = plugin_dir_url(__FILE__) .'/vendor/shazzad/wpform/src';
 
     /* In parent theme */
-    Wpform\Api\Api::$base_url = get_template_directory_uri() .'/vendor/wpform/src';
+    Wpform\Api\Api::$base_url = get_template_directory_uri() .'/vendor/shazzad/wpform/src';
 
     /* In child theme */
-    Wpform\Api\Api::$base_url = get_stylesheet_directory_uri() .'/vendor/wpform/src';
+    Wpform\Api\Api::$base_url = get_stylesheet_directory_uri() .'/vendor/shazzad/wpform/src';
 }
 ```
 
