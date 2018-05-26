@@ -6,12 +6,12 @@ A Form library for WordPress plugin & theme development.
 
 ### Using composer
 ```
-$ composer require shazzad/wpform
+$ composer require w4devinc/wpform
 ```
 
 ### Using git clone
 ```
-$ git clone https://github.com/shazzad/wpform.git
+$ git clone https://github.com/w4devinc/wpform.git
 ```
 
 ## Basic Usage
@@ -21,13 +21,13 @@ Define the base url, relative to the package path
 ```
 if (! class_exists('Wpform\Api\Api')) {
     /* In plugin */
-    Wpform\Api\Api::$base_url = plugin_dir_url(__FILE__) .'/vendor/shazzad/wpform/src';
+    Wpform\Api\Api::$base_url = plugin_dir_url(__FILE__) .'/vendor/w4devinc/wpform/src';
 
     /* In parent theme */
-    Wpform\Api\Api::$base_url = get_template_directory_uri() .'/vendor/shazzad/wpform/src';
+    Wpform\Api\Api::$base_url = get_template_directory_uri() .'/vendor/w4devinc/wpform/src';
 
     /* In child theme */
-    Wpform\Api\Api::$base_url = get_stylesheet_directory_uri() .'/vendor/shazzad/wpform/src';
+    Wpform\Api\Api::$base_url = get_stylesheet_directory_uri() .'/vendor/w4devinc/wpform/src';
 }
 ```
 
