@@ -3,6 +3,7 @@ namespace Wpform\Api;
 
 class Api
 {
+	public static $initialized = false;
 	public static $base_url;
 	public static function register_form_scripts()
 	{
