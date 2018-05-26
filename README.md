@@ -1,8 +1,3 @@
-<p align="center">
-<a href="https://packagist.org/packages/shazzad/wpform"><img src="https://poser.pugx.org/shazzad/wpform/license" alt="license"></a> 
-<a href="https://packagist.org/packages/shazzad/wpform"><img src="https://poser.pugx.org/shazzad/wpform/v/stable" alt="Latest Stable Version"></a>
-</p>
-
 # WPForm
 
 A Form library for WordPress plugin & theme development.
