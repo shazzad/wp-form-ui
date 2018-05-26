@@ -7,16 +7,21 @@
 
 A Form library for WordPress plugin & theme development.
 
+## Installation
 
-# Quick Start
+### Using composer
+```
+$ composer require shazzad/wpform
+```
 
-Clone the repository
-
+### Using git clone
 ```
 $ git clone https://github.com/shazzad/wpform.git
 ```
 
-Define the base url relative to the package path
+## Basic Usage
+
+Define the base url, relative to the package path
 
 ```
 if (! class_exists('Wpform\Api\Api')) {
@@ -31,83 +36,82 @@ if (! class_exists('Wpform\Api\Api')) {
 }
 ```
 
-Render form -
+Then, render form
+
 ```
+/** field values */
 $values = [
     'action' => 'do_something'
 ];
-$fields = [];
-    
-$priority = 10;
-$fields['id'] = array(
-    'priority'        => $priority,
-    'key'             => 'id',
-    'name'            => 'id',
-    'type'            => 'hidden'
-);
-++ $priority;
-$fields['action'] = array(
-    'priority'        => $priority,
-    'key'             => 'action',
-    'name'            => 'action',
-    'type'            => 'hidden'
-);
-++ $priority;
-$fields[] = array(
-    'priority'        => $priority,
-    'key'             => 'select-field',
-    'name'            => 'select-field',
-    'type'            => 'select',
-    'label'           => __('Select field'),
-    'choices'         => []
-);
-++ $priority;
-$fields[] = array(
-    'priority'        => $priority,
-    'key'             => 'text-field',
-    'name'            => 'text-field',
-    'type'            => 'text',
-    'label'           => __('Text field')
-);
-++ $priority;
-$fields[] = array(
-    'priority'        => $priority,
-    'key'             => 'repeater-field',
-    'name'            => 'repeater-field',
-    'type'            => 'repeater',
-    'label'           => __('Repeater field'),
-    'fields'          => [
-        [
-            'key'            => 'type',
-            'name'           => 'type',
-            'type'           => 'select',
-            'label'          => __('Type'),
-            'choices'        => []
-        ],
-        [
-            'key'            => 'name',
-            'name'           => 'name',
-            'type'           => 'text',
-            'label'          => __('Name'),
-        ],
-        [
-            'key'            => 'address',
-            'name'           => 'address',
-            'type'           => 'textarea',
-            'label'          => __('Address'),
-        ]
-    ],
-    'values'          => ! empty($values['repeater-field']) ? $values['repeater-field'] : []
-);
 
+/** fields */
+$fields = [
+	[
+		'priority'        => 10,
+		'key'             => 'id',
+		'name'            => 'id',
+		'type'            => 'hidden'
+	],
+	[
+		'priority'        => 11,
+		'key'             => 'action',
+		'name'            => 'action',
+		'type'            => 'hidden'
+	],
+	[
+		'priority'        => 12,
+		'key'             => 'select-field',
+		'name'            => 'select-field',
+		'type'            => 'select',
+		'label'           => __('Select field'),
+		'choices'         => []
+	],
+	[
+		'priority'        => 13,
+		'key'             => 'text-field',
+		'name'            => 'text-field',
+		'type'            => 'text',
+		'label'           => __('Text field')
+	],
+	[
+		'priority'        => 14,
+		'key'             => 'repeater-field',
+		'name'            => 'repeater-field',
+		'type'            => 'repeater',
+		'label'           => __('Repeater field'),
+		'fields'          => [
+			[
+				'key'            => 'type',
+				'name'           => 'type',
+				'type'           => 'select',
+				'label'          => __('Type'),
+				'choices'        => []
+			],
+			[
+				'key'            => 'name',
+				'name'           => 'name',
+				'type'           => 'text',
+				'label'          => __('Name'),
+			],
+			[
+				'key'            => 'address',
+				'name'           => 'address',
+				'type'           => 'textarea',
+				'label'          => __('Address'),
+			]
+		],
+		'values'          => ! empty($values['repeater-field']) ? $values['repeater-field'] : []
+	]
+];
 
-$settings     = array(
+/* form settings */
+$settings     = [
     'ajax'            => true,
     'action'          => admin_url('admin-ajax.php'),
     'id'              => 'my-form',
-    'button_text'     => __('Update', 'ocn'),
-    'loading_text'    => __('Updating', 'ocn')
-);
+    'button_text'     => __('Update', 'textdomain'),
+    'loading_text'    => __('Updating', 'textdomain')
+];
 
 $form = new \Wpform\Form\Simple(compact(['settings', 'fields', 'values']));
 $form->render();

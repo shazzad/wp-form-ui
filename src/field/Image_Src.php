@@ -1,7 +1,8 @@
 <?php
 namespace Wpform\Field;
 
-class Image_Src extends Field {
+class Image_Src extends Field
+{
 	function __construct( $data = array() ) {
 		$data['type'] = 'image_src';
 		parent::__construct( $data );
