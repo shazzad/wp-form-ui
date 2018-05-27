@@ -1,5 +1,5 @@
 <?php
-namespace Wpform\Utils;
+namespace W4dev\Wpform;
 
 class Assets
 {

@@ -1,5 +1,5 @@
 <?php
-namespace Wpform\Field;
+namespace W4dev\Wpform\Field;
 
 class Html_Input extends Field {
 	function __construct( $data = array() ) {

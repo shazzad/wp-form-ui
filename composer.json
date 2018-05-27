@@ -15,15 +15,13 @@
     ],
     "autoload": {
         "psr-4": {
-            "Wpform\\": "src/"
+            "W4dev\\Wpform\\": "src/"
         },
         "classmap": [
             "src",
-            "src/api",
             "src/assets",
             "src/field",
-            "src/form",
-            "src/utils"
+            "src/form"
         ]
     }
 }

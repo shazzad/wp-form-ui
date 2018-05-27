@@ -1,5 +1,5 @@
 <?php
-namespace Wpform\Field;
+namespace W4dev\Wpform\Field;
 
 class Checkbox extends Field
 {

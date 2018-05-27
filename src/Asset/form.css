@@ -1,7 +1,7 @@
 /**
-* Wpform - Form CSS
+* Form CSS
 * @version: 1.1
-* @package: shazzad/wpform
+* @package: w4devinc/wpform
 * @author: Shazzad Hossain Khan
 **/
 
@@ -93,7 +93,7 @@
 	padding-left:30px !important;
 	background-position:10px center;
 	background-repeat:no-repeat !important;
-	background-image:url(images/calendar.gif) !important;
+	background-image:url(Image/calendar.gif) !important;
 }
 
 /* Field Required */
@@ -103,7 +103,7 @@
 }
 .wf-field-type-select.ld,
 .wf-field-wrap-type-checkbox.ld{
-	background-image:url(images/spinner.gif) !important;
+	background-image:url(Image/spinner.gif) !important;
 	background-repeat:no-repeat !important;
 	background-position:center center !important;
 }
@@ -133,7 +133,7 @@
 	cursor:wait;
 	box-shadow:none !important;
 	background-color:#73787b !important;
-	background-image:url(images/spinner.gif) !important;
+	background-image:url(Image/spinner.gif) !important;
 	background-repeat:no-repeat !important;
 	background-position:90px;
 }
@@ -142,7 +142,7 @@ a.wf_ajax_btn.ld{
 	box-shadow:none !important;
 	outline:none !important;
 	background-color:#f7f7f7 !important;
-	background-image:url(images/loading.gif) !important;
+	background-image:url(Image/loading.gif) !important;
 	background-repeat:no-repeat !important;
 	background-position:center !important;
 	transition-property:none;
@@ -151,7 +151,7 @@ a.wf_ajax_btn.ld{
 	color:#00a0d2;
 	outline:none !important;
 	background-color:#00a0d2 !important;
-	background-image:url(images/spinner.gif) !important;
+	background-image:url(Image/spinner.gif) !important;
 	background-repeat:no-repeat !important;
 	background-position:center !important;
 	transition-property:none;
@@ -179,7 +179,7 @@ span.button.ld:disabled {
 	color:#f7f7f7 !important;
 	box-shadow:none !important;
 	background-color:#f7f7f7 !important;
-	background-image:url(images/loading.gif) !important;
+	background-image:url(Image/loading.gif) !important;
 	background-repeat:no-repeat !important;
 	background-position:center !important;
 	-moz-user-select:none; 
