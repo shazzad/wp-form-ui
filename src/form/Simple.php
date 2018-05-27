@@ -1,5 +1,5 @@
 <?php
-namespace Wpform\Form;
+namespace W4dev\Wpform\Form;
 
 class Simple extends Form
 {

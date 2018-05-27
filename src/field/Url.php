@@ -1,5 +1,5 @@
 <?php
-namespace Wpform\Field;
+namespace W4dev\Wpform\Field;
 
 class Url extends Field {
 	function __construct( $data = array() ) {

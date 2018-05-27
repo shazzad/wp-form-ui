@@ -1,5 +1,5 @@
 <?php
-namespace Wpform\Api;
+namespace W4dev\Wpform;
 
 class Api
 {
@@ -7,11 +7,11 @@ class Api
 	public static $base_url;
 	public static function register_form_scripts()
 	{
-		foreach (\Wpform\Utils\Assets::$assets as $asset) {
+		foreach (\W4dev\Wpform\Assets::$assets as $asset) {
 			if ('js' == $asset['type']) {
 				wp_register_script(
 					$asset['id'], 
-					self::$base_url .'/assets/'. $asset['path'], 
+					self::$base_url .'/Asset/'. $asset['path'], 
 					$asset['dependencies'], 
 					$asset['version'], 
 					true
@@ -19,7 +19,7 @@ class Api
 			} elseif ('css' == $asset['type']) {
 				wp_register_style(
 					$asset['id'], 
-					self::$base_url .'/assets/'. $asset['path'], 
+					self::$base_url .'/Asset/'. $asset['path'], 
 					$asset['dependencies'], 
 					$asset['version']
 				);

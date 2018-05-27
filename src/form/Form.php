@@ -1,5 +1,5 @@
 <?php
-namespace Wpform\Form;
+namespace W4dev\Wpform\Form;
 
 abstract class Form implements \ArrayAccess
 {
@@ -51,9 +51,9 @@ abstract class Form implements \ArrayAccess
 		if (! isset($data['priority'])) {
 			$data['priority'] = 10;
 		}
-		$class_name = '\\Wpform\\Field\\'. str_replace(' ', '_', ucwords(str_replace('_', ' ', $data['type'])));
+		$class_name = '\\W4dev\Wpform\\Field\\'. str_replace(' ', '_', ucwords(str_replace('_', ' ', $data['type'])));
 		if( ! class_exists( $class_name ) ){
-			$class_name = '\\Wpform\\Field\\Html';
+			$class_name = '\\W4dev\Wpform\\Field\\Html';
 		}
 
 		return new $class_name( $data, $this );
