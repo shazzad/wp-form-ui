@@ -1,12 +1,15 @@
 <?php
 namespace W4dev\Wpform\Field;
 
-class Url extends Field {
+class Url extends Field
+{
 	function __construct( $data = array() ) {
 		$data['type'] = 'url';
 		parent::__construct( $data );
 	}
-	public function get_html( $form ){
+
+	public function get_html($form)
+	{
 		$data = $this->sanitize_data( $this->data );
 		extract( $data );
 
