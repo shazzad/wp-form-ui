@@ -19,9 +19,9 @@
         },
         "classmap": [
             "src",
-            "src/assets",
-            "src/field",
-            "src/form"
+            "src/Asset",
+            "src/Field",
+            "src/Form"
         ]
     }
 }
