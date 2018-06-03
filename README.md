@@ -137,3 +137,4 @@ add_action('wp_ajax_do_something', function(){
     ]);
     die('');
 });
+```
