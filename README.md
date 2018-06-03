@@ -103,7 +103,10 @@ $fields = [
 
 /* form settings */
 $settings     = [
+    /* setting the ajax parameter to true will make the form submission through ajax */
     'ajax'            => true,
+    
+    /* this is the form action url, setting this to admin-ajax.php file will allow you to use wp_ajax_ action to handle submission */
     'action'          => admin_url('admin-ajax.php'),
     'id'              => 'my-form',
     'button_text'     => __('Update', 'textdomain'),
@@ -113,3 +116,24 @@ $settings     = [
 $form = new \Wpform\Form\Simple(compact(['settings', 'fields', 'values']));
 $form->render();
 ```
+
+### 3. Handle submission
+
+```php
+add_action('wp_ajax_do_something', function(){
+    $data = stripslashes_deep($_POST);
+    unset($data['action']);
+
+    /* do something with data */
+    # update_option('my_settings', $data);
+
+    @error_reporting(0);
+    header('Content-type: application/json');
+
+	// TODO - replace with wp_json response functions
+    echo json_encode([
+        'status' => 'ok',
+        'html' => __('Form saved')
+    ]);
+    die('');
+});
