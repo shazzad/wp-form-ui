@@ -80,7 +80,8 @@
 .wf-field-wrap-type-repeater .wf-field{
 	width:100%;
 }
-.wf-field-wrap-type-repeater .wf_repeater{
+.wf-field-wrap-type-repeater .wf_repeater,
+.wf-field-wrap-type-repeater2 .wf_repeater{
 	display:none;
 }
 .wf_repetable th,

@@ -2,41 +2,40 @@
 
 A Form library for WordPress plugin & theme development.
 
-## Installation
+### Installing
 
-### Using composer
+Using composer
 ```
 $ composer require w4devinc/wpform
 ```
 
-### Using git clone
+Using git clone
 ```
 $ git clone https://github.com/w4devinc/wpform.git
 ```
 
 ## Basic Usage
 
-Define the base url, relative to the package path
+### 1. Define the base url, relative to the package path
 
-```
+```php
 if (! W4dev\Wpform\Api::$initialized) {
-    /* In plugin */
     W4dev\Wpform\Api::$initialized = true;
+
+    /* In plugin */
     W4dev\Wpform\Api::$base_url = plugin_dir_url(__FILE__) .'/vendor/w4devinc/wpform/src';
 
     /* In parent theme */
-    W4dev\Wpform\Api::$initialized = true;
     W4dev\Wpform\Api::$base_url = get_template_directory_uri() .'/vendor/w4devinc/wpform/src';
 
     /* In child theme */
-    W4dev\Wpform\Api::$initialized = true;
     W4dev\Wpform\Api::$base_url = get_stylesheet_directory_uri() .'/vendor/w4devinc/wpform/src';
 }
 ```
 
-Then, render form
+### 2. Render form
 
-```
+```php
 /** field values */
 $values = [
     'action' => 'do_something'
@@ -104,7 +103,11 @@ $fields = [
 
 /* form settings */
 $settings     = [
+    /* setting the ajax parameter to true will make the form submission through ajax */
     'ajax'            => true,
+    
+    /* this is the form action url, setting this to admin-ajax.php file will allow you 
+    to use wp_ajax_ action to handle submission */
     'action'          => admin_url('admin-ajax.php'),
     'id'              => 'my-form',
     'button_text'     => __('Update', 'textdomain'),
@@ -113,4 +116,26 @@ $settings     = [
 
 $form = new \Wpform\Form\Simple(compact(['settings', 'fields', 'values']));
 $form->render();
+```
+
+### 3. Handle submission
+
+```php
+add_action('wp_ajax_do_something', function(){
+    $data = stripslashes_deep($_POST);
+    unset($data['action']);
+
+    /* do something with data */
+    # update_option('my_settings', $data);
+
+    @error_reporting(0);
+    header('Content-type: application/json');
+
+    // TODO - replace with wp_json response functions
+    echo json_encode([
+        'status' => 'ok',
+        'html' => __('Form saved')
+    ]);
+    die('');
+});
 ```

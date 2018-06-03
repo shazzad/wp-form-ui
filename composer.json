@@ -4,7 +4,7 @@
     "homepage": "http://w4dev.com/wpform",
     "type": "library",
     "license": "GPL-3.0-or-later",
-    "keywords": ["form", "wordpress"],
+    "keywords": ["wordpress-form", "wordpress-php-library", "wordpress"],
     "authors": [
         {
             "name" : "Shazzad Hossain Khan",

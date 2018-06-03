@@ -1,11 +1,11 @@
 <?php
 namespace W4dev\Wpform\Field;
 
-class Repeater extends Field
+class Repeater2 extends Field
 {
 	public function __construct($data = [])
     {
-		$data['type'] = 'repeater';
+		$data['type'] = 'repeater2';
 		parent::__construct($data);
 	}
 	public function get_html($form)
@@ -43,7 +43,7 @@ class Repeater extends Field
 			}
 		
 			$total_columns = 0;
-			foreach($fields as $key => $rf) {
+			foreach ($fields as $key => $rf) {
 				if (in_array($rf['type'], array('text', 'number', 'html', 'select'))){
 					++ $total_columns;
 				}
@@ -55,7 +55,7 @@ class Repeater extends Field
 					$rf['id'] = $fields[$key]['id'] =  $rf['name'];
 				}
 				if (! empty($rf['id'])){
-					$fields[$key]['id'] = $data['id'] ."_". $rf['id'];
+					$fields[$key]['id'] = $data['id'] ."_KEY_". $rf['id'];
 				}
 				if (empty($rf['class'])){
 					$fields[$key]['class'] = $rf['id'];
@@ -63,15 +63,8 @@ class Repeater extends Field
 			}
 		
 			$key = $data['key'];
-		
-			$html .= '<table id="wf_repeated_'.$key.'" class="wf_repetable" data-parent="'.$key.'"><thead><tr>';
-			foreach($fields as $repeat_field) {
-				if (in_array($repeat_field['type'], array('text', 'number', 'html', 'select'))){
-					$html .= '<th class="wf_col '. $repeat_field['class'] .'">'. $repeat_field['label'] .'</th>';
-				}
-			}
-			$html .= sprintf('<th>%s</th>', 'Action');
-			$html .= '</tr></thead><tbody>';
+
+			$html .= '<div id="wf_repeated_'.$key.'" class="wf_repetable" data-parent="'.$key.'">';
 		
 			// load existing fields
 			if (! empty($value) && is_array($value)){
@@ -81,7 +74,7 @@ class Repeater extends Field
 					$hiddens = '';
 					$row_key = 'row-'. $i;
 	
-					$html .= '<tr class="wf_row">';
+					$html .= '<div class="wf_row">';
 	
 					foreach($fields as $repeat_field) {
 	
@@ -92,67 +85,66 @@ class Repeater extends Field
 							$repeat_field['value'] = $_value[$option_name];
 						}
 	
-						if (in_array($repeat_field['type'], array('hidden'))) {
-							$field = $form->create_field($repeat_field);
-							$hiddens .= $field->get_html($form);
-						}
-						elseif (in_array($repeat_field['type'], array('text', 'number', 'html', 'select'))) {
-							$html .= '<td class="wf_col '. $repeat_field['class'] .'">';
+						#if (in_array($repeat_field['type'], array('hidden'))) {
+						#	$field = $form->create_field($repeat_field);
+						#	$hiddens .= $field->get_html($form);
+						#}
+						#elseif (in_array($repeat_field['type'], array('text', 'number', 'html', 'select'))) {
+							#$html .= '<td class="wf_col '. $repeat_field['class'] .'">';
 
-							$repeat_field['label'] = '';
-							$repeat_field['field_wrap'] = false;
-							$repeat_field['label_wrap'] = false;
-							$repeat_field['input_wrap'] = false;
+							#$repeat_field['id'] = $data['id'] ."_KEY_";
+							#$repeat_field['field_wrap'] = false;
+							#$repeat_field['label_wrap'] = false;
+							#$repeat_field['input_wrap'] = false;
 
 							$field = $form->create_field($repeat_field);
 							$html .= $field->get_html($form);
-							$html .= '</td>';
-						}
+							#$html .= '</td>';
+						#}
 					}
 		
-					$html .= '<td>';
-					$html .= '<a href="#" class="wf_repeater_remove" data-parent="'.$key.'">Remove</a>';
-					$html .= $hiddens;
-					$html .= '</td>';
-					$html .= '</tr>';
+					$html .= '<p>';
+					$html .= '<a href="#" class="wf_repeater2_remove" data-parent="'.$key.'">Remove</a>';
+					#$html .= $hiddens;
+					$html .= '</p>';
+					$html .= '</div>';
 					
 					++ $i;
 				}
 			}
-		
-			$html .= '</tbody><tfoot><tr>';
-			$html .= '<td colspan="'. ($total_columns + 1) .'"><a href="#" class="wf_repeater_add" data-parent="'.$key.'">Add Item</a></td>';
-			$html .= '<tr></tfoot></table>';
+
+			$html .= '</div>';
 		
 			$hiddens = '';
 	
-			$html .= '<table id="wf_repeater_'. $key .'" class="wf_repeater" data-parent="'.$key.'"><tbody>';
-			$html .= '<tr class="wf_row">';
+			$html .= '<div id="wf_repeater_'. $key .'" class="wf_repeater" data-parent="'.$key.'">';
+			$html .= '<div class="wf_row">';
 			foreach($fields as $repeat_field) {
-				if (in_array($repeat_field['type'], array('hidden'))) {
-					$field = $form->create_field($repeat_field);
-					$hiddens .= $field->get_html($form);
-				}
-				elseif (in_array($repeat_field['type'], array('text', 'number', 'html', 'select'))) {
-					$html .= '<td class="wf_col '. $repeat_field['class'] .'">';
+				#if (in_array($repeat_field['type'], array('hidden'))) {
+				#	$field = $form->create_field($repeat_field);
+				#	$hiddens .= $field->get_html($form);
+				#}
+				#elseif (in_array($repeat_field['type'], array('text', 'number', 'html', 'select'))) {
+					#$html .= '<td class="wf_col '. $repeat_field['class'] .'">';
 
-					$repeat_field['label'] = '';
-					$repeat_field['field_wrap'] = false;
-					$repeat_field['label_wrap'] = false;
-					$repeat_field['input_wrap'] = false;
+					#$repeat_field['id'] = false;
+					#$repeat_field['field_wrap'] = false;
+					#$repeat_field['label_wrap'] = false;
+					#$repeat_field['input_wrap'] = false;
 					$field = $form->create_field($repeat_field);
-
 					$html .= $field->get_html($form);
-					$html .= '</td>';
-				}
+					#$html .= '</td>';
+				#}
 			}
-			$html .= '<td>';
-			$html .= '<a href="#" class="wf_repeater_remove" data-parent="'.$key.'">Remove</a>';
-			$html .= $hiddens;
-			$html .= '</td>';
-			$html .= '</tr>';
-			$html .= '</tbody></table>';
+			$html .= '<div>';
+			$html .= '<a href="#" class="wf_repeater2_remove" data-parent="'.$key.'">Remove</a>';
+			#$html .= $hiddens;
+			$html .= '</div>';
+			$html .= '</div>';
+			$html .= '</div>';
 	
+			$html .= '<p><a href="#" class="wf_repeater2_add" data-parent="'.$key.'">Add Item</a></p>';
+
 			$html .= $input_after;
 			if ($input_wrap){
 				$html .= '</div>';

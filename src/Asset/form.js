@@ -274,6 +274,38 @@
 			$(document).trigger( 'wf/row_removed' );
 			return false;
 		});
+
+		/* repeater field */
+		$(document.body).on('click', '.wf_repeater2_add', function(e){
+			e.preventDefault();
+			var 
+				$button 	= $(this),
+				$form		= $(this).closest('form'),
+				key			= $button.data('parent'),
+				$to			= $form.find('#wf_repeated_'+ key),
+				$html		= $form.find('#wf_repeater_'+ key ).html();
+	
+	
+			if( $html.indexOf('KEY') ){
+				var uid = guid();
+				$html = $html.replace(/KEY/g, uid);
+			}
+			$to.append( $html );
+	
+			$(document).trigger( 'wf/row_cloned' );
+			return false;
+		});
+		$(document).on('click', '.wf_repeater2_remove', function(e){
+			e.preventDefault();
+			var $button = $(this), $item = $button.closest('.wf_row');
+			if( $button.data('action') ) {
+				$(document).trigger( $button.data('action'), [$item] );
+			} else {
+				$item.remove();
+			}
+			$(document).trigger( 'wf/row_removed' );
+			return false;
+		});
 	
 		/* image field */
 		$(document.body).on('click', '.wf-field_image_btn', function(e){
