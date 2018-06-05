@@ -19,19 +19,21 @@ class Assets
 			'type' => 'js'
 		],
 		[
-			'id' => 'wf_form', 
-			'path' => 'form.js',
-			'dependencies' => [
-				'wf_datetimepicker',
-				'wf_conditional_logic'
-			],
+			'id' => 'select2', 
+			'path' => 'select2.min.js',
+			'dependencies' => [],
 			'version' => 1.0,
 			'type' => 'js'
 		],
 		[
-			'id' => 'select2', 
-			'path' => 'select2.min.js',
-			'dependencies' => [],
+			'id' => 'wf_form', 
+			'path' => 'form.js',
+			'dependencies' => [
+				'jquery',
+				'select2',
+				'wf_datetimepicker',
+				'wf_conditional_logic'
+			],
 			'version' => 1.0,
 			'type' => 'js'
 		],
@@ -43,16 +45,16 @@ class Assets
 			'type' => 'css'
 		],
 		[
-			'id' => 'wf_form', 
-			'path' => 'form.css',
-			'dependencies' => ['wf_datetimepicker'],
+			'id' => 'select2',
+			'path' => 'select2.min.css',
+			'dependencies' => [],
 			'version' => 1.0,
 			'type' => 'css'
 		],
 		[
-			'id' => 'select2',
-			'path' => 'select2.min.css',
-			'dependencies' => [],
+			'id' => 'wf_form', 
+			'path' => 'form.css',
+			'dependencies' => ['wf_datetimepicker', 'select2'],
 			'version' => 1.0,
 			'type' => 'css'
 		]
