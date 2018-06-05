@@ -20,16 +20,14 @@ $ git clone https://github.com/w4devinc/wpform.git
 
 ```php
 if (! W4dev\Wpform\Api::$initialized) {
-    W4dev\Wpform\Api::$initialized = true;
-
     /* In plugin */
-    W4dev\Wpform\Api::$base_url = plugin_dir_url(__FILE__) .'/vendor/w4devinc/wpform/src';
+    W4dev\Wpform\Api::init(plugin_dir_url(__FILE__) .'/vendor/w4devinc/wpform/src');
 
     /* In parent theme */
-    W4dev\Wpform\Api::$base_url = get_template_directory_uri() .'/vendor/w4devinc/wpform/src';
+    W4dev\Wpform\Api::init(get_template_directory_uri() .'/vendor/w4devinc/wpform/src');
 
     /* In child theme */
-    W4dev\Wpform\Api::$base_url = get_stylesheet_directory_uri() .'/vendor/w4devinc/wpform/src';
+    W4dev\Wpform\Api::init(get_stylesheet_directory_uri() .'/vendor/w4devinc/wpform/src';);
 }
 ```
 

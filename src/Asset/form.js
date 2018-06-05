@@ -6,7 +6,7 @@
 **/
 
 (function($){
-	'use strict';
+	//'use strict';
 	function register_listen_on_trigger( $parent ){
 		$parent.find('.listen_on_trigger').each(function(){
 			var $wrap = $(this);
@@ -174,6 +174,72 @@
 			$(this).datetimepicker(data);
 		});
 	}
+	function register_select2( $parent ){
+		$parent.find('.wf-field-type-select2').each(function(){
+			var $el = $(this), data = $el.data('s2');
+			//console.log($el.attr('data-s2'));
+			var settings = {
+				minimumInputLength: 2,
+				placeholder: data.placeholder,
+				allowClear: data.allowclear ? data.allowclear : false,
+				escapeMarkup: function (markup) { return markup; }
+			};
+			if (typeof(data.src) !== 'undefined') {
+				settings.ajax = {
+					url: data.src,
+					dataType: 'json',
+					delay: 250,
+					data: function( params ){
+						return {
+							search: params.term, // search term
+							page: params.page, // search term
+							per_page: 10
+						};
+					},
+					processResults: function(data, params){
+						params.page = params.page || 1;
+						params.per_page = params.per_page || 10;
+						return {
+							results: data.items,
+							pagination: {
+								more: (params.page * params.per_page) < data.total
+							}
+						};
+					},
+					cache: true
+				};
+			}
+			
+			//console.log(! $el.is(':hidden'));
+			if (! $el.is(':hidden') && ! $el.hasClass('.select2-hidden-accessible')) {
+				$el.select2(settings);
+
+				// $el = $('.wf-field-type-select2');
+				if (typeof(data.src) !== 'undefined' && typeof(data.value) !== 'undefined') {
+					$.ajax({
+						type: 'GET',
+						url: data.src +'?selected='+ data.value
+					}).then(function (data) {
+						// console.log(data);
+						var option;
+						for(var i=0; i<data.items.length; i++){
+							option = new Option(data.items[i].text, data.items[i].id, true, true);
+							$el.append(option);
+							// console.log(option);
+						}
+						$el.trigger('change');
+						$el.trigger({
+							type: 'select2:select',
+							params: {
+								data: data
+							}
+						});
+						//console.log(options);
+					});
+				}
+			}
+		});
+	}
 
 	$(document).ready(function(){
 
@@ -181,6 +247,7 @@
 		register_trigger_on_change( $('body') );
 		register_ajax_forms( $('body') );
 		register_datepicker( $('body') );
+		register_select2( $('body') );
 
 		$(document.body).on('wf/listen_on_trigger', function(e, $wrap){
 			register_listen_on_trigger( $wrap );
@@ -193,6 +260,25 @@
 		});
 		$(document.body).on('wf/datepicker', function(e, $wrap){
 			register_datepicker( $wrap );
+		});
+		$(document.body).on('wf/select2', function(e, $wrap){
+			register_select2( $wrap );
+		});
+
+		$(document.body).on('wf/row_cloned', function(e, $wrap){
+			register_datepicker( $wrap );
+			register_select2( $wrap );
+		});
+		/* initialize datepicker & select2 on edit screen metabox visibility */
+		$(document.body).on('click', '.postbox .ui-sortable-handle', function(){
+			var $wrap = $(this).closest('.postbox');
+			setTimeout(function(){
+				console.log('checking');
+				if (! $wrap.hasClass('closed')) {
+					register_datepicker( $wrap );
+					register_select2( $wrap );
+				}
+			}, 100);
 		});
 
 		/* button click action */
@@ -253,8 +339,7 @@
 				$to			= $form.find('#wf_repeated_'+ key + ' tbody'),
 				$html		= $form.find('#wf_repeater_'+ key + ' tbody').html();
 	
-	
-			if( $html.indexOf('KEY') ){
+			if ($html.indexOf('KEY')) {
 				var uid = guid();
 				$html = $html.replace(/KEY/g, uid);
 			}
