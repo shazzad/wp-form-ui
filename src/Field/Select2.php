@@ -32,6 +32,7 @@ class Select2 extends Field
 		if (! empty($data['value'])) {
 			$select2['value'] = $data['value'];
 		}
+<<<<<<< HEAD
 		if (! isset($select2['minimumInputLength'])) {
 			/* if data is being fetched from source, minumum 2 character input needed by default */
 			if (! empty($select2['src'])) {
@@ -40,6 +41,8 @@ class Select2 extends Field
 				$select2['minimumInputLength'] = 0;
 			}
 		}
+=======
+>>>>>>> origin/master
 
 		if (! isset($data['input_attrs'])) {
 			$data['input_attrs'] = [];
