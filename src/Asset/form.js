@@ -179,7 +179,11 @@
 			var $el = $(this), data = $el.data('s2');
 			//console.log($el.attr('data-s2'));
 			var settings = {
+<<<<<<< HEAD
+				minimumInputLength: data.minimumInputLength,
+=======
 				minimumInputLength: 2,
+>>>>>>> origin/master
 				placeholder: data.placeholder,
 				allowClear: data.allowclear ? data.allowclear : false,
 				escapeMarkup: function (markup) { return markup; }

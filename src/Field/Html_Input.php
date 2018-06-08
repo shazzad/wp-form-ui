@@ -35,7 +35,7 @@ class Html_Input extends Field
 				$html .= sprintf('<div class="%1$s %2$s"%3$s>', $this->form_pitc_class('wf-field-input-wrap', $id, $type), $input_wrap_class, $input_wrap_attr);
 			}
 			$html .= $input_before;
-			$html .= $html_input;
+			$html .= $input_html;
 			$html .= $input_after;
 			if ($input_wrap){
 				$html .= '</div>';
