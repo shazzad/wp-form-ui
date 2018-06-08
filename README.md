@@ -19,26 +19,15 @@ $ git clone https://github.com/w4devinc/wpform.git
 ### 1. Define the base url, relative to the package path
 
 ```php
-<<<<<<< HEAD
 if (class_exists('W4dev\Wpform\Api')) {
-=======
-if (! W4dev\Wpform\Api::$initialized) {
->>>>>>> origin/master
     /* In plugin */
     W4dev\Wpform\Api::init(plugin_dir_url(__FILE__) .'/vendor/w4devinc/wpform/src');
 
     /* In parent theme */
-<<<<<<< HEAD
      W4dev\Wpform\Api::init(get_template_directory_uri() .'/vendor/w4devinc/wpform/src');
 
     /* In child theme */
      W4dev\Wpform\Api::init(get_stylesheet_directory_uri() .'/vendor/w4devinc/wpform/src');
-=======
-    W4dev\Wpform\Api::init(get_template_directory_uri() .'/vendor/w4devinc/wpform/src');
-
-    /* In child theme */
-    W4dev\Wpform\Api::init(get_stylesheet_directory_uri() .'/vendor/w4devinc/wpform/src';);
->>>>>>> origin/master
 }
 ```
 
