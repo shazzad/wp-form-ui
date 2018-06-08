@@ -118,6 +118,12 @@ abstract class Field implements \ArrayAccess
         }
         $data['attr'] = trim($data['attr']);
 
+		if (isset($data['placeholder'])) {
+            $data['input_attrs']['placeholder'] = $data['placeholder'];
+			#print_r($data);
+			#die();
+		}
+
         $data['input_attr'] = '';
         foreach($data['input_attrs'] as $an => $av) {
             $data['input_attr'] .= ' '. $an .'="'. esc_attr($av) .'"';
