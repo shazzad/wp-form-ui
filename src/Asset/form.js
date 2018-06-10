@@ -128,15 +128,14 @@
 	
 				$.post(ajaxurl, data)
 				.done(function(r){
-					if( '0' == r ){
+					if ('0' === r) {
 						$notes.html('Invalid form response.').addClass('_error');
-					}
-					else{
+					} else {
 						$notes.html(r.html).addClass('_'+ r.status);
 					}
-	
-					if( action ){
-						var _data = data.split("&").reduce(function(prev, curr, i, arr) {
+
+					if (action) {
+						var _data = data.split("&").reduce(function(prev, curr) {
 							var p = curr.split("=");
 							prev[decodeURIComponent(p[0])] = decodeURIComponent(p[1]);
 							return prev;
@@ -179,11 +178,7 @@
 			var $el = $(this), data = $el.data('s2');
 			//console.log($el.attr('data-s2'));
 			var settings = {
-<<<<<<< HEAD
 				minimumInputLength: data.minimumInputLength,
-=======
-				minimumInputLength: 2,
->>>>>>> origin/master
 				placeholder: data.placeholder,
 				allowClear: data.allowclear ? data.allowclear : false,
 				escapeMarkup: function (markup) { return markup; }
