@@ -24,8 +24,8 @@ body.term-php .wf-metabox .wf-field-wrap {
 	padding: .5rem 0;
 }
 
-.wf-metabox .wf-field-desc-wrap,
-.wf-metabox .wf-field-desc-after-wrap {
+.wf-metabox .wf-field-input-desc,
+.wf-metabox .wf-field-label-desc {
 	line-height: 16px;
 	line-height: normal;
 }
@@ -88,8 +88,7 @@ body.term-php .wf-metabox .wf-field-wrap {
 @media screen and (min-width:779px) {
 
 	/* only applied on left side wide metaboxes */
-	#postbox-container-2 .wf-metabox .wf-field-label-wrap,
-	#postbox-container-2 .wf-metabox .wf-field-desc-wrap {
+	#postbox-container-2 .wf-metabox .wf-field-label-wrap {
 		width: 30%;
 		float: left;
 		clear: left;
@@ -101,8 +100,7 @@ body.term-php .wf-metabox .wf-field-wrap {
 		margin-left: 35%;
 	}
 
-	#postbox-container-2 .wf-metabox .wf-field-wrap_full .wf-field-label-wrap,
-	#postbox-container-2 .wf-metabox .wf-field-wrap_full .wf-field-desc-wrap {
+	#postbox-container-2 .wf-metabox .wf-field-wrap_full .wf-field-label-wrap {
 		width: auto;
 		float: none;
 		clear: none;
@@ -122,8 +120,7 @@ body.term-php .wf-metabox .wf-field-wrap {
 		padding-top: 0;
 	}
 
-	body.term-php .wf-metabox .wf-field-label-wrap,
-	body.term-php .wf-metabox .wf-field-desc-wrap {
+	body.term-php .wf-metabox .wf-field-label-wrap {
 		width: 200px;
 	}
 
@@ -142,7 +139,8 @@ body.term-php .wf-metabox .wf-field-wrap {
 		text-align: center;
 	}
 
-	.wf-metabox .wf-field-desc-wrap {
+	.wf-metabox .wf-field-input-desc,
+	.wf-metabox .wf-field-label-desc {
 		font-size: 12px;
 	}
 

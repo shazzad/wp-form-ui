@@ -2,10 +2,12 @@
 namespace Shazzad\WpFormUi\Field;
 
 class Hidden extends Field {
+
 	public function __construct( $data = [] ) {
 		$data['type'] = 'hidden';
 		parent::__construct( $data );
 	}
+
 	public function get_html( $form ) {
 		$data = $this->sanitize_data( $this->data );
 		extract( $data );
@@ -19,6 +21,3 @@ class Hidden extends Field {
 		return $html;
 	}
 }
-
-?>
-

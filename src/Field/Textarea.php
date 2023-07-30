@@ -6,9 +6,23 @@ class Textarea extends Field {
 		$data['type'] = 'textarea';
 		parent::__construct( $data );
 	}
+
+	public function sanitize_data( $data ) {
+		$data = parent::sanitize_data( $data );
+
+		foreach ( [ 'rows', 'cols' ] as $allowed_attr ) {
+			if ( isset( $data[ $allowed_attr ] ) ) {
+				$data['input_attrs'][ $allowed_attr ] = $data[ $allowed_attr ];
+			}
+		}
+
+		return $data;
+	}
+
 	public function get_html( $form ) {
-		$data = $this->sanitize_data( $this->data );
-		extract( $data );
+		$this->data = $this->sanitize_data( $this->data );
+
+		extract( $this->data );
 
 		$html = $before;
 
@@ -20,12 +34,7 @@ class Textarea extends Field {
 
 		// label
 		$html .= $label_wrap_before;
-		$html .= $this->form_field_label( $data );
-
-		// description
-		if ( ! empty( $desc ) ) {
-			$html .= sprintf( '<div class="%1$s">%2$s</div>', $this->form_pitc_class( 'wf-field-desc-wrap', $id, $type ), $desc );
-		}
+		$html .= $this->form_field_label( $this->data );
 
 		// input
 		$html .= $input_wrap_before;
@@ -36,20 +45,25 @@ class Textarea extends Field {
 		$html .= $input_before;
 		$html .= sprintf(
 			'<textarea id="%2$s" class="%1$s %5$s" name="%3$s"%6$s>%4$s</textarea>',
-			$this->form_pitc_class( 'wf-field', $id, $type ), $id, $name, $value, $input_class, $input_attr
+			$this->form_pitc_class( 'wf-field', $id, $type ), $id, $name, $value, $input_class, $this->getInputAttr()
 		);
 		$html .= $input_after;
+
+		if ( isset( $desc ) ) {
+			if ( ! empty( $desc ) ) {
+				$html .= sprintf(
+					'<div class="%1$s">%2$s</div>',
+					$this->form_pitc_class( 'wf-field-input-desc', $id, $type ),
+					$desc
+				);
+			}
+		}
+
 		if ( $input_wrap ) {
 			$html .= '</div>';
 		}
 
 		$html .= $field_after;
-
-		if ( isset( $desc_after ) ) {
-			if ( ! empty( $desc_after ) ) {
-				$html .= sprintf( '<div class="%1$s">%2$s</div>', $this->form_pitc_class( 'wf-field-desc-after-wrap', $id, $type ), $desc_after );
-			}
-		}
 
 		$html .= '</div>';
 

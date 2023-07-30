@@ -4,8 +4,11 @@ namespace Shazzad\WpFormUi\Field;
 abstract class Field implements \ArrayAccess {
 	public $data = [];
 
-	public function __construct( $data = [] ) {
+	protected $form = null;
+
+	public function __construct( $data = [], $form = null ) {
 		$this->data = $data;
+		$this->form = $form;
 	}
 
 	public function form_field_label( $data ) {
@@ -30,6 +33,16 @@ abstract class Field implements \ArrayAccess {
 			}
 
 			$html .= $label_after;
+
+			// label description.
+			if ( ! empty( $label_desc ) ) {
+				$html .= sprintf(
+					'<div class="%1$s">%2$s</div>',
+					$this->form_pitc_class( 'wf-field-label-desc', $id, $type ),
+					$label_desc
+				);
+			}
+
 			if ( $label_wrap ) {
 				$html .= '</div>';
 			}
@@ -86,6 +99,7 @@ abstract class Field implements \ArrayAccess {
 			'label_wrap_before' => '',
 			'label_before'      => '',
 			'label_after'       => '',
+			'label_desc'        => '',
 
 			'input_wrap'        => true,
 			'input_wrap_before' => '',
@@ -135,7 +149,6 @@ abstract class Field implements \ArrayAccess {
 				$data['choices_pre'] = $data['options_pre'];
 			}
 
-
 			if ( isset( $data['choices_pre'] ) && ! empty( $data['choices_pre'] ) && is_array( $data['choices_pre'] ) ) {
 				$_choices = $data['choices_pre'];
 				if ( ! empty( $data['choices'] ) ) {
@@ -158,27 +171,45 @@ abstract class Field implements \ArrayAccess {
 		return $data;
 	}
 
+	public function getInputAttr() {
+		$attr = '';
+
+		if ( ! empty( $this->data['input_attrs'] ) ) {
+			foreach ( $this->data['input_attrs'] as $an => $av ) {
+				$attr .= ' ' . $an . '="' . esc_attr( $av ) . '"';
+			}
+		}
+
+		return $attr;
+	}
+
 	public function render() {
 		echo $this->toHtml();
 	}
+
 	// usability
 	public function toHtml() {
+		return '';
 	}
+
 	public function toArray( $form ) {
 		return $this->data;
 	}
+
 	public function toJson( $form ) {
 		return json_encode( $this->data );
 	}
+
 	// no magic
 	public function __sleep() {
 		return array_keys( $this->data );
 	}
+
 	public function __wakeup() {
 	}
+
 	public function __toString() {
-		echo 'field ' . $this->data['type'];
-		return '';
+		return $this->toHtml();
 	}
 	public function &__get( $key ) {
 		return $this->data[ $key ];

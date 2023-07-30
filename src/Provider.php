@@ -8,6 +8,9 @@ class Provider {
 
 	protected static $base_url;
 
+	/**
+	 * Initialize the library, add hooks and filters
+	 */
 	public static function setup( $base_url = '' ) {
 		if ( ! self::$initialized ) {
 			self::$initialized = true;
@@ -16,20 +19,25 @@ class Provider {
 				$base_url = plugin_dir_url( dirname( __FILE__ ) );
 			}
 
-			self::$base_url = $base_url;
+			self::$base_url = trim( $base_url, '/' ) . '/';
 
-			add_action( 'wp_enqueue_scripts', [ get_class(), 'registerScripts' ] );
-			add_action( 'admin_enqueue_scripts', [ get_class(), 'enqueueScripts' ] );
+			add_action( 'wp_enqueue_scripts', [ __CLASS__, 'registerScripts' ] );
+			add_action( 'admin_enqueue_scripts', [ __CLASS__, 'registerScripts' ] );
 			// add_action( 'rest_api_init', [ get_class(), 'register_apis' ] );
 		}
 	}
 
+	/**
+	 * Register scripts and styles
+	 * 
+	 * @return void
+	 */
 	public static function registerScripts() {
 		foreach ( Assets::$assets as $asset ) {
 			if ( 'js' == $asset['type'] ) {
 				wp_register_script(
 					$asset['id'],
-					self::$base_url . '/dist/' . $asset['type'] . '/' . $asset['path'],
+					self::$base_url . 'dist/' . $asset['type'] . '/' . $asset['path'],
 					$asset['dependencies'],
 					$asset['version'],
 					false
@@ -37,7 +45,7 @@ class Provider {
 			} elseif ( 'css' == $asset['type'] ) {
 				wp_register_style(
 					$asset['id'],
-					self::$base_url . '/dist/' . $asset['type'] . '/' . $asset['path'],
+					self::$base_url . 'dist/' . $asset['type'] . '/' . $asset['path'],
 					$asset['dependencies'],
 					$asset['version']
 				);

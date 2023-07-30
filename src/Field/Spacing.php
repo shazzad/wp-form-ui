@@ -22,11 +22,6 @@ class Spacing extends Field {
 		$html .= $label_wrap_before;
 		$html .= $this->form_field_label( $data );
 
-		// description
-		if ( ! empty( $desc ) ) {
-			$html .= sprintf( '<div class="%1$s">%2$s</div>', $this->form_pitc_class( 'wf-field-desc-wrap', $id, $type ), $desc );
-		}
-
 		// input
 		$html .= $input_wrap_before;
 		if ( $input_wrap ) {
@@ -93,17 +88,22 @@ class Spacing extends Field {
 		$html .= '</tbody></table>';
 
 		$html .= $input_after;
+
+		if ( isset( $desc ) ) {
+			if ( ! empty( $desc ) ) {
+				$html .= sprintf(
+					'<div class="%1$s">%2$s</div>',
+					$this->form_pitc_class( 'wf-field-input-desc', $id, $type ),
+					$desc
+				);
+			}
+		}
+
 		if ( $input_wrap ) {
 			$html .= '</div>';
 		}
 
 		$html .= $field_after;
-
-		if ( isset( $desc_after ) ) {
-			if ( ! empty( $desc_after ) ) {
-				$html .= sprintf( '<div class="%1$s">%2$s</div>', $this->form_pitc_class( 'wf-field-desc-after-wrap', $id, $type ), $desc_after );
-			}
-		}
 
 		if ( $field_wrap ) {
 			$html .= '</div>';
