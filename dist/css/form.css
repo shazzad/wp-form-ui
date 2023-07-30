@@ -1,7 +1,3 @@
-/**
- * Form CSS
-**/
-
 /* Global */
 .wf_hidden,
 .wf-hidden {
@@ -38,7 +34,6 @@
 .wf_w60 {
 	width: 60px;
 }
-
 
 /* Fields */
 .wf .wf-field {
@@ -116,7 +111,7 @@
 	padding-left: 30px !important;
 	background-position: 10px center;
 	background-repeat: no-repeat !important;
-	background-image: url(Image/calendar.gif) !important;
+	background-image: url(../img/calendar.gif) !important;
 }
 
 /* Field Required */
@@ -127,7 +122,7 @@
 
 .wf-field-type-select.ld,
 .wf-field-wrap-type-checkbox.ld {
-	background-image: url(Image/spinner.gif) !important;
+	background-image: url(../img/spinner.gif) !important;
 	background-repeat: no-repeat !important;
 	background-position: center center !important;
 }
@@ -221,7 +216,6 @@ span.button.ld:disabled {
 	transition-property: none;
 }
 
-
 /* Rounder Files & Button */
 .wf-field-type-text,
 .wf-field-type-email,
@@ -242,7 +236,7 @@ div.wf_notes._note {
 	margin: 0 0 0 10px !important;
 }
 
-div.wf_notes._note>p {
+div.wf_notes._note > p {
 	margin: 0 !important;
 }
 
@@ -275,7 +269,7 @@ div.wf_notes._note>p {
 	padding: 1px 10px;
 }
 
-@media screen and (min-width:779px) {
+@media screen and (min-width: 779px) {
 	.wf-default .wf-field-wrap {
 		padding-right: 10%;
 	}
@@ -328,7 +322,7 @@ div.wf_notes._note>p {
 	padding: .75rem 1.75rem;
 }
 
-.wf-basic .wf-field-wrap+.wf_field_group_title {
+.wf-basic .wf-field-wrap + .wf_field_group_title {
 	margin-top: 30px;
 }
 
@@ -374,8 +368,7 @@ div.wf_notes._note>p {
 	color: #999 !important;
 }
 
-@media screen and (min-width:779px) {
-
+@media screen and (min-width: 779px) {
 	.wf-basic .wf-field-label-wrap:not(.wf-field-label-wrap-type-section),
 	.wf-basic .wf-field-desc-wrap:not(.wf-field-desc-wrap-type-section) {
 		width: 30%;
@@ -383,36 +376,29 @@ div.wf_notes._note>p {
 		clear: left;
 		line-height: normal;
 	}
-
 	.wf-basic .wf-field-desc-wrap {
 		font-size: 12px;
 	}
-
 	.wf-basic .wf-field-input-wrap:not(.wf-field-input-wrap-type-section),
 	.wf-basic .wf-field-desc-after-wrap:not(.wf-field-desc-wrap-type-section) {
 		margin-left: 35%;
 	}
-
 	.wf-basic .wf-field-wrap-type-submit {
 		padding-left: 36%;
 	}
-
 	.wf-basic .wf-form-title {
 		padding-top: 20px;
 	}
-
 	.wf-field-wrap_full .wf-field-label-wrap,
 	.wf-field-wrap_full .wf-field-desc-wrap {
 		width: auto;
 		float: none;
 		clear: none;
 	}
-
 	.wf-field-wrap_full .wf-field-input-wrap {
 		margin-left: 0;
 	}
 }
-
 
 /* Metabox Form */
 .wf-metabox .wf-field-wrap {
@@ -453,7 +439,7 @@ body.term-php .wf-metabox .wf-field-wrap {
 	padding: .75rem 1.75rem;
 }
 
-.wf-metabox .wf-field-wrap+.wf_field_group_title {
+.wf-metabox .wf-field-wrap + .wf_field_group_title {
 	margin-top: 30px;
 }
 
@@ -501,8 +487,7 @@ body.term-php .wf-metabox .wf-field-wrap {
 	color: #999 !important;
 }
 
-@media screen and (min-width:779px) {
-
+@media screen and (min-width: 779px) {
 	/* only applied on left side wide metaboxes */
 	#postbox-container-2 .wf-metabox .wf-field-label-wrap,
 	#postbox-container-2 .wf-metabox .wf-field-desc-wrap {
@@ -511,66 +496,52 @@ body.term-php .wf-metabox .wf-field-wrap {
 		clear: left;
 		line-height: normal;
 	}
-
 	#postbox-container-2 .wf-metabox .wf-field-input-wrap,
 	#postbox-container-2 .wf-metabox .wf-field-desc-after-wrap {
 		margin-left: 35%;
 	}
-
 	#postbox-container-2 .wf-metabox .wf-field-wrap_full .wf-field-label-wrap,
 	#postbox-container-2 .wf-metabox .wf-field-wrap_full .wf-field-desc-wrap {
 		width: auto;
 		float: none;
 		clear: none;
 	}
-
 	#postbox-container-2 .wf-metabox .wf-field-wrap_full .wf-field-input-wrap {
 		margin-left: 0;
 	}
-
-
 	#side-sortables .wf-metabox .wf-field-wrap {
 		padding-left: 0;
 		padding-right: 0;
 	}
-
 	#side-sortables .wf-metabox .wf-field-label-wrap {
 		padding-top: 0;
 	}
-
 	body.term-php .wf-metabox .wf-field-label-wrap,
 	body.term-php .wf-metabox .wf-field-desc-wrap {
 		width: 200px;
 	}
-
 	body.term-php .wf-metabox .wf-field-label {
 		color: #23282d;
 		font-weight: 600;
 	}
-
 	body.term-php .wf-metabox .wf-field-input-wrap,
 	body.term-php .wf-metabox .wf-field-desc-after-wrap {
 		margin-left: 220px;
 	}
-
 	body.term-php .wf-metabox .wf_col {
 		padding: 0;
 		text-align: center;
 	}
-
 	.wf-metabox .wf-field-desc-wrap {
 		font-size: 12px;
 	}
-
 	.wf-metabox .wf-field-wrap-type-submit {
 		padding-left: 36%;
 	}
-
 	.wf-metabox .wf-form-title {
 		padding-top: 20px;
 	}
 }
-
 
 /* Inline Form */
 .wf-inline .wf-field-wrap,
@@ -583,17 +554,15 @@ body.term-php .wf-metabox .wf-field-wrap {
 	padding-left: 10px;
 }
 
-@media screen and (max-width:780px) {
+@media screen and (max-width: 780px) {
 	.wf-field {
 		width: 100%;
 	}
-
 	.wf-field-label-wrap,
 	.wf-field-desc-wrap {
 		float: none;
 		width: auto;
 	}
-
 	.wf-field-wrap,
 	.wf-field-wrap-type-submit {
 		margin-left: 0;

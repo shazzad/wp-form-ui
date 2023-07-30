@@ -1,0 +1,156 @@
+/* Metabox Form */
+.wf-metabox .wf-field-wrap {
+	width: auto;
+	padding: .5rem;
+	overflow: hidden;
+	transition: background 0.5s ease;
+	border-bottom: 1px solid #eee;
+}
+
+body.term-php .wf-metabox .wf-field-wrap {
+	padding-left: 0;
+	padding-right: 0;
+}
+
+.wf-metabox .wf-field-wrap:last-child {
+	border-bottom: 0;
+}
+
+.wf-metabox .wf-field-wrap-type-submit {
+	border-bottom: 1px solid transparent;
+}
+
+.wf-metabox .wf-field-label-wrap {
+	padding: .5rem 0;
+}
+
+.wf-metabox .wf-field-desc-wrap,
+.wf-metabox .wf-field-desc-after-wrap {
+	line-height: 16px;
+	line-height: normal;
+}
+
+.wf-metabox .wf-form-title,
+.wf-metabox .wf_field_group_title {
+	font-size: 1.4rem;
+	line-height: normal;
+	padding: .75rem 1.75rem;
+}
+
+.wf-metabox .wf-field-wrap+.wf_field_group_title {
+	margin-top: 30px;
+}
+
+.wf-metabox .wf-field-type-text,
+.wf-metabox .wf-field-type-email,
+.wf-metabox .wf-field-type-number,
+.wf-metabox .wf-field-type-url,
+.wf-metabox .wf-field-type-password,
+.wf-metabox .wf-field-type-datetime,
+.wf-metabox .wf-field-type-textarea,
+.wf-metabox .wf-field-type-select {
+	box-shadow: none;
+	border: 1px solid #ddd;
+	padding: .25rem .5rem !important;
+}
+
+.wf-metabox .wf-field-type-text.date_input {
+	padding-left: 30px !important;
+}
+
+.wf-metabox .wf-field-type-select {
+	padding: .16rem .5rem !important;
+}
+
+.wf-metabox .wf-field-wrap-type-submit-bottom {
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+}
+
+.wf-metabox .wf-field-type-datetime {
+	padding-left: 2.25rem !important;
+	background-position: .75rem .95rem;
+}
+
+.wf-metabox .wf-field-wrap-type-submit input {
+	padding: .5rem 1rem .5rem 1rem;
+}
+
+.wf-metabox .wf-field-wrap.disabled {
+	color: #999 !important;
+	background-color: #f9f9f9;
+}
+
+.wf-metabox .wf-field-wrap.disabled input {
+	color: #999 !important;
+}
+
+@media screen and (min-width:779px) {
+
+	/* only applied on left side wide metaboxes */
+	#postbox-container-2 .wf-metabox .wf-field-label-wrap,
+	#postbox-container-2 .wf-metabox .wf-field-desc-wrap {
+		width: 30%;
+		float: left;
+		clear: left;
+		line-height: normal;
+	}
+
+	#postbox-container-2 .wf-metabox .wf-field-input-wrap,
+	#postbox-container-2 .wf-metabox .wf-field-desc-after-wrap {
+		margin-left: 35%;
+	}
+
+	#postbox-container-2 .wf-metabox .wf-field-wrap_full .wf-field-label-wrap,
+	#postbox-container-2 .wf-metabox .wf-field-wrap_full .wf-field-desc-wrap {
+		width: auto;
+		float: none;
+		clear: none;
+	}
+
+	#postbox-container-2 .wf-metabox .wf-field-wrap_full .wf-field-input-wrap {
+		margin-left: 0;
+	}
+
+
+	#side-sortables .wf-metabox .wf-field-wrap {
+		padding-left: 0;
+		padding-right: 0;
+	}
+
+	#side-sortables .wf-metabox .wf-field-label-wrap {
+		padding-top: 0;
+	}
+
+	body.term-php .wf-metabox .wf-field-label-wrap,
+	body.term-php .wf-metabox .wf-field-desc-wrap {
+		width: 200px;
+	}
+
+	body.term-php .wf-metabox .wf-field-label {
+		color: #23282d;
+		font-weight: 600;
+	}
+
+	body.term-php .wf-metabox .wf-field-input-wrap,
+	body.term-php .wf-metabox .wf-field-desc-after-wrap {
+		margin-left: 220px;
+	}
+
+	body.term-php .wf-metabox .wf_col {
+		padding: 0;
+		text-align: center;
+	}
+
+	.wf-metabox .wf-field-desc-wrap {
+		font-size: 12px;
+	}
+
+	.wf-metabox .wf-field-wrap-type-submit {
+		padding-left: 36%;
+	}
+
+	.wf-metabox .wf-form-title {
+		padding-top: 20px;
+	}
+}

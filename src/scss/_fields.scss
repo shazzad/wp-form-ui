@@ -1,0 +1,108 @@
+/* Sizing */
+.wf_w30 {
+	width: 30px;
+}
+
+.wf_w50 {
+	width: 50px;
+}
+
+.wf_w60 {
+	width: 60px;
+}
+
+/* Fields */
+.wf .wf-field {
+	width: 99%;
+	box-sizing: border-box;
+}
+
+.wf .wf-field-type-number,
+.wf .wf-field-type-select {
+	height: auto !important;
+	line-height: normal !important;
+}
+
+.wf-field-wrap-type-html_input label {
+	display: inline;
+}
+
+.wf-field-wrap-type-radio,
+.wf-field-wrap-type-checkbox,
+.wf-field-wrap-type-checkboxes {
+	padding: .5rem 0;
+}
+
+.wf-field-wrap-type-checkbox label,
+.wf-field-wrap-type-checkboxes label {
+	display: block;
+	margin-bottom: .25rem;
+}
+
+.wf-field-wrap-type-checkbox input,
+.wf-field-wrap-type-checkboxes input {
+	margin-bottom: 0;
+}
+
+.wf-field-type-radio,
+.wf-field-type-checkbox,
+.wf-field-type-checkboxes {
+	width: auto;
+	border: none;
+	display: inline-block;
+}
+
+.wf-field-wrap-type-radio label {
+	margin-right: 5px;
+	margin-bottom: 2px;
+}
+
+.wf-field-wrap-type-radio label.inline {
+	display: inline;
+}
+
+/* Field - Repeater */
+.wf-field-wrap-type-repeater .wf_repetable,
+.wf-field-wrap-type-repeater .wf_repeater {
+	width: 100%;
+}
+
+.wf-field-wrap-type-repeater .wf-field {
+	width: 100%;
+}
+
+.wf-field-wrap-type-repeater .wf_repeater,
+.wf-field-wrap-type-repeater2 .wf_repeater {
+	display: none;
+}
+
+.wf_repetable th,
+.wf_repetable td {
+	padding: 5px;
+	text-align: left;
+}
+
+/* Field Datetime */
+.date_input {
+	padding-left: 30px !important;
+	background-position: 10px center;
+	background-repeat: no-repeat !important;
+	background-image: url(../img/calendar.gif) !important;
+}
+
+/* Field Required */
+.wf-fieldl .req {
+	color: red;
+	padding-left: 3px;
+}
+
+.wf-field-type-select.ld,
+.wf-field-wrap-type-checkbox.ld {
+	background-image: url(../img/spinner.gif) !important;
+	background-repeat: no-repeat !important;
+	background-position: center center !important;
+}
+
+.wf-field-wrap-type-checkbox.ld {
+	background-color: #ddd !important;
+}

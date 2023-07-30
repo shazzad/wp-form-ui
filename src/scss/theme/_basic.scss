@@ -1,0 +1,131 @@
+/* Basic Form */
+.wf-basic .wf-field-wrap:not(.wf-field-wrap-type-section) {
+	width: auto;
+	padding: 2rem;
+	overflow: hidden;
+	transition: background 0.5s ease;
+	border-bottom: 1px solid #eee;
+}
+
+.wf-basic .wf-field-wrap-type-submit {
+	border-bottom: 1px solid transparent;
+}
+
+/*
+.wf-basic .wf-field-wrap:hover{
+	background-color:#f9f9f9;
+}*/
+.wf-basic .wf-field-label-wrap {
+	padding: .5rem 0;
+}
+
+.wf-basic .wf-field-label-wrap-type-section {
+	padding: 1.5rem;
+}
+
+.wf-basic {
+	font-size: 1rem;
+}
+
+.wf-basic .wf-field-label-type-section {
+	font-size: 1.2rem;
+	font-weight: bold;
+}
+
+.wf-basic .wf-field-desc-wrap,
+.wf-basic .wf-field-desc-after-wrap {
+	line-height: 16px;
+	line-height: normal;
+}
+
+.wf-basic .wf-form-title,
+.wf-basic .wf_field_group_title {
+	font-size: 1.4rem;
+	line-height: normal;
+	padding: .75rem 1.75rem;
+}
+
+.wf-basic .wf-field-wrap+.wf_field_group_title {
+	margin-top: 30px;
+}
+
+.wf-basic .wf-field-type-text,
+.wf-basic .wf-field-type-email,
+.wf-basic .wf-field-type-number,
+.wf-basic .wf-field-type-url,
+.wf-basic .wf-field-type-password,
+.wf-basic .wf-field-type-datetime,
+.wf-basic .wf-field-type-textarea,
+.wf-basic .wf-field-type-select {
+	font-size: 1rem;
+	box-shadow: none;
+	border: 1px solid #ddd;
+	padding: .5rem .75rem !important;
+}
+
+.wf-basic .wf-field-type-select {
+	margin-top: -4px;
+	padding: .46rem .75rem !important;
+}
+
+.wf-basic .wf-field-wrap-type-submit-bottom {
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+}
+
+.wf-basic .wf-field-type-datetime {
+	padding-left: 2.25rem !important;
+	background-position: .75rem .95rem;
+}
+
+.wf-basic .wf-field-wrap-type-submit input {
+	padding: .5rem 1rem .5rem 1rem;
+}
+
+.wf-basic .wf-field-wrap.disabled {
+	color: #999 !important;
+	background-color: #f9f9f9;
+}
+
+.wf-basic .wf-field-wrap.disabled input {
+	color: #999 !important;
+}
+
+@media screen and (min-width:779px) {
+
+	.wf-basic .wf-field-label-wrap:not(.wf-field-label-wrap-type-section),
+	.wf-basic .wf-field-desc-wrap:not(.wf-field-desc-wrap-type-section) {
+		width: 30%;
+		float: left;
+		clear: left;
+		line-height: normal;
+	}
+
+	.wf-basic .wf-field-desc-wrap {
+		font-size: 12px;
+	}
+
+	.wf-basic .wf-field-input-wrap:not(.wf-field-input-wrap-type-section),
+	.wf-basic .wf-field-desc-after-wrap:not(.wf-field-desc-wrap-type-section) {
+		margin-left: 35%;
+	}
+
+	.wf-basic .wf-field-wrap-type-submit {
+		padding-left: 36%;
+	}
+
+	.wf-basic .wf-form-title {
+		padding-top: 20px;
+	}
+
+	.wf-field-wrap_full .wf-field-label-wrap,
+	.wf-field-wrap_full .wf-field-desc-wrap {
+		width: auto;
+		float: none;
+		clear: none;
+	}
+
+	.wf-field-wrap_full .wf-field-input-wrap {
+		margin-left: 0;
+	}
+}
