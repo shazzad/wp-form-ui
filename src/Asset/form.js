@@ -127,10 +127,16 @@
 
 				$.post(ajaxurl, data)
 					.done(function (r) {
+						const status = r.success ? 'ok' : 'error';
+
 						if ('0' === r) {
 							$notes.html('Invalid form response.').addClass('_error');
-						} else {
-							$notes.html(r.html).addClass('_' + r.status);
+						} else if (r.html) {
+							$notes.html(r.html).addClass('_' + status);
+						} else if (r.message) {
+							$notes.html(r.message).addClass('_' + status);
+						} else if (typeof ($form.data('success_text')) !== undefined) {
+							$notes.html($form.data('success_text')).addClass('_' + status);
 						}
 
 						if (action) {

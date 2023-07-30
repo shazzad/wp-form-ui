@@ -37,6 +37,7 @@ abstract class Field implements \ArrayAccess {
 
 		return $html;
 	}
+
 	public function form_pitc_class( $pref = '', $id = '', $type = '', $class = '' ) {
 		$return = "{$pref}";
 		if ( ! empty( $id ) ) {
@@ -50,6 +51,7 @@ abstract class Field implements \ArrayAccess {
 		}
 		return trim( esc_attr( $return ) );
 	}
+
 	public function form_field_id( $raw_id = '' ) {
 		$sanitized = preg_replace( '|%[a-fA-F0-9][a-fA-F0-9]|', '', $raw_id );
 		$sanitized = preg_replace( '/[^A-Za-z0-9_-]/', '_', $sanitized );
@@ -57,6 +59,7 @@ abstract class Field implements \ArrayAccess {
 		$sanitized = trim( $sanitized, '_' );
 		return $sanitized;
 	}
+
 	public function sanitize_data( $data ) {
 		$defaults = [ 
 			'type'              => 'html',
@@ -124,7 +127,15 @@ abstract class Field implements \ArrayAccess {
 		}
 
 		// simply include a pre option for choices fields.
-		if ( in_array( $data['type'], array( 'select', 'select_multi', 'select2', 'checkbox', 'radio' ) ) ) {
+		if ( in_array( $data['type'], array( 'select', 'select_multi', 'select2', 'checkboxes', 'radio' ) ) ) {
+			if ( isset( $data['options'] ) ) {
+				$data['choices'] = $data['options'];
+			}
+			if ( isset( $data['options_pre'] ) ) {
+				$data['choices_pre'] = $data['options_pre'];
+			}
+
+
 			if ( isset( $data['choices_pre'] ) && ! empty( $data['choices_pre'] ) && is_array( $data['choices_pre'] ) ) {
 				$_choices = $data['choices_pre'];
 				if ( ! empty( $data['choices'] ) ) {

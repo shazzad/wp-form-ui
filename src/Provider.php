@@ -1,23 +1,26 @@
 <?php
 namespace Shazzad\WpFormUi;
 
-class Api {
+use Shazzad\WpFormUi\Assets;
+
+class Provider {
 	protected static $initialized = false;
+
 	protected static $base_url;
 
-	public static function init( $base_url = '' ) {
+	public static function setup( $base_url = '' ) {
 		if ( ! self::$initialized ) {
 			self::$initialized = true;
 			self::$base_url    = $base_url;
 
 			add_action( 'wp_enqueue_scripts', [ get_class(), 'register_form_scripts' ] );
 			add_action( 'admin_enqueue_scripts', [ get_class(), 'register_form_scripts' ] );
-			add_action( 'rest_api_init', [ get_class(), 'register_apis' ] );
+			// add_action( 'rest_api_init', [ get_class(), 'register_apis' ] );
 		}
 	}
 
 	public static function register_form_scripts() {
-		foreach ( \Shazzad\WpFormUi\Assets::$assets as $asset ) {
+		foreach ( Assets::$assets as $asset ) {
 			if ( 'js' == $asset['type'] ) {
 				wp_register_script(
 					$asset['id'],
@@ -38,15 +41,12 @@ class Api {
 	}
 
 	public static function enqueue_form_scripts() {
-		wp_enqueue_style( [ 'wf_form' ] );
-		wp_enqueue_script( [ 'wf_form' ] );
+		wp_enqueue_style( 'wf_form' );
+		wp_enqueue_script( 'wf_form' );
 	}
 
-	public static function register_apis() {
-		$users = new Api\Users();
-		$users->register_routes();
-	}
+	// public static function register_apis() {
+	// 	$users = new Api\Users();
+	// 	$users->register_routes();
+	// }
 }
-
-?>
-
