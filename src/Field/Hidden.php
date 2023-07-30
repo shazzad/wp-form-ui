@@ -1,22 +1,19 @@
 <?php
-namespace W4dev\Wpform\Field;
+namespace Shazzad\WpFormUi\Field;
 
-class Hidden extends Field
-{
-	public function __construct($data = [])
-    {
+class Hidden extends Field {
+	public function __construct( $data = [] ) {
 		$data['type'] = 'hidden';
-		parent::__construct($data);
+		parent::__construct( $data );
 	}
-	public function get_html($form)
-    {
-		$data = $this->sanitize_data($this->data);
-		extract($data);
+	public function get_html( $form ) {
+		$data = $this->sanitize_data( $this->data );
+		extract( $data );
 
 		$html = $before;
 		$html .= sprintf(
-			'<input class="%1$s %5$s" id="%2$s" name="%3$s" value="%4$s" type="%7$s"%6$s />', 
-			$this->form_pitc_class('wf-field', $id, $type), $id, $name, $value, $input_class, $input_attr, $type
+			'<input class="%1$s %5$s" id="%2$s" name="%3$s" value="%4$s" type="%7$s"%6$s />',
+			$this->form_pitc_class( 'wf-field', $id, $type ), $id, $name, $value, $input_class, $input_attr, $type
 		);
 
 		return $html;
@@ -24,3 +21,4 @@ class Hidden extends Field
 }
 
 ?>
+
