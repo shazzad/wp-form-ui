@@ -1,0 +1,24 @@
+/* Global */
+.wf_hidden,
+.wf-hidden {
+	display: none;
+}
+
+.wf-field,
+.wf-field-wrap {
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.wf-field-wrap .wf-image-preview {
+	width: auto;
+	max-width: 100%;
+}
+
+.wf-field-input-desc,
+.wf-field-label-desc {
+	color: #999;
+	font-size: 14px;
+	line-height: normal;
+}

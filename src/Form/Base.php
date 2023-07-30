@@ -21,22 +21,36 @@ abstract class Base implements \ArrayAccess {
 			$this->add_fields( $data['fields'] );
 		}
 	}
+
+	/**
+	 * Set form settings
+	 * 
+	 * @param array $settings
+	 */
 	public function set_settings( $settings = array() ) {
 		$this->settings = $settings;
+
+		return $this;
 	}
+
 	public function set_values( $values = array() ) {
 		$this->values = $values;
+
+		return $this;
 	}
 
 	public function add_fields( $fields ) {
 		foreach ( $fields as $field ) {
 			$this->add_field( $field );
 		}
+
+		return $this;
 	}
 
 	public function set_setting( $key, $val = null ) {
 		$this->settings[ $key ] = $val;
 	}
+
 	public function set_value( $key, $val = null ) {
 		$this->values[ $key ] = $val;
 	}
@@ -49,9 +63,11 @@ abstract class Base implements \ArrayAccess {
 		if ( ! isset( $data['type'] ) ) {
 			$data['type'] = 'html';
 		}
+
 		if ( ! isset( $data['priority'] ) ) {
 			$data['priority'] = 10;
 		}
+
 		$class_name = '\\Shazzad\WpFormUi\\Field\\' . str_replace( ' ', '_', ucwords( str_replace( '_', ' ', $data['type'] ) ) );
 		if ( ! class_exists( $class_name ) ) {
 			$class_name = '\\Shazzad\WpFormUi\\Field\\Html';
@@ -59,6 +75,7 @@ abstract class Base implements \ArrayAccess {
 
 		return new $class_name( $data, $this );
 	}
+
 	public function render() {
 		if ( ! $this->rendered ) {
 			$this->handle_fields_conditional_logics();
@@ -67,12 +84,20 @@ abstract class Base implements \ArrayAccess {
 		}
 
 		echo $this->toHtml();
-		echo $this->formJs();
+
+		// @todo Fix conditional logic.
+		// echo $this->formJs();
 	}
 
 	public function formJs() {
 		?>
-		<script type="application/javascript">		if (!window['wf_form_conditional_logic']) { window['wf_form_conditional_logic'] = {}; } window['wf_form_conditional_logic']["<?php echo $this->settings['id']; ?>"] = <?php echo json_encode( $this->conditional_fields ); ?>;
+		<script type="application/javascript">
+			if (!window['wf_form_conditional_logic']) {
+				window['wf_form_conditional_logic'] = {};
+			}
+
+
+			window['wf_form_conditional_logic']["<?php echo $this->settings['id']; ?>"] = <?php echo json_encode( $this->conditional_fields ); ?>;
 		</script>
 		<?php
 	}
@@ -133,7 +158,6 @@ abstract class Base implements \ArrayAccess {
 		return ( $a['priority'] < $b['priority'] ) ? -1 : 1;
 	}
 
-	// usability
 	public function toHtml() {
 		return '';
 	}

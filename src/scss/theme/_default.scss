@@ -1,0 +1,25 @@
+/* Default Form */
+.wf-default .wf-field-wrap {
+	margin-bottom: 10px;
+	padding-right: 10%;
+}
+
+.wf-default .wf-field_image_btn,
+.wf-default .wf-field_image_remove_btn {
+	height: auto;
+	font-size: 12px;
+	padding: 3px 8px;
+	line-height: normal;
+}
+
+.wf-default .wf-field-wrap-type-submit input {
+	font-size: 13px;
+	line-height: 26px;
+	padding: 1px 10px;
+}
+
+@media screen and (min-width:779px) {
+	.wf-default .wf-field-wrap {
+		padding-right: 10%;
+	}
+}

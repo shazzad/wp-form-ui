@@ -1,0 +1,98 @@
+/* Button */
+.wf-field-wrap-type-submit input {
+	color: #fff;
+	padding: 0 10px 4px;
+	display: inline-block;
+	border: 1px solid #006799;
+	background-color: #0085ba;
+}
+
+.wf-field-wrap-type-submit input:hover {
+	cursor: pointer;
+	background-color: #006799;
+}
+
+.wf-field-wrap-type-submit .form_button {
+	transition: background 0.8s ease;
+	background-position: 0px;
+}
+
+.wf-field-wrap-type-submit .form_button.ld,
+.wf-field-wrap-type-submit .form_button.ld[disabled],
+.wf-field-wrap-type-submit .form_button.ld:disabled {
+	cursor: wait;
+	box-shadow: none !important;
+	background-color: #73787b !important;
+	background-image: url(Image/spinner.gif) !important;
+	background-repeat: no-repeat !important;
+	background-position: 90px;
+}
+
+a.wf_ajax_btn.ld {
+	text-shadow: none !important;
+	box-shadow: none !important;
+	outline: none !important;
+	background-color: #f7f7f7 !important;
+	background-image: url(Image/loading.gif) !important;
+	background-repeat: no-repeat !important;
+	background-position: center !important;
+	transition-property: none;
+}
+
+.page-title-action.wf_ajax_btn.ld {
+	color: #00a0d2;
+	outline: none !important;
+	background-color: #00a0d2 !important;
+	background-image: url(Image/spinner.gif) !important;
+	background-repeat: no-repeat !important;
+	background-position: center !important;
+	transition-property: none;
+}
+
+a.button.ld,
+a.button.ld:hover,
+a.button.ld:focus,
+a.button.ld:active,
+a.button.ld[disabled],
+button.button.ld:disabled,
+button.button.ld,
+button.button.ld:hover,
+button.button.ld:focus,
+button.button.ld:active,
+button.button.ld[disabled],
+button.button.ld:disabled,
+span.button.ld:disabled,
+span.button.ld,
+span.button.ld:hover,
+span.button.ld:focus,
+span.button.ld:active,
+span.button.ld[disabled],
+span.button.ld:disabled {
+	text-shadow: none !important;
+	color: #f7f7f7 !important;
+	box-shadow: none !important;
+	background-color: #f7f7f7 !important;
+	background-image: url(Image/loading.gif) !important;
+	background-repeat: no-repeat !important;
+	background-position: center !important;
+	-moz-user-select: none;
+	-khtml-user-select: none;
+	-webkit-user-select: none;
+	-o-user-select: none;
+	user-select: none;
+	transition-property: none;
+}
+
+
+/* Rounder Files & Button */
+.wf-field-type-text,
+.wf-field-type-email,
+.wf-field-type-number,
+.wf-field-type-password,
+.wf-field-type-url,
+.wf-field-type-datetime,
+.wf-field-type-textarea,
+.wf-field-type-select,
+.wf-field-wrap-type-submit input {
+	border-radius: 3px;
+}

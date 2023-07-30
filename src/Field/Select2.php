@@ -48,7 +48,7 @@ class Select2 extends Field {
 		}
 		$data['input_attrs']['data-s2'] = json_encode( $select2 );
 
-		$data = $this->sanitize_data( $data );
+		$data = $this->parseData( $data );
 
 		##echo '<pre>';
 		#print_r($data);
@@ -59,33 +59,37 @@ class Select2 extends Field {
 		$html = $before;
 
 		if ( $field_wrap ) {
-			$html .= sprintf( '<div class="%1$s"%2$s>', $this->form_pitc_class( 'wf-field-wrap', $id, $type, $class ), $attr );
+			$html .= sprintf(
+				'<div class="%1$s"%2$s>',
+				$this->createElementClass( 'wf-field-wrap', $id, $type, $class ),
+				$this->getAttr()
+			);
 		}
 
 		$html .= $field_before;
 
 		// label
 		$html .= $label_wrap_before;
-		$html .= $this->form_field_label( $data );
-
-		// description
-		if ( ! empty( $desc ) ) {
-			$html .= sprintf( '<div class="%1$s">%2$s</div>', $this->form_pitc_class( 'wf-field-desc-wrap', $id, $type ), $desc );
-		}
+		$html .= $this->labelHtml( $data );
 
 		// input
 		$html .= $input_wrap_before;
 		if ( $input_wrap ) {
-			$html .= sprintf( '<div class="%1$s %2$s"%3$s>', $this->form_pitc_class( 'wf-field-input-wrap', $id, $type ), $input_wrap_class, $input_wrap_attr );
+			$html .= sprintf(
+				'<div class="%1$s %2$s"%3$s>',
+				$this->createElementClass( 'wf-field-input-wrap', $id, $type ),
+				$input_wrap_class,
+				$input_wrap_attr
+			);
 		}
 
 		$html .= $input_before;
 		$html .= sprintf(
 			'<select class="%1$s %5$s" id="%2$s" name="%3$s"%4$s>',
-			$this->form_pitc_class( 'wf-field', $id, $type ),
+			$this->createElementClass( 'wf-field', $id, $type ),
 			$id,
 			$name,
-			$input_attr,
+			$this->getInputAttr(),
 			$input_class
 		);
 
@@ -137,21 +141,22 @@ class Select2 extends Field {
 
 		$html .= '</select>';
 		$html .= $input_after;
+
+		if ( isset( $desc ) ) {
+			if ( ! empty( $desc ) ) {
+				$html .= sprintf(
+					'<div class="%1$s">%2$s</div>',
+					$this->createElementClass( 'wf-field-input-desc', $id, $type ),
+					$desc
+				);
+			}
+		}
+
 		if ( $input_wrap ) {
 			$html .= '</div>';
 		}
 
 		$html .= $field_after;
-
-		if ( isset( $desc_after ) ) {
-			if ( ! empty( $desc_after ) ) {
-				$html .= sprintf(
-					'<div class="%1$s">%2$s</div>',
-					$this->form_pitc_class( 'wf-field-desc-after-wrap', $id, $type ),
-					$desc_after
-				);
-			}
-		}
 
 		if ( $field_wrap ) {
 			$html .= '</div>';

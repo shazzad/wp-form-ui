@@ -1,0 +1,26 @@
+/* Inline Form */
+.wf-inline .wf-field-wrap,
+.wf-inline .wf-form-title {
+	padding-right: 0;
+	display: inline-block;
+}
+
+.wf-inline .wf-field-wrap {
+	padding-left: 10px;
+}
+
+@media screen and (max-width:780px) {
+	.wf-field {
+		width: 100%;
+	}
+
+	.wf-field-label-wrap {
+		float: none;
+		width: auto;
+	}
+
+	.wf-field-wrap,
+	.wf-field-wrap-type-submit {
+		margin-left: 0;
+	}
+}

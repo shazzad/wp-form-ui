@@ -8,23 +8,36 @@ class Provider {
 
 	protected static $base_url;
 
+	/**
+	 * Initialize the library, add hooks and filters
+	 */
 	public static function setup( $base_url = '' ) {
 		if ( ! self::$initialized ) {
 			self::$initialized = true;
-			self::$base_url    = $base_url;
 
-			add_action( 'wp_enqueue_scripts', [ get_class(), 'register_form_scripts' ] );
-			add_action( 'admin_enqueue_scripts', [ get_class(), 'register_form_scripts' ] );
+			if ( empty( $base_url ) ) {
+				$base_url = plugin_dir_url( dirname( __FILE__ ) );
+			}
+
+			self::$base_url = trim( $base_url, '/' ) . '/';
+
+			add_action( 'wp_enqueue_scripts', [ __CLASS__, 'registerScripts' ] );
+			add_action( 'admin_enqueue_scripts', [ __CLASS__, 'registerScripts' ] );
 			// add_action( 'rest_api_init', [ get_class(), 'register_apis' ] );
 		}
 	}
 
-	public static function register_form_scripts() {
+	/**
+	 * Register scripts and styles
+	 * 
+	 * @return void
+	 */
+	public static function registerScripts() {
 		foreach ( Assets::$assets as $asset ) {
 			if ( 'js' == $asset['type'] ) {
 				wp_register_script(
 					$asset['id'],
-					self::$base_url . '/Asset/' . $asset['path'],
+					self::$base_url . 'dist/' . $asset['type'] . '/' . $asset['path'],
 					$asset['dependencies'],
 					$asset['version'],
 					false
@@ -32,7 +45,7 @@ class Provider {
 			} elseif ( 'css' == $asset['type'] ) {
 				wp_register_style(
 					$asset['id'],
-					self::$base_url . '/Asset/' . $asset['path'],
+					self::$base_url . 'dist/' . $asset['type'] . '/' . $asset['path'],
 					$asset['dependencies'],
 					$asset['version']
 				);
@@ -40,7 +53,7 @@ class Provider {
 		}
 	}
 
-	public static function enqueue_form_scripts() {
+	public static function enqueueScripts() {
 		wp_enqueue_style( 'wf_form' );
 		wp_enqueue_script( 'wf_form' );
 	}

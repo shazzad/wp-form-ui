@@ -1,0 +1,19 @@
+/* Notices */
+div.wf_notes._note {
+	display: inline-block;
+	padding: 4px 10px !important;
+	margin: 0 0 0 10px !important;
+}
+
+div.wf_notes._note>p {
+	margin: 0 !important;
+}
+
+.wf-field_image_btn,
+.wf-field_image_remove_btn {
+	margin-top: 5px !important;
+}
+
+.wf-field-wrap-type-image_src .wf-image-preview {
+	margin: 10px 0;
+}
