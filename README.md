@@ -146,7 +146,6 @@ add_action('wp_ajax_do_something', function(){
     $data = stripslashes_deep($_POST);
 
     // Process the form data and update settings, e.g., update_option('my_settings', $data);
-    // update_option('my_settings', $data);
 
     wp_send_json([
         'success' => true,
