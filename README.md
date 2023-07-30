@@ -1,45 +1,55 @@
 # WP Form UI
 
-A Form library to rended forms for WordPress plugin & theme development.
+WP Form UI is a powerful form library designed to simplify form rendering for WordPress plugin and theme development. This library provides a straightforward way to create and manage forms while ensuring flexibility and extensibility.
 
-### Installing
+## Installation
 
-Using composer
-```
+You can install WP Form UI using either Composer or by cloning the repository from GitHub.
+
+### Using composer
+```bash
 $ composer require shazzad/wp-form-ui
 ```
 
-Using git clone
-```
+### Using Git Clone
+```bash
 $ git clone https://github.com/shazzad/wp-form-ui
 ```
 
 ## Basic Usage
 
-### 1. Define the base url, relative to the package path
+Follow these steps to integrate WP Form UI into your plugin or theme:
+
+### 1. Define the base URL relative to the package path
+
+In your plugin or theme, add the following code:
 
 ```php
 use Shazzad\WpFormUi;
 
-/* In plugin / theme */
 WpFormUi\Provider::setup();
 ```
 
 ### 2. Enqueue CSS & Js
 
+To enqueue the required CSS and JS files, add the following code:
+
 ```php
 use Shazzad\WpFormUi;
+
 add_action('wp_enqueue_scripts', function(){
     WpFormUi\Provider::enqueue_form_scripts();
 });
 ```
 
-### 3. Render form
+### 3. Render the Form
+
+To render the form, you need to define the form fields, their values, and other settings. Here's an example:
 
 ```php
 use Shazzad\WpFormUi;
 
-/** field values */
+// Field values
 $values = [
     'id' => 1234
     'select-field' => 'option-1',
@@ -58,7 +68,7 @@ $values = [
     ]
 ];
 
-/** fields */
+// Form fields
 $fields = [
     [
         'priority'        => 10,
@@ -112,17 +122,14 @@ $fields = [
     ]
 ];
 
-/* form settings */
+// Form settings
 $settings     = [
-    /* setting the ajax parameter to true will make the form submission through ajax */
-    'ajax'            => true,
-
-    /* this is the form action url, setting this to admin-ajax.php file will allow you 
-    to use wp_ajax_ action to handle submission */
+    'ajax'            => true, // Set to true for AJAX form submission
     'action'          => admin_url('admin-ajax.php?action=do_something'),
     'id'              => 'my-form',
-    'button_text'     => __('Update', 'textdomain'),
-    'loading_text'    => __('Updating', 'textdomain')
+    'button_text'     => __('Update'),
+    'loading_text'    => __('Updating'),
+    'success_text'    => __('Form saved'),
 ];
 
 $form = new WpFormUi\Form\Form();
@@ -132,14 +139,14 @@ $form->set_fields($fields);
 $form->render();
 ```
 
-### 4. Handle submission
+### 4. Handle Form Submission
 
 ```php
 add_action('wp_ajax_do_something', function(){
     $data = stripslashes_deep($_POST);
 
-    /* do something with data */
-    # update_option('my_settings', $data);
+    // Process the form data and update settings, e.g., update_option('my_settings', $data);
+    // update_option('my_settings', $data);
 
     wp_send_json([
         'success' => true,
@@ -147,8 +154,18 @@ add_action('wp_ajax_do_something', function(){
     ]);
 });
 
-// if you want to handle submission for non logged in users
+// Handle submission for non-logged-in users
 add_action('wp_ajax_nopriv_do_something', function(){
     // ... same as above
 });
 ```
+
+That's it! You have now successfully integrated WP Form UI into your WordPress plugin or theme. Customize the form fields and settings as per your requirements.
+
+## Contributing
+
+We welcome contributions from the community! If you find a bug, have a feature request, or want to contribute in any other way, please feel free to open an issue or submit a pull request.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
