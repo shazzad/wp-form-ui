@@ -1,0 +1,10 @@
+{
+  "name": "shazzad-wp-form-ui",
+  "scripts": {
+    "watch": "node-sass src/scss/ -o ./dist/css/ --output-style expanded --indent-type tab --indent-width 1 -rw",
+    "css": "node-sass src/scss/ -o ./dist/css/ --output-style expanded --indent-type tab --indent-width 1 || exit 0"
+  },
+  "devDependencies": {
+    "node-sass": "^8.0.0"
+  }
+}
