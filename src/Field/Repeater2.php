@@ -13,7 +13,11 @@ class Repeater2 extends Field {
 		$html = $before;
 
 		if ( $field_wrap ) {
-			$html .= sprintf( '<div class="%1$s"%2$s>', $this->createElementClass( 'wf-field-wrap', $id, $type, $class ), $attr );
+			$html .= sprintf(
+				'<div class="%1$s"%2$s>',
+				$this->createElementClass( 'wf-field-wrap', $id, $type, $class ),
+				$this->getAttr()
+			);
 		}
 
 		$html .= $field_before;

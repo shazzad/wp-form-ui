@@ -15,7 +15,11 @@ class Checkboxes extends Field {
 		$html = $before;
 
 		if ( $field_wrap ) {
-			$html .= sprintf( '<div class="%1$s"%2$s>', $this->createElementClass( 'wf-field-wrap', $id, $type, $class ), $attr );
+			$html .= sprintf(
+				'<div class="%1$s"%2$s>',
+				$this->createElementClass( 'wf-field-wrap', $id, $type, $class ),
+				$this->getAttr()
+			);
 		}
 
 		$html .= $field_before;
@@ -27,7 +31,12 @@ class Checkboxes extends Field {
 		// input
 		$html .= $input_wrap_before;
 		if ( $input_wrap ) {
-			$html .= sprintf( '<div class="%1$s %2$s"%3$s>', $this->createElementClass( 'wf-field-input-wrap', $id, $type ), $input_wrap_class, $input_wrap_attr );
+			$html .= sprintf(
+				'<div class="%1$s %2$s"%3$s>',
+				$this->createElementClass( 'wf-field-input-wrap', $id, $type ),
+				$input_wrap_class,
+				$input_wrap_attr
+			);
 		}
 
 		$html .= $input_before;

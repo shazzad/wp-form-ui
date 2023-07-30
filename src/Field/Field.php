@@ -148,25 +148,28 @@ abstract class Field implements \ArrayAccess {
 			$data['id'] = $this->createFieldId( $data['name'] );
 		}
 
-		if ( ! isset( $data['value'] ) || '' === $data['value'] ) {
+		if ( ! array_key_exists( 'value', $data ) ) {
 			$data['value'] = $data['default'];
 		}
 
-		$data['attr'] = '';
-		foreach ( $data['attrs'] as $an => $av ) {
-			$data['attr'] .= ' ' . $an . '="' . esc_attr( $av ) . '"';
-		}
-		$data['attr'] = trim( $data['attr'] );
+		$known_input_attrs = [ 
+			'rows',
+			'cols',
+			'placeholder',
+			'spellcheck',
+			'autocomplete',
+			'autofocus',
+			'disabled',
+			'maxlength',
+			'minlength',
+			'max',
+			'min',
+		];
 
-		if ( isset( $data['placeholder'] ) ) {
-			$data['input_attrs']['placeholder'] = $data['placeholder'];
-			#print_r($data);
-			#die();
-		}
-
-		$data['input_attr'] = '';
-		foreach ( $data['input_attrs'] as $an => $av ) {
-			$data['input_attr'] .= ' ' . $an . '="' . esc_attr( $av ) . '"';
+		foreach ( $known_input_attrs as $attr ) {
+			if ( isset( $data[ $attr ] ) ) {
+				$data['input_attrs'][ $attr ] = esc_attr( $data[ $attr ] );
+			}
 		}
 
 		// simply include a pre option for choices fields.
@@ -201,16 +204,34 @@ abstract class Field implements \ArrayAccess {
 		return $data;
 	}
 
+	/**
+	 * Get the field input/control attribute.
+	 */
 	public function getInputAttr() {
-		$attr = '';
+		$buff = '';
 
 		if ( ! empty( $this->data['input_attrs'] ) ) {
-			foreach ( $this->data['input_attrs'] as $an => $av ) {
-				$attr .= ' ' . $an . '="' . esc_attr( $av ) . '"';
+			foreach ( $this->data['input_attrs'] as $name => $value ) {
+				$buff .= ' ' . $name . '="' . esc_attr( $value ) . '"';
 			}
 		}
 
-		return $attr;
+		return trim( $buff );
+	}
+
+	/**
+	 * Get the field attribute.
+	 */
+	public function getAttr() {
+		$buff = '';
+
+		if ( ! empty( $this->data['attrs'] ) ) {
+			foreach ( $this->data['attrs'] as $name => $value ) {
+				$buff .= ' ' . $name . '="' . esc_attr( $value ) . '"';
+			}
+		}
+
+		return trim( $buff );
 	}
 
 	/**

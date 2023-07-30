@@ -7,18 +7,6 @@ class Textarea extends Field {
 		parent::__construct( $data );
 	}
 
-	public function parseData( $data ) {
-		$data = parent::parseData( $data );
-
-		foreach ( [ 'rows', 'cols' ] as $allowed_attr ) {
-			if ( isset( $data[ $allowed_attr ] ) ) {
-				$data['input_attrs'][ $allowed_attr ] = $data[ $allowed_attr ];
-			}
-		}
-
-		return $data;
-	}
-
 	public function get_html( $form ) {
 		$this->data = $this->parseData( $this->data );
 
@@ -27,7 +15,11 @@ class Textarea extends Field {
 		$html = $before;
 
 		if ( $field_wrap ) {
-			$html .= sprintf( '<div class="%1$s"%2$s>', $this->createElementClass( 'wf-field-wrap', $id, $type, $class ), $attr );
+			$html .= sprintf(
+				'<div class="%1$s"%2$s>',
+				$this->createElementClass( 'wf-field-wrap', $id, $type, $class ),
+				$this->getAttr()
+			);
 		}
 
 		$html .= $field_before;
@@ -39,7 +31,12 @@ class Textarea extends Field {
 		// input
 		$html .= $input_wrap_before;
 		if ( $input_wrap ) {
-			$html .= sprintf( '<div class="%1$s %2$s"%3$s>', $this->createElementClass( 'wf-field-input-wrap', $id, $type ), $input_wrap_class, $input_wrap_attr );
+			$html .= sprintf(
+				'<div class="%1$s %2$s"%3$s>',
+				$this->createElementClass( 'wf-field-input-wrap', $id, $type ),
+				$input_wrap_class,
+				$input_wrap_attr
+			);
 		}
 
 		$html .= $input_before;

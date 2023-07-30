@@ -22,7 +22,11 @@ class Checkbox extends Field {
 		$html = $before;
 
 		if ( $field_wrap ) {
-			$html .= sprintf( '<div class="%1$s"%2$s>', $this->createElementClass( 'wf-field-wrap', $id, $type, $class ), $attr );
+			$html .= sprintf(
+				'<div class="%1$s"%2$s>',
+				$this->createElementClass( 'wf-field-wrap', $id, $type, $class ),
+				$this->getAttr()
+			);
 		}
 
 		$html .= $field_before;
@@ -34,7 +38,12 @@ class Checkbox extends Field {
 		// input
 		$html .= $input_wrap_before;
 		if ( $input_wrap ) {
-			$html .= sprintf( '<div class="%1$s %2$s"%3$s>', $this->createElementClass( 'wf-field-input-wrap', $id, $type ), $input_wrap_class, $input_wrap_attr );
+			$html .= sprintf(
+				'<div class="%1$s %2$s"%3$s>',
+				$this->createElementClass( 'wf-field-input-wrap', $id, $type ),
+				$input_wrap_class,
+				$input_wrap_attr
+			);
 		}
 
 		$html .= $input_before;
@@ -44,7 +53,7 @@ class Checkbox extends Field {
 			'<label for="%1$s">
 				<input id="%1$s" name="%2$s" value="%3$s" type="checkbox"%4$s%6$s /> %5$s
 			</label>',
-			$id, $name, $input_value, $checked, $input_label, $input_attr
+			$id, $name, $input_value, $checked, $input_label, $this->getInputAttr()
 		);
 
 		$html .= $input_after;

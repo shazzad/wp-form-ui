@@ -2,10 +2,12 @@
 namespace Shazzad\WpFormUi\Field;
 
 class Image_Src extends Field {
+
 	public function __construct( $data = [] ) {
 		$data['type'] = 'image_src';
 		parent::__construct( $data );
 	}
+
 	public function get_html( $form ) {
 		$data = $this->parseData( $this->data );
 		extract( $data );
@@ -13,7 +15,11 @@ class Image_Src extends Field {
 		$html = $before;
 
 		if ( $field_wrap ) {
-			$html .= sprintf( '<div class="%1$s"%2$s>', $this->createElementClass( 'wf-field-wrap', $id, $type, $class ), $attr );
+			$html .= sprintf(
+				'<div class="%1$s"%2$s>',
+				$this->createElementClass( 'wf-field-wrap', $id, $type, $class ),
+				$this->getAttr()
+			);
 		}
 
 		$html .= $field_before;
@@ -24,8 +30,14 @@ class Image_Src extends Field {
 		// input
 		$html .= $input_wrap_before;
 		if ( $input_wrap ) {
-			$html .= sprintf( '<div class="%1$s %2$s"%3$s>', $this->createElementClass( 'wf-field-input-wrap', $id, $type ), $input_wrap_class, $input_wrap_attr );
+			$html .= sprintf(
+				'<div class="%1$s %2$s"%3$s>',
+				$this->createElementClass( 'wf-field-input-wrap', $id, $type ),
+				$input_wrap_class,
+				$input_wrap_attr
+			);
 		}
+
 		$html .= $input_before;
 
 		$image = '';
