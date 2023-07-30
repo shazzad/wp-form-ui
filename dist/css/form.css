@@ -278,7 +278,7 @@ div.wf_notes._note > p {
 
 /* Basic Form */
 .wf-basic {
-	font-size: 1rem;
+	font-size: .9rem;
 }
 
 .wf-basic .wf-field {
@@ -288,25 +288,32 @@ div.wf_notes._note > p {
 .wf-basic .wf-field-wrap:not(.wf-field-wrap-type-section) {
 	width: auto;
 	padding: 1rem;
-	border-bottom: 1px solid #eee;
 }
 
 .wf-basic .wf-field-label-wrap {
-	padding: .5rem 0;
+	padding: .25rem 0 .5rem;
 }
 
 .wf-basic .wf-field-label-wrap-type-section {
 	padding: .75rem;
 }
 
+.wf-basic .wf-field-wrap-type-section {
+	border-bottom: 1px solid #DDD;
+}
+
 .wf-basic .wf-field-label-type-section {
-	font-size: 1.2rem;
+	font-size: 1rem;
 	font-weight: bold;
 }
 
 .wf-basic .wf-field-input-desc,
 .wf-basic .wf-field-label-desc {
 	margin-top: .5rem;
+}
+
+.wf-basic .wf-field-label {
+	font-weight: 600;
 }
 
 .wf-basic .wf-form-title,
@@ -321,7 +328,7 @@ div.wf_notes._note > p {
 }
 
 .wf-basic .wf-field-type-text, .wf-basic .wf-field-type-email, .wf-basic .wf-field-type-number, .wf-basic .wf-field-type-url, .wf-basic .wf-field-type-password, .wf-basic .wf-field-type-datetime, .wf-basic .wf-field-type-textarea, .wf-basic .wf-field-type-select, .wf-basic .wf-field-type-image_src {
-	font-size: 1rem;
+	font-size: .9rem;
 	box-shadow: none;
 	border: 1px solid #ddd;
 	padding: .5rem .75rem !important;

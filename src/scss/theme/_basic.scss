@@ -1,6 +1,6 @@
 /* Basic Form */
 .wf-basic {
-	font-size: 1rem;
+	font-size: .9rem;
 
 	.wf-field {
 		width: 100%;
@@ -9,26 +9,32 @@
 	.wf-field-wrap:not(.wf-field-wrap-type-section) {
 		width: auto;
 		padding: 1rem;
-		border-bottom: 1px solid #eee;
 	}
 
 	.wf-field-label-wrap {
-		padding: .5rem 0;
+		padding: .25rem 0 .5rem;
 	}
 
 	.wf-field-label-wrap-type-section {
 		padding: .75rem;
 	}
 
+	.wf-field-wrap-type-section {
+		border-bottom: 1px solid #DDD;
+	}
 
 	.wf-field-label-type-section {
-		font-size: 1.2rem;
+		font-size: 1rem;
 		font-weight: bold;
 	}
 
 	.wf-field-input-desc,
 	.wf-field-label-desc {
 		margin-top: .5rem;
+	}
+
+	.wf-field-label {
+		font-weight: 600;
 	}
 
 	.wf-form-title,
@@ -53,7 +59,7 @@
 		&-textarea,
 		&-select,
 		&-image_src {
-			font-size: 1rem;
+			font-size: .9rem;
 			box-shadow: none;
 			border: 1px solid #ddd;
 			padding: .5rem .75rem !important;
