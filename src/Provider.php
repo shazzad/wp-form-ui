@@ -8,6 +8,8 @@ class Provider {
 
 	protected static $base_url;
 
+	protected static $version = '0.0.1';
+
 	/**
 	 * Initialize the library, add hooks and filters
 	 */
@@ -39,7 +41,7 @@ class Provider {
 					$asset['id'],
 					self::$base_url . 'dist/' . $asset['type'] . '/' . $asset['path'],
 					$asset['dependencies'],
-					'1.0.1',
+					isset( $asset['version'] ) ? $asset['version'] : self::$version,
 					false
 				);
 			} elseif ( 'css' == $asset['type'] ) {
@@ -47,7 +49,7 @@ class Provider {
 					$asset['id'],
 					self::$base_url . 'dist/' . $asset['type'] . '/' . $asset['path'],
 					$asset['dependencies'],
-					'1.0.1',
+					isset( $asset['version'] ) ? $asset['version'] : self::$version,
 				);
 			}
 		}

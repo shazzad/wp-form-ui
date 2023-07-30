@@ -425,7 +425,7 @@
 				}
 
 				$wrap.find('#' + _that.attr('rel') + '_input').val(file[field]);
-				$wrap.find('#' + _that.attr('rel') + '_preview').html('<img src="' + _file.url + '" class="wf-media-preview" />');
+				$wrap.find('#' + _that.attr('rel') + '_preview').html('<img src="' + _file.url + '" class="wf-image-preview" />');
 			});
 			file_frame.open();
 		});
