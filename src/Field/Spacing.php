@@ -66,7 +66,7 @@ class Spacing extends Field {
 				'value'      => isset( $value[ $k ] ) ? $value[ $k ] : ''
 			];
 
-			$field = $form->create_field( $child_field );
+			$field = $form->makeField( $child_field );
 			$html .= $field->get_html( $form );
 			$html .= '</td>';
 		}
@@ -84,7 +84,7 @@ class Spacing extends Field {
 				'value'      => isset( $value[ $k ] ) ? $value[ $k ] : ''
 			];
 
-			$field = $form->create_field( $child_field );
+			$field = $form->makeField( $child_field );
 			$html .= $field->get_html( $form );
 			$html .= '</td>';
 		}

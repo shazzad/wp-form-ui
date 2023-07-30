@@ -267,7 +267,7 @@ abstract class Field implements \ArrayAccess {
 	 * 
 	 * @param string $key
 	 */
-	public function __get( $key ) {
+	public function &__get( $key ) {
 		return $this->data[ $key ];
 	}
 

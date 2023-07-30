@@ -40,7 +40,7 @@ class Section extends Field {
 		}
 
 		foreach ( $this->data['fields'] as $field ) {
-			$field = $form->create_field( $field );
+			$field = $form->makeField( $field );
 			if ( isset( $field->name ) && '' != $field->name && ! isset( $field->value ) ) {
 				$name = isset( $field->option_name ) ? $field->option_name : $field->name;
 				if ( array_key_exists( $name, $form->values ) ) {

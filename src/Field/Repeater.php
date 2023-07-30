@@ -89,7 +89,7 @@ class Repeater extends Field {
 					}
 
 					if ( in_array( $repeat_field['type'], array( 'hidden' ) ) ) {
-						$field   = $form->create_field( $repeat_field );
+						$field   = $form->makeField( $repeat_field );
 						$hiddens .= $field->get_html( $form );
 					} elseif ( in_array( $repeat_field['type'], array( 'text', 'number', 'html', 'select' ) ) ) {
 						$html .= '<td class="wf_col ' . $repeat_field['class'] . '">';
@@ -99,7 +99,7 @@ class Repeater extends Field {
 						$repeat_field['label_wrap'] = false;
 						$repeat_field['input_wrap'] = false;
 
-						$field = $form->create_field( $repeat_field );
+						$field = $form->makeField( $repeat_field );
 						$html .= $field->get_html( $form );
 						$html .= '</td>';
 					}
@@ -125,7 +125,7 @@ class Repeater extends Field {
 		$html .= '<tr class="wf_row">';
 		foreach ( $fields as $repeat_field ) {
 			if ( in_array( $repeat_field['type'], array( 'hidden' ) ) ) {
-				$field   = $form->create_field( $repeat_field );
+				$field   = $form->makeField( $repeat_field );
 				$hiddens .= $field->get_html( $form );
 			} elseif ( in_array( $repeat_field['type'], array( 'text', 'number', 'html', 'select' ) ) ) {
 				$html .= '<td class="wf_col ' . $repeat_field['class'] . '">';
@@ -134,7 +134,7 @@ class Repeater extends Field {
 				$repeat_field['field_wrap'] = false;
 				$repeat_field['label_wrap'] = false;
 				$repeat_field['input_wrap'] = false;
-				$field                      = $form->create_field( $repeat_field );
+				$field                      = $form->makeField( $repeat_field );
 
 				$html .= $field->get_html( $form );
 				$html .= '</td>';

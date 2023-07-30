@@ -39,7 +39,7 @@ class Provider {
 					$asset['id'],
 					self::$base_url . 'dist/' . $asset['type'] . '/' . $asset['path'],
 					$asset['dependencies'],
-					$asset['version'],
+					'1.0.1',
 					false
 				);
 			} elseif ( 'css' == $asset['type'] ) {
@@ -47,7 +47,7 @@ class Provider {
 					$asset['id'],
 					self::$base_url . 'dist/' . $asset['type'] . '/' . $asset['path'],
 					$asset['dependencies'],
-					$asset['version']
+					'1.0.1',
 				);
 			}
 		}

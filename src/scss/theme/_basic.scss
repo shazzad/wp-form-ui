@@ -1,123 +1,151 @@
 /* Basic Form */
-.wf-basic .wf-field-wrap:not(.wf-field-wrap-type-section) {
-	width: auto;
-	padding: 2rem;
-	overflow: hidden;
-	transition: background 0.5s ease;
-	border-bottom: 1px solid #eee;
-}
-
-.wf-basic .wf-field-wrap-type-submit {
-	border-bottom: 1px solid transparent;
-}
-
-/*
-.wf-basic .wf-field-wrap:hover{
-	background-color:#f9f9f9;
-}*/
-.wf-basic .wf-field-label-wrap {
-	padding: .5rem 0;
-}
-
-.wf-basic .wf-field-label-wrap-type-section {
-	padding: 1.5rem;
-}
-
 .wf-basic {
 	font-size: 1rem;
-}
 
-.wf-basic .wf-field-label-type-section {
-	font-size: 1.2rem;
-	font-weight: bold;
-}
-
-.wf-basic .wf-field-input-desc,
-.wf-basic .wf-field-label-desc {
-	margin-top: .5rem;
-}
-
-.wf-basic .wf-form-title,
-.wf-basic .wf_field_group_title {
-	font-size: 1.4rem;
-	line-height: normal;
-	padding: .75rem 1.75rem;
-}
-
-.wf-basic .wf-field-wrap+.wf_field_group_title {
-	margin-top: 30px;
-}
-
-.wf-basic .wf-field-type-text,
-.wf-basic .wf-field-type-email,
-.wf-basic .wf-field-type-number,
-.wf-basic .wf-field-type-url,
-.wf-basic .wf-field-type-password,
-.wf-basic .wf-field-type-datetime,
-.wf-basic .wf-field-type-textarea,
-.wf-basic .wf-field-type-select {
-	font-size: 1rem;
-	box-shadow: none;
-	border: 1px solid #ddd;
-	padding: .5rem .75rem !important;
-}
-
-.wf-basic .wf-field-type-select {
-	margin-top: -4px;
-	padding: .46rem .75rem !important;
-}
-
-.wf-basic .wf-field-wrap-type-submit-bottom {
-	padding-top: 1rem;
-	padding-bottom: 1rem;
-}
-
-.wf-basic .wf-field-type-datetime {
-	padding-left: 2.25rem !important;
-	background-position: .75rem .95rem;
-}
-
-.wf-basic .wf-field-wrap-type-submit input {
-	padding: .5rem 1rem .5rem 1rem;
-}
-
-.wf-basic .wf-field-wrap.disabled {
-	color: #999 !important;
-	background-color: #f9f9f9;
-}
-
-.wf-basic .wf-field-wrap.disabled input {
-	color: #999 !important;
-}
-
-@media screen and (min-width:779px) {
-
-	.wf-basic .wf-field-label-wrap:not(.wf-field-label-wrap-type-section) {
-		width: 30%;
-		float: left;
-		clear: left;
-		line-height: normal;
+	.wf-field {
+		width: 100%;
 	}
 
-	.wf-basic .wf-field-input-wrap:not(.wf-field-input-wrap-type-section) {
-		margin-left: 35%;
-	}
-
-	.wf-basic .wf-field-wrap-type-submit {
-		padding-left: 36%;
-	}
-
-	.wf-basic .wf-form-title {
-		padding-top: 20px;
-	}
-
-	.wf-field-wrap_full .wf-field-label-wrap {
+	.wf-field-wrap:not(.wf-field-wrap-type-section) {
 		width: auto;
-		float: none;
-		clear: none;
+		padding: 1rem;
+		border-bottom: 1px solid #eee;
 	}
 
-	.wf-field-wrap_full .wf-field-input-wrap {
-		margin-left: 0;
+	.wf-field-label-wrap {
+		padding: .5rem 0;
+	}
+
+	.wf-field-label-wrap-type-section {
+		padding: .75rem;
+	}
+
+
+	.wf-field-label-type-section {
+		font-size: 1.2rem;
+		font-weight: bold;
+	}
+
+	.wf-field-input-desc,
+	.wf-field-label-desc {
+		margin-top: .5rem;
+	}
+
+	.wf-form-title,
+	.wf_field_group_title {
+		font-size: 1.4rem;
+		line-height: normal;
+		padding: .75rem 1.75rem;
+	}
+
+	.wf-field-wrap+.wf_field_group_title {
+		margin-top: 30px;
+	}
+
+	.wf-field-type {
+
+		&-text,
+		&-email,
+		&-number,
+		&-url,
+		&-password,
+		&-datetime,
+		&-textarea,
+		&-select,
+		&-image_src {
+			font-size: 1rem;
+			box-shadow: none;
+			border: 1px solid #ddd;
+			padding: .5rem .75rem !important;
+			background-color: #EEE;
+
+			&:active:not(:disabled),
+			&:focus-visible:not(:disabled) {
+				background-color: #FFF;
+			}
+		}
+
+		&-select {
+			padding: .46rem .75rem !important;
+		}
+
+		&-datetime {
+			padding-left: 2.25rem !important;
+			background-position: .75rem .95rem;
+		}
+
+		&-text,
+		&-email,
+		&-number,
+		&-url,
+		&-password,
+		&-datetime,
+		&-select,
+		&-image_src {
+			height: 40px;
+		}
+
+		&-number {
+			max-width: 25rem;
+		}
+	}
+
+	.wf-field-wrap-type {
+		&-submit-bottom {
+			padding-top: 1rem;
+			padding-bottom: 1rem;
+		}
+
+		&-submit {
+			border-bottom: 1px solid transparent;
+
+			input {
+				padding: .5rem 1rem .5rem 1rem;
+			}
+		}
+	}
+
+	.wf-field-wrap.disabled {
+		color: #999 !important;
+		background-color: #f9f9f9;
+
+		input {
+			color: #999 !important;
+		}
+	}
+
+	@media screen and (min-width:779px) {
+		.wf-field-wrap:not(.wf-field-wrap-type-section) {
+			padding: 2rem;
+			display: flex;
+			flex-wrap: nowrap;
+		}
+
+		.wf-field-label-wrap:not(.wf-field-label-wrap-type-section) {
+			flex: 300px 0 0;
+		}
+
+		.wf-field-input-wrap:not(.wf-field-input-wrap-type-section) {
+			flex: 1 1 auto;
+		}
+
+		.wf-field-wrap-type-submit {
+			padding-left: calc(300px + 2rem) !important;
+		}
+
+		.wf-form-title {
+			padding-top: 20px;
+		}
+
+		.wf-field-label-wrap-type-section {
+			padding: 1.5rem;
+		}
+
+		&.wf-label-align-right {
+			.wf-field-label-wrap:not(.wf-field-label-wrap-type-section) {
+				text-align: right;
+				padding-right: 2rem;
+			}
+		}
 	}
 }

@@ -2,29 +2,38 @@
 namespace Shazzad\WpFormUi\Form;
 
 class Form extends Base {
+
 	function __construct( $data = array() ) {
 		parent::__construct( $data );
 	}
 
 	public function toHtml() {
-		if ( ! is_array( $this->fields ) ) {
-			$this->fields = array();
-		}
-		if ( ! is_array( $this->values ) ) {
-			$this->values = array();
-		}
-		if ( ! is_array( $this->settings ) ) {
-			$this->settings = array();
-		}
+		// if ( ! is_array( $this->fields ) ) {
+		// 	$this->fields = array();
+		// }
+		// if ( ! is_array( $this->values ) ) {
+		// 	$this->values = array();
+		// }
+		// if ( ! is_array( $this->settings ) ) {
+		// 	$this->settings = array();
+		// }
 
 		if ( empty( $this->settings['method'] ) ) {
 			$this->settings['method'] = 'POST';
 		}
-		if ( empty( $this->settings['class'] ) ) {
-			$this->settings['class'] = 'wf wf-basic';
-		} else {
-			$this->settings['class'] = 'wf ' . $this->settings['class'];
+		if ( empty( $this->settings['theme'] ) ) {
+			$this->settings['theme'] = 'basic';
 		}
+		if ( empty( $this->settings['class'] ) ) {
+			$this->settings['class'] = '';
+		}
+
+		$this->settings['class'] = 'wf wf-' . $this->settings['theme'] . ' ' . $this->settings['class'];
+
+		if ( ! empty( $this->settings['label_alignment'] ) ) {
+			$this->settings['class'] .= ' wf-label-align-' . $this->settings['label_alignment'];
+		}
+
 		if ( ! empty( $this->settings['ajax'] ) ) {
 			$this->settings['class'] .= ' wf-ajax';
 		}
