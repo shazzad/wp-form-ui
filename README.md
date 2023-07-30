@@ -21,14 +21,8 @@ $ git clone https://github.com/shazzad/wp-form-ui
 ```php
 use Shazzad\WpFormUi;
 
-/* In plugin */
-WpFormUi\Provider::init(plugin_dir_url(__FILE__) .'/vendor/shazzad/wp-form-ui/src');
-
-/* In parent theme */
-WpFormUi\Provider::init(get_template_directory_uri() .'/vendor/shazzad/wp-form-ui/src');
-
-/* In child theme */
-WpFormUi\Provider::init(get_stylesheet_directory_uri() .'/vendor/shazzad/wp-form-ui/src');
+/* In plugin / theme */
+WpFormUi\Provider::setup();
 ```
 
 ### 2. Enqueue CSS & Js
@@ -43,9 +37,25 @@ add_action('wp_enqueue_scripts', function(){
 ### 3. Render form
 
 ```php
+use Shazzad\WpFormUi;
+
 /** field values */
 $values = [
-    'action' => 'do_something'
+    'id' => 1234
+    'select-field' => 'option-1',
+    'text-field' => 'some text',
+    'repeater-field' => [
+        [
+            'type' => 'type-1',
+            'name' => 'name-1',
+            'address' => 'address-1'
+        ],
+        [
+            'type' => 'type-2',
+            'name' => 'name-2',
+            'address' => 'address-2'
+        ]
+    ]
 ];
 
 /** fields */
@@ -54,12 +64,6 @@ $fields = [
         'priority'        => 10,
         'key'             => 'id',
         'name'            => 'id',
-        'type'            => 'hidden'
-    ],
-    [
-        'priority'        => 11,
-        'key'             => 'action',
-        'name'            => 'action',
         'type'            => 'hidden'
     ],
     [
@@ -115,13 +119,16 @@ $settings     = [
 
     /* this is the form action url, setting this to admin-ajax.php file will allow you 
     to use wp_ajax_ action to handle submission */
-    'action'          => admin_url('admin-ajax.php'),
+    'action'          => admin_url('admin-ajax.php?action=do_something'),
     'id'              => 'my-form',
     'button_text'     => __('Update', 'textdomain'),
     'loading_text'    => __('Updating', 'textdomain')
 ];
 
-$form = new \Wpform\Form\Simple(compact(['settings', 'fields', 'values']));
+$form = new WpFormUi\Form\Form();
+$form->set_settings($settings);
+$form->set_values($values);
+$form->set_fields($fields);
 $form->render();
 ```
 
@@ -130,19 +137,18 @@ $form->render();
 ```php
 add_action('wp_ajax_do_something', function(){
     $data = stripslashes_deep($_POST);
-    unset($data['action']);
 
     /* do something with data */
     # update_option('my_settings', $data);
 
-    @error_reporting(0);
-    header('Content-type: application/json');
-
-    // TODO - replace with wp_json response functions
-    echo json_encode([
-        'status' => 'ok',
-        'html' => __('Form saved')
+    wp_send_json([
+        'success' => true,
+        'message' => __('Form saved')
     ]);
-    die('');
+});
+
+// if you want to handle submission for non logged in users
+add_action('wp_ajax_nopriv_do_something', function(){
+    // ... same as above
 });
 ```
