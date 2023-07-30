@@ -3,8 +3,8 @@
     "description": "A Form library for WordPress plugin & theme development.",
     "homepage": "https://github.com/shazzad/wp-form-ui",
     "type": "library",
-    "license": "GPL-3.0-or-later",
-    "keywords": ["wordpress-form", "wordpress-php-library", "wordpress"],
+    "license": "MIT",
+    "keywords": ["form", "wordpress-form", "wordpress"],
     "authors": [
         {
             "name" : "Shazzad Hossain Khan",
