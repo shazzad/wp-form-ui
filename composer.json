@@ -1,7 +1,7 @@
 {
-    "name": "w4devinc/wpform",
+    "name": "shazzad/wp-form-ui",
     "description": "A Form library for WordPress plugin & theme development.",
-    "homepage": "http://w4dev.com/wpform",
+    "homepage": "https://github.com/shazzad/wp-form-ui",
     "type": "library",
     "license": "GPL-3.0-or-later",
     "keywords": ["wordpress-form", "wordpress-php-library", "wordpress"],
@@ -15,13 +15,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "W4dev\\Wpform\\": "src/"
-        },
-        "classmap": [
-            "src",
-            "src/Asset",
-            "src/Field",
-            "src/Form"
-        ]
+            "Shazzad\\WpFormUi\\": "src/"
+        }
     }
 }

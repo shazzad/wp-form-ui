@@ -6,12 +6,12 @@ A Form library for WordPress plugin & theme development.
 
 Using composer
 ```
-$ composer require w4devinc/wpform
+$ composer require shazzad/wp-form-ui
 ```
 
 Using git clone
 ```
-$ git clone https://github.com/w4devinc/wpform.git
+$ git clone https://github.com/shazzad/wp-form-ui
 ```
 
 ## Basic Usage
@@ -19,19 +19,28 @@ $ git clone https://github.com/w4devinc/wpform.git
 ### 1. Define the base url, relative to the package path
 
 ```php
-if (class_exists('W4dev\Wpform\Api')) {
-    /* In plugin */
-    W4dev\Wpform\Api::init(plugin_dir_url(__FILE__) .'/vendor/w4devinc/wpform/src');
+use Shazzad\WpFormUi;
 
-    /* In parent theme */
-     W4dev\Wpform\Api::init(get_template_directory_uri() .'/vendor/w4devinc/wpform/src');
+/* In plugin */
+WpFormUi\Provider::init(plugin_dir_url(__FILE__) .'/vendor/shazzad/wp-form-ui/src');
 
-    /* In child theme */
-     W4dev\Wpform\Api::init(get_stylesheet_directory_uri() .'/vendor/w4devinc/wpform/src');
-}
+/* In parent theme */
+WpFormUi\Provider::init(get_template_directory_uri() .'/vendor/shazzad/wp-form-ui/src');
+
+/* In child theme */
+WpFormUi\Provider::init(get_stylesheet_directory_uri() .'/vendor/shazzad/wp-form-ui/src');
 ```
 
-### 2. Render form
+### 2. Enqueue CSS & Js
+
+```php
+use Shazzad\WpFormUi;
+add_action('wp_enqueue_scripts', function(){
+    WpFormUi\Provider::enqueue_form_scripts();
+});
+```
+
+### 3. Render form
 
 ```php
 /** field values */
@@ -103,7 +112,7 @@ $fields = [
 $settings     = [
     /* setting the ajax parameter to true will make the form submission through ajax */
     'ajax'            => true,
-    
+
     /* this is the form action url, setting this to admin-ajax.php file will allow you 
     to use wp_ajax_ action to handle submission */
     'action'          => admin_url('admin-ajax.php'),
@@ -116,7 +125,7 @@ $form = new \Wpform\Form\Simple(compact(['settings', 'fields', 'values']));
 $form->render();
 ```
 
-### 3. Handle submission
+### 4. Handle submission
 
 ```php
 add_action('wp_ajax_do_something', function(){
