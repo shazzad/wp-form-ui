@@ -1,6 +1,6 @@
-# WPForm
+# WP Form UI
 
-A Form library for WordPress plugin & theme development.
+A Form library to rended forms for WordPress plugin & theme development.
 
 ### Installing
 
