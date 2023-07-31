@@ -476,9 +476,9 @@
 		});
 
 		/* image field */
-		$(document).on('click', '.wf-collapsible', function (e) {
+		$(document).on('click', '.wf-collapsible > .wf-field-label-wrap', function (e) {
 			e.preventDefault();
-			$(this).toggleClass('wf-collapsed');
+			$(this).parent().toggleClass('wf-collapsed');
 		});
 	});
 

@@ -359,7 +359,8 @@ div.wf_notes._note > p {
 	border-bottom: 1px solid #DDD;
 }
 
-.wf-basic .wf-field-label-type-section {
+.wf-basic .wf-field-label-type-section,
+.wf-basic .wf-field-heading {
 	font-size: 1rem;
 	font-weight: bold;
 }
@@ -441,11 +442,17 @@ div.wf_notes._note > p {
 		display: flex;
 		flex-wrap: nowrap;
 	}
+	.wf-basic .wf-field-wrap.wf-field-wrap-type-heading {
+		padding-bottom: 0;
+	}
 	.wf-basic .wf-field-label-wrap:not(.wf-field-label-wrap-type-section) {
 		flex: 300px 0 0;
 	}
 	.wf-basic .wf-field-input-wrap:not(.wf-field-input-wrap-type-section) {
 		flex: 1 1 auto;
+	}
+	.wf-basic .wf-field-heading {
+		padding-left: calc(300px + 2rem);
 	}
 	.wf-basic .wf-form-title {
 		padding-top: 20px;

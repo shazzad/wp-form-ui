@@ -12,10 +12,10 @@ class Section extends Field {
 		$this->data = $this->parseData( $this->data );
 		extract( $this->data );
 
-		if ( isset( $collapsible ) ) {
+		if ( isset( $collapsible ) && $collapsible ) {
 			$class .= ' wf-collapsible';
 		}
-		if ( isset( $collapsed ) ) {
+		if ( isset( $collapsed ) && $collapsed ) {
 			$class .= ' wf-collapsed';
 		}
 

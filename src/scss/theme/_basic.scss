@@ -23,7 +23,8 @@
 		border-bottom: 1px solid #DDD;
 	}
 
-	.wf-field-label-type-section {
+	.wf-field-label-type-section,
+	.wf-field-heading {
 		font-size: 1rem;
 		font-weight: bold;
 	}
@@ -127,12 +128,20 @@
 			flex-wrap: nowrap;
 		}
 
+		.wf-field-wrap.wf-field-wrap-type-heading {
+			padding-bottom: 0;
+		}
+
 		.wf-field-label-wrap:not(.wf-field-label-wrap-type-section) {
 			flex: 300px 0 0;
 		}
 
 		.wf-field-input-wrap:not(.wf-field-input-wrap-type-section) {
 			flex: 1 1 auto;
+		}
+
+		.wf-field-heading {
+			padding-left: calc(300px + 2rem);
 		}
 
 		.wf-form-title {
