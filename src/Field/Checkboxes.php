@@ -3,6 +3,10 @@ namespace Shazzad\WpFormUi\Field;
 
 class Checkboxes extends Field {
 
+	protected $accepts = [ 
+		'choices',
+	];
+
 	public function __construct( $data = [] ) {
 		$data['type'] = 'checkboxes';
 		parent::__construct( $data );
@@ -40,6 +44,11 @@ class Checkboxes extends Field {
 		}
 
 		$html .= $input_before;
+
+		if ( isset( $sortable ) ) {
+			$html .= "<ol class='wf-sortable'>";
+		}
+
 		foreach ( $choices as $key => $label ) {
 			if ( empty( $label ) ) {
 				continue;
@@ -81,6 +90,11 @@ class Checkboxes extends Field {
 				$html .= $_label['child_input_after'];
 			}
 		}
+
+		if ( isset( $sortable ) ) {
+			$html .= "</ol>";
+		}
+
 		$html .= $input_after;
 
 		if ( isset( $desc ) ) {

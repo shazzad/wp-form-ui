@@ -101,6 +101,8 @@
 
 			// $(document.body).trigger( 'wf/datepicker_init', [$form] );
 
+			$form.find('.wf-sortable-list,.wf-sortable').sortable();
+
 			if (action) {
 				$(document.body).trigger(action + '/init', [$form]);
 			}
@@ -273,6 +275,7 @@
 			register_datepicker($wrap);
 			register_select2($wrap);
 		});
+
 		/* initialize datepicker & select2 on edit screen metabox visibility */
 		$(document.body).on('click', '.postbox .ui-sortable-handle', function () {
 			var $wrap = $(this).closest('.postbox');

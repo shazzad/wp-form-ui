@@ -107,6 +107,12 @@
 	text-align: left;
 }
 
+.wf-field-wrap ol,
+.wf-field-wrap ul {
+	margin-top: 0;
+	margin-left: 0;
+}
+
 /* Field Datetime */
 .date_input {
 	padding-left: 30px !important;
@@ -130,6 +136,31 @@
 
 .wf-field-wrap-type-checkbox.ld {
 	background-color: #ddd !important;
+}
+
+/* Field Sortable List */
+.wf-sortable-list {
+	margin: 0;
+	overflow-x: auto;
+	max-height: 200px;
+	list-style-position: inside;
+}
+
+.wf-sortable-list li {
+	padding: 6px;
+	border-radius: 4px;
+	margin: 0 5px 5px 0;
+	border: 1px solid #eee;
+	text-transform: capitalize;
+	background-color: #fff;
+}
+
+.wf-sortable-list li.ui-sortable-handle {
+	cursor: move;
+}
+
+.wf-sortable-list li.ui-sortable-helper {
+	background-color: #f5f5f5;
 }
 
 /* Button */

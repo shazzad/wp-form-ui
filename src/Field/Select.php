@@ -2,6 +2,11 @@
 namespace Shazzad\WpFormUi\Field;
 
 class Select extends Field {
+
+	protected $accepts = [ 
+		'choices',
+	];
+
 	public function __construct( $data = [] ) {
 		$data['type'] = 'select';
 		parent::__construct( $data );

@@ -1,15 +1,17 @@
 <?php
 namespace Shazzad\WpFormUi\Field;
 
-class Radio extends Field {
+class Sortable_List extends Field {
+
 	protected $accepts = [ 
 		'choices',
 	];
 
 	public function __construct( $data = [] ) {
-		$data['type'] = 'radio';
+		$data['type'] = 'sortable_list';
 		parent::__construct( $data );
 	}
+
 	public function get_html( $form ) {
 		$this->data = $this->parseData( $this->data );
 		extract( $this->data );
@@ -39,7 +41,10 @@ class Radio extends Field {
 				$input_wrap_attr
 			);
 		}
+
 		$html .= $input_before;
+
+		$html .= "<ol class='wf-sortable-list'>";
 		foreach ( $choices as $key => $label ) {
 			if ( empty( $label ) ) {
 				continue;
@@ -71,20 +76,19 @@ class Radio extends Field {
 
 			$child_input_attr .= ' ' . $this->getInputAttr();
 
-			$checked = $value == $key ? ' checked="checked"' : '';
 			$html .= sprintf(
-				'<label><input id="%1$s_%2$s" class="%6$s" name="%3$s" value="%2$s" type="radio"%4$s%7$s /> %5$s</label>',
-				$id, $key, $name, $checked, $label, $child_input_class, $child_input_attr
+				'<li class="wf-sortable-list-item %4$s"%5$s>
+					<input name="%1$s[]" value="%2$s" type="hidden" />%3$s
+				</li>',
+				$name, $key, $label, $child_input_class, $child_input_attr
 			);
 
 			if ( is_array( $_label ) && isset( $_label['child_input_after'] ) ) {
 				$html .= $_label['child_input_after'];
 			}
-
-			if ( ! isset( $inline ) || ! $inline ) {
-				$html .= '<br>';
-			}
 		}
+		$html .= "</ol>";
+
 		$html .= $input_after;
 
 		if ( isset( $desc ) ) {

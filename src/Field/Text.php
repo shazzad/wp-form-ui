@@ -2,8 +2,12 @@
 namespace Shazzad\WpFormUi\Field;
 
 class Text extends Field {
+
 	public function __construct( $data = [] ) {
-		$data['type'] = 'text';
+		if ( ! isset( $data['type'] ) ) {
+			$data['type'] = 'text';
+		}
+
 		parent::__construct( $data );
 	}
 
@@ -40,8 +44,14 @@ class Text extends Field {
 		$html .= $input_before;
 
 		$html .= sprintf(
-			'<input class="%1$s %5$s" id="%2$s" name="%3$s" value="%4$s" type="%7$s"%6$s />',
-			$this->createElementClass( 'wf-field', $id, $type ), $id, $name, $value, $input_class, $this->getInputAttr(), $type
+			'<input class="%1$s %5$s" id="%2$s" name="%3$s" value="%4$s" type="%6$s"%7$s />',
+			$this->createElementClass( 'wf-field', $id, $type ),
+			esc_attr( $id ),
+			esc_attr( $name ),
+			esc_attr( $value ),
+			esc_attr( $input_class ),
+			esc_attr( $type ),
+			$this->getInputAttr(),
 		);
 
 		$html .= $input_after;

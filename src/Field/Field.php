@@ -20,6 +20,11 @@ abstract class Field implements \ArrayAccess {
 	protected $form = null;
 
 	/**
+	 * Field accepts
+	 */
+	protected $accepts = [];
+
+	/**
 	 * Constructor
 	 * 
 	 * @param array $data Field data.
@@ -173,14 +178,18 @@ abstract class Field implements \ArrayAccess {
 		}
 
 		// simply include a pre option for choices fields.
-		if ( in_array( $data['type'], array( 'select', 'select_multi', 'select2', 'checkboxes', 'radio' ) ) ) {
+		if ( in_array( 'choices', $this->accepts ) ) {
+			// allow options to be used instead of choices.
 			if ( isset( $data['options'] ) ) {
 				$data['choices'] = $data['options'];
 			}
+
+			// allow options_pre to be used instead of choices_pre.
 			if ( isset( $data['options_pre'] ) ) {
 				$data['choices_pre'] = $data['options_pre'];
 			}
 
+			// append choices_pre to choices.
 			if ( isset( $data['choices_pre'] ) && ! empty( $data['choices_pre'] ) && is_array( $data['choices_pre'] ) ) {
 				$_choices = $data['choices_pre'];
 				if ( ! empty( $data['choices'] ) ) {
@@ -197,9 +206,9 @@ abstract class Field implements \ArrayAccess {
 		}
 
 		// escape text and hidden field values to pass double or single quote
-		if ( in_array( $data['type'], array( 'hidden', 'text', 'url' ) ) ) {
-			$data['value'] = @htmlspecialchars( $data['value'] );
-		}
+		// if ( in_array( $data['type'], array( 'hidden', 'text', 'url' ) ) ) {
+		// 	$data['value'] = @htmlspecialchars( $data['value'] );
+		// }
 
 		return $data;
 	}

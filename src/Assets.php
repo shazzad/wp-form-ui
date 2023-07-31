@@ -27,9 +27,10 @@ class Assets {
 			'path'         => 'form.js',
 			'dependencies' => [ 
 				'jquery',
+				'jquery-ui-sortable',
 				'select2',
 				'wf_datetimepicker',
-				'wf_conditional_logic'
+				'wf_conditional_logic',
 			],
 			'type'         => 'js'
 		],
