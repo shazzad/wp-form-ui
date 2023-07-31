@@ -474,6 +474,12 @@
 			});
 			file_frame.open();
 		});
+
+		/* image field */
+		$(document).on('click', '.wf-collapsible', function (e) {
+			e.preventDefault();
+			$(this).toggleClass('wf-collapsed');
+		});
 	});
 
 	function guid() {

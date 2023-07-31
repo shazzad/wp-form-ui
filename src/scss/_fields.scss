@@ -137,3 +137,35 @@
 		}
 	}
 }
+
+/* Field Section */
+.wf-field-wrap-type-section.wf-collapsible {
+	>.wf-field-label-wrap {
+		cursor: pointer;
+		position: relative;
+
+		&:after {
+			position: absolute;
+			top: 0.95em;
+			right: 0.75em;
+			width: 20px;
+			height: 20px;
+			content: "\f347";
+			color: inherit;
+			display: inline-block;
+			font: normal 20px/1 dashicons;
+		}
+	}
+
+	&.wf-collapsed {
+		>.wf-field-label-wrap {
+			&:after {
+				content: "\f343";
+			}
+		}
+
+		>.wf-field-input-wrap {
+			display: none;
+		}
+	}
+}
