@@ -7,20 +7,20 @@ class Datetime extends Field {
 		parent::__construct( $data );
 	}
 	public function get_html( $form ) {
-		$data = $this->parseData( $this->data );
-		if ( ! empty( $data['input_class'] ) ) {
-			$data['input_class'] .= ' date_input';
+		$this->data = $this->parseData( $this->data );
+		if ( ! empty( $this->data['input_class'] ) ) {
+			$this->data['input_class'] .= ' date_input';
 		} else {
-			$data['input_class'] = 'date_input';
+			$this->data['input_class'] = 'date_input';
 		}
 
-		if ( ! empty( $data['input_attr'] ) ) {
-			$data['input_attr'] .= ' data-format="' . $data['datetime_format'] . '" data-formatDate="' . $data['date_format'] . '"';
+		if ( ! empty( $this->data['input_attr'] ) ) {
+			$this->data['input_attr'] .= ' data-format="' . $this->data['datetime_format'] . '" data-formatDate="' . $this->data['date_format'] . '"';
 		} else {
-			$data['input_attr'] = 'data-format="' . $data['datetime_format'] . '" data-formatDate="' . $data['date_format'] . '"';
+			$this->data['input_attr'] = 'data-format="' . $this->data['datetime_format'] . '" data-formatDate="' . $this->data['date_format'] . '"';
 		}
 
-		extract( $data );
+		extract( $this->data );
 
 		$html = $before;
 
@@ -35,7 +35,7 @@ class Datetime extends Field {
 		$html .= $field_before;
 		// label
 		$html .= $label_wrap_before;
-		$html .= $this->labelHtml( $data );
+		$html .= $this->labelHtml();
 
 		// input
 		$html .= $input_wrap_before;

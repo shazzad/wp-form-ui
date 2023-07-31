@@ -9,8 +9,8 @@ class Image_Src extends Field {
 	}
 
 	public function get_html( $form ) {
-		$data = $this->parseData( $this->data );
-		extract( $data );
+		$this->data = $this->parseData( $this->data );
+		extract( $this->data );
 
 		$html = $before;
 
@@ -25,7 +25,7 @@ class Image_Src extends Field {
 		$html .= $field_before;
 		// label
 		$html .= $label_wrap_before;
-		$html .= $this->labelHtml( $data );
+		$html .= $this->labelHtml();
 
 		// input
 		$html .= $input_wrap_before;

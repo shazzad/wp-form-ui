@@ -7,8 +7,8 @@ class Spacing extends Field {
 		parent::__construct( $data );
 	}
 	public function get_html( $form ) {
-		$data = $this->parseData( $this->data );
-		extract( $data );
+		$this->data = $this->parseData( $this->data );
+		extract( $this->data );
 
 		$html = $before;
 
@@ -24,7 +24,7 @@ class Spacing extends Field {
 
 		// label
 		$html .= $label_wrap_before;
-		$html .= $this->labelHtml( $data );
+		$html .= $this->labelHtml();
 
 		// input
 		$html .= $input_wrap_before;

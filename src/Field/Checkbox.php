@@ -9,8 +9,8 @@ class Checkbox extends Field {
 	}
 
 	public function get_html( $form ) {
-		$data = $this->parseData( $this->data );
-		extract( $data );
+		$this->data = $this->parseData( $this->data );
+		extract( $this->data );
 
 		if ( ! isset( $input_value ) ) {
 			$input_value = 'yes';
@@ -33,7 +33,7 @@ class Checkbox extends Field {
 
 		// label
 		$html .= $label_wrap_before;
-		$html .= $this->labelHtml( $data );
+		$html .= $this->labelHtml();
 
 		// input
 		$html .= $input_wrap_before;

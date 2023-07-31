@@ -9,8 +9,8 @@ class Hidden extends Field {
 	}
 
 	public function get_html( $form ) {
-		$data = $this->parseData( $this->data );
-		extract( $data );
+		$this->data = $this->parseData( $this->data );
+		extract( $this->data );
 
 		$html = $before;
 		$html .= sprintf(

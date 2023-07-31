@@ -30,8 +30,8 @@ abstract class Field implements \ArrayAccess {
 		$this->form = $form;
 	}
 
-	public function labelHtml( $data ) {
-		extract( $data );
+	public function labelHtml() {
+		extract( $this->data );
 		$html = '';
 
 		if ( ! empty( $label ) ) {

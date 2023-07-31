@@ -9,17 +9,16 @@ class Select2 extends Field {
 	}
 
 	public function get_html( $form ) {
-		$data = $this->data;
-		if ( isset( $data['multiple'] ) && $data['multiple'] ) {
-			if ( ! isset( $data['input_attrs'] ) ) {
-				$data['input_attrs'] = [];
+		if ( isset( $this->data['multiple'] ) && $this->data['multiple'] ) {
+			if ( ! isset( $this->data['input_attrs'] ) ) {
+				$this->data['input_attrs'] = [];
 			}
-			$data['input_attrs']['multiple'] = 'multiple';
+			$this->data['input_attrs']['multiple'] = 'multiple';
 		}
 
 		$select2 = [];
-		if ( ! empty( $data['select2'] ) ) {
-			$select2 = $data['select2'];
+		if ( ! empty( $this->data['select2'] ) ) {
+			$select2 = $this->data['select2'];
 		}
 		if ( ! isset( $select2['placeholder'] ) ) {
 			$select2['placeholder'] = __( 'Select an item' );
@@ -30,8 +29,8 @@ class Select2 extends Field {
 			$select2['src'] = site_url( '/wp-json/swpfu/v1/' . $select2['data'] );
 		}
 
-		if ( ! empty( $data['value'] ) ) {
-			$select2['value'] = $data['value'];
+		if ( ! empty( $this->data['value'] ) ) {
+			$select2['value'] = $this->data['value'];
 		}
 
 		if ( ! isset( $select2['minimumInputLength'] ) ) {
@@ -43,18 +42,18 @@ class Select2 extends Field {
 			}
 		}
 
-		if ( ! isset( $data['input_attrs'] ) ) {
-			$data['input_attrs'] = [];
+		if ( ! isset( $this->data['input_attrs'] ) ) {
+			$this->data['input_attrs'] = [];
 		}
-		$data['input_attrs']['data-s2'] = json_encode( $select2 );
+		$this->data['input_attrs']['data-s2'] = json_encode( $select2 );
 
-		$data = $this->parseData( $data );
+		$this->data = $this->parseData( $this->data );
 
 		##echo '<pre>';
 		#print_r($data);
 		#die();
 
-		extract( $data );
+		extract( $this->data );
 
 		$html = $before;
 
@@ -70,7 +69,7 @@ class Select2 extends Field {
 
 		// label
 		$html .= $label_wrap_before;
-		$html .= $this->labelHtml( $data );
+		$html .= $this->labelHtml();
 
 		// input
 		$html .= $input_wrap_before;

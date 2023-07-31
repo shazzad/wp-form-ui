@@ -7,8 +7,8 @@ class Repeater2 extends Field {
 		parent::__construct( $data );
 	}
 	public function get_html( $form ) {
-		$data = $this->parseData( $this->data );
-		extract( $data );
+		$this->data = $this->parseData( $this->data );
+		extract( $this->data );
 
 		$html = $before;
 
@@ -24,7 +24,7 @@ class Repeater2 extends Field {
 
 		// label
 		$html .= $label_wrap_before;
-		$html .= $this->labelHtml( $data );
+		$html .= $this->labelHtml();
 
 		// input
 		$html .= $input_wrap_before;
@@ -44,21 +44,21 @@ class Repeater2 extends Field {
 				++$total_columns;
 			}
 			if ( ! empty( $rf['name'] ) ) {
-				$fields[ $key ]['name']        = $data['name'] . "[KEY][" . $rf['name'] . "]";
+				$fields[ $key ]['name']        = $this->data['name'] . "[KEY][" . $rf['name'] . "]";
 				$fields[ $key ]['option_name'] = $rf['name'];
 			}
 			if ( empty( $rf['id'] ) ) {
 				$rf['id'] = $fields[ $key ]['id'] = $rf['name'];
 			}
 			if ( ! empty( $rf['id'] ) ) {
-				$fields[ $key ]['id'] = $data['id'] . "_KEY_" . $rf['id'];
+				$fields[ $key ]['id'] = $this->data['id'] . "_KEY_" . $rf['id'];
 			}
 			if ( empty( $rf['class'] ) ) {
 				$fields[ $key ]['class'] = $rf['id'];
 			}
 		}
 
-		$key = $data['key'];
+		$key = $this->data['key'];
 
 		$html .= '<div id="wf_repeated_' . $key . '" class="wf_repetable" data-parent="' . $key . '">';
 

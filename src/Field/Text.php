@@ -6,9 +6,10 @@ class Text extends Field {
 		$data['type'] = 'text';
 		parent::__construct( $data );
 	}
+
 	public function get_html( $form ) {
-		$data = $this->parseData( $this->data );
-		extract( $data );
+		$this->data = $this->parseData( $this->data );
+		extract( $this->data );
 
 		$html = $before;
 
@@ -24,7 +25,7 @@ class Text extends Field {
 
 		// label
 		$html .= $label_wrap_before;
-		$html .= $this->labelHtml( $data );
+		$html .= $this->labelHtml( $this->data );
 
 		// input
 		$html .= $input_wrap_before;
