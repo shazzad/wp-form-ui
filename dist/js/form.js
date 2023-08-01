@@ -1,8 +1,6 @@
 /**
-* Wpform - Form CSS
-* @version: 1.1
-* @package: shazzad/wpform
-* @author: Shazzad Hossain Khan
+* WpFormUi - JS
+* @see: https://github.com/shazzad/wp-form-ui
 **/
 
 (function ($) {
@@ -65,6 +63,7 @@
 			}
 		});
 	}
+
 	function register_trigger_on_change($parent) {
 		$parent.find('.trigger_on_change').each(function () {
 			var $wrap = $(this);
@@ -88,6 +87,7 @@
 			}
 		});
 	}
+
 	function register_ajax_forms($parent) {
 		$parent.find('.wf-ajax').each(function () {
 			var
@@ -107,7 +107,7 @@
 				$(document.body).trigger(action + '/init', [$form]);
 			}
 
-			$button.click(function (e) {
+			$button.on('click', function (e) {
 
 				if (action) {
 					$(document.body).trigger(action + '/submit', [$form]);
@@ -122,7 +122,7 @@
 					return false;
 				}
 
-				$button.addClass('ld').attr('disabled', 'disabled');
+				$button.addClass('ld').prop('disabled', true);
 				if (typeof ($form.data('loading_text')) !== undefined) {
 					$notes.html($form.data('loading_text')).addClass('_note ld');
 				}
@@ -161,8 +161,8 @@
 							document.location.reload();
 						}
 					})
-					.complete(function () {
-						$button.removeClass('ld').removeAttr('disabled');
+					.always(function () {
+						$button.removeClass('ld').prop('disabled', false);
 						$notes.removeClass('ld');
 					});
 			});
@@ -170,8 +170,8 @@
 
 		$(document.body).trigger('wf/form_registered', [$parent]);
 	}
+
 	function register_datepicker($parent) {
-		// console.log($wrap.find('input.date_input'));
 		$parent.find('input.date_input').each(function () {
 			var data = $(this).data() || { format: 'Y-m-d', formatDate: 'Y-m-d' };
 			if (typeof (data.closeondateselect) !== 'undefined') { data.closeOnDateSelect = true; }
@@ -180,10 +180,11 @@
 			$(this).datetimepicker(data);
 		});
 	}
+
 	function register_select2($parent) {
 		$parent.find('.wf-field-type-select2').each(function () {
 			var $el = $(this), data = $el.data('s2');
-			//console.log($el.attr('data-s2'));
+
 			var settings = {
 				minimumInputLength: data.minimumInputLength,
 				placeholder: data.placeholder,
@@ -216,22 +217,18 @@
 				};
 			}
 
-			//console.log(! $el.is(':hidden'));
 			if (!$el.is(':hidden') && !$el.hasClass('.select2-hidden-accessible')) {
 				$el.select2(settings);
 
-				// $el = $('.wf-field-type-select2');
 				if (typeof (data.src) !== 'undefined' && typeof (data.value) !== 'undefined') {
 					$.ajax({
 						type: 'GET',
 						url: data.src + '?selected=' + data.value
 					}).then(function (data) {
-						// console.log(data);
 						var option;
 						for (var i = 0; i < data.items.length; i++) {
 							option = new Option(data.items[i].text, data.items[i].id, true, true);
 							$el.append(option);
-							// console.log(option);
 						}
 						$el.trigger('change');
 						$el.trigger({
@@ -240,7 +237,6 @@
 								data: data
 							}
 						});
-						//console.log(options);
 					});
 				}
 			}
@@ -308,7 +304,7 @@
 
 			var data = $that.data('form') ? $($that.data('form')).serialize() + '&action=' + action : $that.data();
 
-			$that.addClass('ld').attr('disabled', 'disabled');
+			$that.addClass('ld').prop('disabled', true);
 			$.post(ajaxurl, data)
 				.done(function (r) {
 
@@ -331,8 +327,8 @@
 
 					$(document.body).trigger(action, [r, data, $that]);
 				})
-				.complete(function () {
-					$that.removeClass('ld').removeAttr('disabled');
+				.always(function () {
+					$that.removeClass('ld').prop('disabled', false);
 				});
 		});
 

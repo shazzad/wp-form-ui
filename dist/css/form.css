@@ -214,7 +214,7 @@
 	cursor: wait;
 	box-shadow: none !important;
 	background-color: #73787b !important;
-	background-image: url(Image/spinner.gif) !important;
+	background-image: url(../img/spinner.gif) !important;
 	background-repeat: no-repeat !important;
 	background-position: 90px;
 }
@@ -224,7 +224,7 @@ a.wf_ajax_btn.ld {
 	box-shadow: none !important;
 	outline: none !important;
 	background-color: #f7f7f7 !important;
-	background-image: url(Image/loading.gif) !important;
+	background-image: url(../img/loading.gif) !important;
 	background-repeat: no-repeat !important;
 	background-position: center !important;
 	transition-property: none;
