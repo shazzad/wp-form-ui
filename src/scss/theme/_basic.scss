@@ -19,7 +19,8 @@
 		padding: .75rem;
 	}
 
-	.wf-field-wrap-type-section {
+	// add border only to the root level section.
+	>.wf-field-wrap-type-section {
 		border-bottom: 1px solid #DDD;
 	}
 
@@ -144,11 +145,16 @@
 			padding-left: calc(300px + 2rem);
 		}
 
+		.wf-field-label-wrap-type-section {
+			padding-left: calc(300px + 4rem);
+		}
+
 		.wf-form-title {
 			padding-top: 20px;
 		}
 
-		.wf-field-label-wrap-type-section {
+		// add padding only to the root level section label.
+		>.wf-field-wrap-type-section>.wf-field-label-wrap-type-section {
 			padding: 1.5rem;
 		}
 

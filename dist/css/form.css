@@ -355,7 +355,7 @@ div.wf_notes._note > p {
 	padding: .75rem;
 }
 
-.wf-basic .wf-field-wrap-type-section {
+.wf-basic > .wf-field-wrap-type-section {
 	border-bottom: 1px solid #DDD;
 }
 
@@ -454,10 +454,13 @@ div.wf_notes._note > p {
 	.wf-basic .wf-field-heading {
 		padding-left: calc(300px + 2rem);
 	}
+	.wf-basic .wf-field-label-wrap-type-section {
+		padding-left: calc(300px + 4rem);
+	}
 	.wf-basic .wf-form-title {
 		padding-top: 20px;
 	}
-	.wf-basic .wf-field-label-wrap-type-section {
+	.wf-basic > .wf-field-wrap-type-section > .wf-field-label-wrap-type-section {
 		padding: 1.5rem;
 	}
 	.wf-basic.wf-label-align-right .wf-field-label-wrap:not(.wf-field-label-wrap-type-section) {
