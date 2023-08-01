@@ -1,19 +1,44 @@
 <?php
+/**
+ * Sortable list field
+ * 
+ * @package WpFormUi
+ */
+
 namespace Shazzad\WpFormUi\Field;
 
+/**
+ * Sortable_List class
+ */
 class Sortable_List extends Field {
 
 	protected $accepts = [ 
 		'choices',
 	];
 
+	/**
+	 * Constructor
+	 * 
+	 * @param array $data Field data.
+	 * 
+	 * $data = [
+	 * 	'type' => 'sortable_list',
+	 * 	'choices' => [],
+	 *  'sorted' => true,
+	 *  ... other field args
+	 * ];
+	 */
+
 	public function __construct( $data = [] ) {
-		$data['type'] = 'sortable_list';
+		$data['type']   = 'sortable_list';
+		$data['sorted'] = true;
+
 		parent::__construct( $data );
 	}
 
 	public function get_html( $form ) {
 		$this->data = $this->parseData( $this->data );
+
 		extract( $this->data );
 
 		$html = $before;
@@ -43,6 +68,7 @@ class Sortable_List extends Field {
 		}
 
 		$html .= $input_before;
+
 
 		$html .= "<ol class='wf-sortable-list'>";
 		foreach ( $choices as $key => $label ) {
@@ -114,6 +140,3 @@ class Sortable_List extends Field {
 		return $html;
 	}
 }
-
-?>
-

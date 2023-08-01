@@ -179,14 +179,38 @@ abstract class Field implements \ArrayAccess {
 
 		// simply include a pre option for choices fields.
 		if ( in_array( 'choices', $this->accepts ) ) {
+			$this->parseChoices( $data );
+
+			if ( isset( $data['sorted'] ) && $data['sorted'] ) {
+				$data['choices'] = $this->sortChoices( $data['choices'], $data['value'] );
+			}
+		}
+
+		// escape text and hidden field values to pass double or single quote
+		// if ( in_array( $data['type'], array( 'hidden', 'text', 'url' ) ) ) {
+		// 	$data['value'] = @htmlspecialchars( $data['value'] );
+		// }
+
+		return $data;
+	}
+
+	protected function parseChoices( &$data ) {
+		// @todo: covert choices to a stict array pattern format.
+
+		// simply include a pre option for choices fields.
+		if ( in_array( 'choices', $this->accepts ) ) {
 			// allow options to be used instead of choices.
 			if ( isset( $data['options'] ) ) {
 				$data['choices'] = $data['options'];
+
+				unset( $data['options'] );
 			}
 
 			// allow options_pre to be used instead of choices_pre.
 			if ( isset( $data['options_pre'] ) ) {
 				$data['choices_pre'] = $data['options_pre'];
+
+				unset( $data['options_pre'] );
 			}
 
 			// append choices_pre to choices.
@@ -204,13 +228,29 @@ abstract class Field implements \ArrayAccess {
 				$data['choices'] = [];
 			}
 		}
+	}
 
-		// escape text and hidden field values to pass double or single quote
-		// if ( in_array( $data['type'], array( 'hidden', 'text', 'url' ) ) ) {
-		// 	$data['value'] = @htmlspecialchars( $data['value'] );
-		// }
+	protected function sortChoices( $choices = [], $value = [] ) {
+		// Sort $choices based on $value array.
+		if ( ! empty( $value ) && is_array( $value ) && ! empty( $choices ) && is_array( $choices ) ) {
+			$sorted_choices = array();
 
-		return $data;
+			foreach ( $value as $val ) {
+				if ( isset( $choices[ $val ] ) ) {
+					$sorted_choices[ $val ] = $choices[ $val ];
+				}
+			}
+
+			foreach ( $choices as $key => $val ) {
+				if ( ! isset( $sorted_choices[ $key ] ) ) {
+					$sorted_choices[ $key ] = $val;
+				}
+			}
+
+			$choices = $sorted_choices;
+		}
+
+		return $choices;
 	}
 
 	/**
