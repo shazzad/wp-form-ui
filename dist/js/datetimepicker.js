@@ -2580,7 +2580,7 @@
 			var datetimepicker;
 
 			if ((datetimepicker = $(this).data("xdsoft_datetimepicker"))) {
-				if ($.type(opt) === "string") {
+				if (typeof opt === "string") {
 					switch (opt) {
 						case "show":
 							$(this).select().focus();
@@ -2619,7 +2619,7 @@
 				}
 
 				return 0;
-			} else if ($.type(opt) !== "string") {
+			} else if (typeof opt !== "string") {
 				if (!options.lazyInit || options.open || options.inline) {
 					createDateTimePicker($(this));
 				} else lazyInit($(this));
