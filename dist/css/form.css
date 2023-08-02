@@ -113,14 +113,6 @@
 	margin-left: 0;
 }
 
-/* Field Datetime */
-.date_input {
-	padding-left: 30px !important;
-	background-position: 10px center;
-	background-repeat: no-repeat !important;
-	background-image: url(../img/calendar.gif) !important;
-}
-
 /* Field Required */
 .wf-fieldl .req {
 	color: red;

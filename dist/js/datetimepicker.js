@@ -1114,7 +1114,7 @@
 
 					if (
 						_options.allowTimes &&
-						$.isArray(_options.allowTimes) &&
+						Array.isArray(_options.allowTimes) &&
 						_options.allowTimes.length
 					) {
 						options["allowTimes"] = $.extend(true, [], _options.allowTimes);
@@ -1122,7 +1122,7 @@
 
 					if (
 						_options.weekends &&
-						$.isArray(_options.weekends) &&
+						Array.isArray(_options.weekends) &&
 						_options.weekends.length
 					) {
 						options["weekends"] = $.extend(true, [], _options.weekends);
@@ -1295,7 +1295,7 @@
 
 											val = val.substr(0, pos) + digit + val.substr(pos + 1);
 
-											if ($.trim(val) == "") {
+											if (val.trim() == "") {
 												val = options.mask.replace(/[0-9]/g, "_");
 											} else {
 												if (pos == options.mask.length) break;
@@ -1314,7 +1314,7 @@
 												this.value = val;
 
 												setCaretPos(this, pos);
-											} else if ($.trim(val) == "")
+											} else if (val.trim() == "")
 												this.value = options.mask.replace(/[0-9]/g, "_");
 											else {
 												input.trigger("error_input.xdsoft");
@@ -1354,7 +1354,7 @@
 							.off("blur.xdsoft")
 
 							.on("blur.xdsoft", function () {
-								if (options.allowBlank && !$.trim($(this).val()).length) {
+								if (options.allowBlank && !$(this).val().trim().length) {
 									$(this).val(null);
 
 									datetimepicker.data("xdsoft_datetime").empty();
@@ -2027,7 +2027,7 @@
 
 							if (
 								!options.allowTimes ||
-								!$.isArray(options.allowTimes) ||
+								!Array.isArray(options.allowTimes) ||
 								!options.allowTimes.length
 							) {
 								for (var i = 0, j = 0; i < (options.hours12 ? 12 : 24); i++) {
@@ -2698,10 +2698,10 @@
 	};
 	$.fn.extend({
 		mousewheel: function (fn) {
-			return fn ? this.bind("mousewheel", fn) : this.trigger("mousewheel");
+			return fn ? this.on("mousewheel", fn) : this.trigger("mousewheel");
 		},
 		unmousewheel: function (fn) {
-			return this.unbind("mousewheel", fn);
+			return this.off("mousewheel", fn);
 		},
 	});
 	function handler(event) {
