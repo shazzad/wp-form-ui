@@ -8,7 +8,7 @@ class Provider {
 
 	protected static $base_url;
 
-	protected static $version = '0.0.1';
+	protected static $version = '1.2.2';
 
 	/**
 	 * Initialize the library, add hooks and filters
