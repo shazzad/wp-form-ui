@@ -1,7 +1,9 @@
 <?php
 namespace Shazzad\WpFormUi\Form;
 
-abstract class Base implements \ArrayAccess {
+use ArrayAccess;
+
+abstract class Base implements ArrayAccess {
 	public $data = array(
 		'settings' => array(),
 		'values'   => array(),
@@ -231,7 +233,7 @@ abstract class Base implements \ArrayAccess {
 	 * 
 	 * @param string $offset
 	 */
-	public function offsetGet( $offset ) {
+	public function offsetGet( $offset ): ?string {
 		return isset( $this->data[ $offset ] ) ? $this->data[ $offset ] : null;
 	}
 
@@ -241,7 +243,7 @@ abstract class Base implements \ArrayAccess {
 	 * @param string $offset
 	 * @param mixed $value
 	 */
-	public function offsetSet( $offset, $value ) {
+	public function offsetSet( $offset, $value ): void {
 		if ( is_null( $offset ) ) {
 			$this->data[] = $value;
 		} else {
@@ -254,7 +256,7 @@ abstract class Base implements \ArrayAccess {
 	 * 
 	 * @param string $offset
 	 */
-	public function offsetExists( $offset ) {
+	public function offsetExists( $offset ): bool {
 		return isset( $this->data[ $offset ] );
 	}
 
@@ -263,7 +265,7 @@ abstract class Base implements \ArrayAccess {
 	 * 
 	 * @param string $offset
 	 */
-	public function offsetUnset( $offset ) {
+	public function offsetUnset( $offset ): void {
 		unset( $this->data[ $offset ] );
 	}
 }
