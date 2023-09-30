@@ -45,14 +45,33 @@ class Checkboxes extends Field {
 
 		$html .= $input_before;
 
+		if ( isset( $searchable ) ) {
+			$html .= '<input type="search" class="wf-list-search-input" placeholder="search in list">';
+		}
+
+		$container_class = '';
 		if ( isset( $sortable ) ) {
-			$html .= "<ol class='wf-sortable'>";
+			$container_class .= ' wf-sortable';
+		}
+		if ( isset( $searchable ) ) {
+			$container_class .= ' wf-searchable';
+		}
+		if ( isset( $scrollable ) && $scrollable ) {
+			$container_class .= ' wf-scrollable';
+		}
+
+		if ( ! empty( $scroll_height ) ) {
+			$html .= '<ul class="' . $container_class . '" style="max-height:' . $scroll_height . ';">';
+		} else {
+			$html .= '<ul class="' . $container_class . '">';
 		}
 
 		foreach ( $choices as $key => $label ) {
 			if ( empty( $label ) ) {
 				continue;
 			}
+
+			$html .= '<li>';
 
 			$child_input_attr  = '';
 			$child_input_class = '';
@@ -79,6 +98,7 @@ class Checkboxes extends Field {
 			}
 
 			$checked = is_array( $value ) && in_array( $key, $value ) ? ' checked="checked"' : '';
+
 			$html .= sprintf(
 				'<label class="%6$s">
 					<input id="%1$s_%2$s" name="%3$s[]" value="%2$s" type="checkbox"%4$s%6$s /> %5$s
@@ -89,11 +109,11 @@ class Checkboxes extends Field {
 			if ( is_array( $_label ) && isset( $_label['child_input_after'] ) ) {
 				$html .= $_label['child_input_after'];
 			}
+
+			$html .= '</li>';
 		}
 
-		if ( isset( $sortable ) ) {
-			$html .= "</ol>";
-		}
+		$html .= '</ul>';
 
 		$html .= $input_after;
 

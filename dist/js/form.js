@@ -9,7 +9,7 @@
 		$parent.find('.listen_on_trigger').each(function () {
 			var $wrap = $(this);
 			if (!$wrap.data('listen_on_trigger_init')) {
-				$(document.body).on($wrap.data('listen_on_trigger_name'), function (e, value) {
+				$(document).on($wrap.data('listen_on_trigger_name'), function (e, value) {
 					var key = $wrap.data('listen_on_trigger_key') || 'field';
 					var data = $wrap.data('listen_on_trigger_args') || '{}';
 					if ('string' === typeof (data)) {
@@ -33,7 +33,7 @@
 								register_ajax_forms($wrap);
 							}
 
-							$(document.body).trigger(data.action, [r, data, $wrap]);
+							$(document).trigger(data.action, [r, data, $wrap]);
 						});
 					}
 					else if ('set_value' == $wrap.data('listen_on_trigger_action')) {
@@ -69,7 +69,7 @@
 			var $wrap = $(this);
 			if (!$wrap.data('trigger_on_change_init')) {
 				$wrap.on('change', function () {
-					$(document.body).trigger($wrap.data('on_change_trigger_name'), [$wrap.val()]);
+					$(document).trigger($wrap.data('on_change_trigger_name'), [$wrap.val()]);
 				});
 				if ('radio' === $wrap.attr('type')) {
 					if ($wrap.is(':checked')) {
@@ -99,18 +99,18 @@
 			$form.find('.wf-field-wrap-type-submit').append('<div class="wf_notes"></div>');
 			var $notes = $form.find('.wf_notes');
 
-			// $(document.body).trigger( 'wf/datepicker_init', [$form] );
+			// $(document).trigger( 'wf/datepicker_init', [$form] );
 
 			$form.find('.wf-sortable-list,.wf-sortable').sortable();
 
 			if (action) {
-				$(document.body).trigger(action + '/init', [$form]);
+				$(document).trigger(action + '/init', [$form]);
 			}
 
 			$button.on('click', function (e) {
 
 				if (action) {
-					$(document.body).trigger(action + '/submit', [$form]);
+					$(document).trigger(action + '/submit', [$form]);
 				}
 
 				e.preventDefault();
@@ -148,7 +148,7 @@
 								return prev;
 							}, {});
 
-							$(document.body).trigger(action, [r, _data, $form]);
+							$(document).trigger(action, [r, _data, $form]);
 						}
 
 						if (typeof (r.urlReplace) !== 'undefined') {
@@ -168,7 +168,7 @@
 			});
 		});
 
-		$(document.body).trigger('wf/form_registered', [$parent]);
+		$(document).trigger('wf/form_registered', [$parent]);
 	}
 
 	function register_datepicker($parent) {
@@ -251,29 +251,29 @@
 		register_datepicker($('body'));
 		register_select2($('body'));
 
-		$(document.body).on('wf/listen_on_trigger', function (e, $wrap) {
+		$(document).on('wf/listen_on_trigger', function (e, $wrap) {
 			register_listen_on_trigger($wrap);
 		});
-		$(document.body).on('wf/trigger_on_change', function (e, $wrap) {
+		$(document).on('wf/trigger_on_change', function (e, $wrap) {
 			register_trigger_on_change($wrap);
 		});
-		$(document.body).on('wf/ajax_form', function (e, $wrap) {
+		$(document).on('wf/ajax_form', function (e, $wrap) {
 			register_ajax_forms($wrap);
 		});
-		$(document.body).on('wf/datepicker', function (e, $wrap) {
+		$(document).on('wf/datepicker', function (e, $wrap) {
 			register_datepicker($wrap);
 		});
-		$(document.body).on('wf/select2', function (e, $wrap) {
+		$(document).on('wf/select2', function (e, $wrap) {
 			register_select2($wrap);
 		});
 
-		$(document.body).on('wf/row_cloned', function (e, $wrap) {
+		$(document).on('wf/row_cloned', function (e, $wrap) {
 			register_datepicker($wrap);
 			register_select2($wrap);
 		});
 
 		/* initialize datepicker & select2 on edit screen metabox visibility */
-		$(document.body).on('click', '.postbox .ui-sortable-handle', function () {
+		$(document).on('click', '.postbox .ui-sortable-handle', function () {
 			var $wrap = $(this).closest('.postbox');
 			setTimeout(function () {
 				console.log('checking');
@@ -285,7 +285,7 @@
 		});
 
 		/* button click action */
-		$(document.body).on('click', '.wf_ajax_btn', function (e) {
+		$(document).on('click', '.wf_ajax_btn', function (e) {
 			e.preventDefault();
 			var
 				$that = $(this),
@@ -325,7 +325,7 @@
 						}
 					}
 
-					$(document.body).trigger(action, [r, data, $that]);
+					$(document).trigger(action, [r, data, $that]);
 				})
 				.always(function () {
 					$that.removeClass('ld').prop('disabled', false);
@@ -333,7 +333,7 @@
 		});
 
 		/* repeater field */
-		$(document.body).on('click', '.wf_repeater_add', function (e) {
+		$(document).on('click', '.wf_repeater_add', function (e) {
 			e.preventDefault();
 			var
 				$button = $(this),
@@ -351,6 +351,7 @@
 			$(document).trigger('wf/row_cloned');
 			return false;
 		});
+
 		$(document).on('click', '.wf_repeater_remove', function (e) {
 			e.preventDefault();
 			var $button = $(this), $item = $button.closest('.wf_row');
@@ -364,7 +365,7 @@
 		});
 
 		/* repeater field */
-		$(document.body).on('click', '.wf_repeater2_add', function (e) {
+		$(document).on('click', '.wf_repeater2_add', function (e) {
 			e.preventDefault();
 			var
 				$button = $(this),
@@ -383,6 +384,7 @@
 			$(document).trigger('wf/row_cloned');
 			return false;
 		});
+
 		$(document).on('click', '.wf_repeater2_remove', function (e) {
 			e.preventDefault();
 			var $button = $(this), $item = $button.closest('.wf_row');
@@ -396,7 +398,7 @@
 		});
 
 		/* image field */
-		$(document.body).on('click', '.wf-field_image_btn', function (e) {
+		$(document).on('click', '.wf-field_image_btn', function (e) {
 			e.preventDefault();
 
 			var _that = $(this),
@@ -436,6 +438,12 @@
 			$('#' + _that.attr('rel') + '_img').empty();
 		});
 
+		$(document).on('keyup', '.wf-list-search-input', function () {
+			var value = $(this).val().toLowerCase();
+			$(this).next('ul').find('li').filter(function () {
+				$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+			});
+		});
 
 		/* image field */
 		$(document).on('click', '.wf-field_media_btn', function (e) {

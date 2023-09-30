@@ -130,6 +130,15 @@
 	background-color: #ddd !important;
 }
 
+.wf-scrollable {
+	margin: 0;
+	overflow-x: auto;
+}
+
+input.wf-list-search-input {
+	margin-bottom: 10px;
+}
+
 /* Field Sortable List */
 .wf-sortable-list {
 	margin: 0;
