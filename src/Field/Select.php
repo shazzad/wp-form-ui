@@ -72,9 +72,9 @@ class Select extends Field {
 			if ( isset( $label->id ) && isset( $label->name ) ) {
 				$key   = $label->id;
 				$label = $label->name;
-			} elseif ( $label instanceof WF_Data ) {
-				$key   = $label->get_id();
-				$label = $label->get_name();
+			} elseif ( $label instanceof \WP_Post ) {
+				$key   = $label->ID;
+				$label = $label->post_title;
 			} elseif ( isset( $label['key'] ) && isset( $label['name'] ) ) {
 				$key               = $label['key'];
 				$label             = $label['name'];
@@ -123,4 +123,3 @@ class Select extends Field {
 }
 
 ?>
-
